@@ -815,33 +815,24 @@
     aviso.className = 'aviso-modal';
     aviso.textContent = 'Enviando...';
 
-    // Iframe oculto que navega a la URL — no es fetch() ni una etiqueta
-    // <script>, así que no depende de CORS ni de que el navegador valide
-    // el tipo de contenido de la respuesta. Apps Script redirige (302)
-    // hacia script.google.com para servir el contenido real — eso tarda
-    // más de lo que parece, así que esperamos el evento "load" real del
-    // iframe (se dispara cuando termina de cargar, aunque sea cross-domain
-    // y no podamos leer su contenido) en vez de un tiempo fijo corto, que
-    // puede cancelar la petición a mitad de camino antes de que el
-    // servidor llegue a escribir el lead.
-    const iframeEnvio = document.createElement('iframe');
-    iframeEnvio.style.display = 'none';
-    let yaTermino = false;
-    const mostrarExito = function() {
-      if (yaTermino) return;
-      yaTermino = true;
-      if (iframeEnvio.parentNode) iframeEnvio.parentNode.removeChild(iframeEnvio);
-      document.getElementById('contenidoModal').innerHTML =
-        '<div class="pantalla-exito"><div class="icono">🎉</div><h2>¡Listo!</h2>' +
-        '<p class="sub-modal">Ya registramos tu consulta — un asesor de Instituto CCA te va a contactar muy pronto.</p>' +
-        '<button class="btn-enviar" onclick="cerrarModal()">Cerrar</button></div>';
-    };
-    iframeEnvio.onload = mostrarExito;
-    // Respaldo por si "load" no dispara en algún navegador — 8s da margen
-    // de sobra incluso con conexiones lentas (la carga normal tarda 1-2s).
-    setTimeout(mostrarExito, 8000);
-    iframeEnvio.src = URL_BACKEND_LEADS + '?accion=registrarLead&datos=' + encodeURIComponent(JSON.stringify(datos));
-    document.body.appendChild(iframeEnvio);
+    // Navegación de página completa (sin target, misma pestaña) — es
+    // EXACTAMENTE lo mismo que pasa cuando abrís el link directo de Apps
+    // Script, que siempre funcionó sin problema. Nada de ventanas, iframes
+    // ni JS cross-origin: el navegador mismo lleva al usuario hasta Apps
+    // Script, que procesa el lead y devuelve una página de confirmación.
+    const formEnvio = document.createElement('form');
+    formEnvio.method = 'GET';
+    formEnvio.action = URL_BACKEND_LEADS;
+    const inputAccion = document.createElement('input');
+    inputAccion.name = 'accion';
+    inputAccion.value = 'registrarLead';
+    const inputDatos = document.createElement('input');
+    inputDatos.name = 'datos';
+    inputDatos.value = JSON.stringify(datos);
+    formEnvio.appendChild(inputAccion);
+    formEnvio.appendChild(inputDatos);
+    document.body.appendChild(formEnvio);
+    formEnvio.submit();
   }
 
   document.getElementById('fondoModal').addEventListener('click', function(e) {
