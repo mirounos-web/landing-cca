@@ -815,25 +815,44 @@
     aviso.className = 'aviso-modal';
     aviso.textContent = 'Enviando...';
 
-    // Iframe oculto que navega a la URL — no es fetch() ni una etiqueta
-    // <script>, así que no depende de CORS ni de que el navegador valide
-    // el tipo de contenido de la respuesta. Una navegación de iframe a
-    // otra URL simplemente funciona, siempre. Como no podemos leer el
-    // contenido del iframe (es de otro dominio), mostramos éxito después
-    // de darle tiempo al servidor a procesar — es la técnica más robusta
-    // para este tipo de integración cross-domain.
-    const iframeEnvio = document.createElement('iframe');
-    iframeEnvio.style.display = 'none';
-    iframeEnvio.src = URL_BACKEND_LEADS + '?accion=registrarLead&datos=' + encodeURIComponent(JSON.stringify(datos));
-    document.body.appendChild(iframeEnvio);
+    // Ventana nueva (se cierra sola) en vez de iframe — confirmado con las
+    // herramientas de desarrollador que Apps Script BLOQUEA activamente
+    // ser cargado dentro de un iframe de otro dominio (protección estándar
+    // X-Frame-Options, no algo que se pueda evitar desde acá). Una pestaña
+    // nueva es una navegación normal, sin esa restricción — es lo mismo
+    // que pasa cuando abrís el link directo, que siempre funcionó.
+    const nombreVentana = 'envioLeadCCA';
+    const ventana = window.open('about:blank', nombreVentana);
 
+    const formEnvio = document.createElement('form');
+    formEnvio.method = 'GET';
+    formEnvio.action = URL_BACKEND_LEADS;
+    formEnvio.target = nombreVentana;
+    formEnvio.style.display = 'none';
+    const inputAccion = document.createElement('input');
+    inputAccion.name = 'accion';
+    inputAccion.value = 'registrarLead';
+    const inputDatos = document.createElement('input');
+    inputDatos.name = 'datos';
+    inputDatos.value = JSON.stringify(datos);
+    formEnvio.appendChild(inputAccion);
+    formEnvio.appendChild(inputDatos);
+    document.body.appendChild(formEnvio);
+    formEnvio.submit();
+    document.body.removeChild(formEnvio);
+
+    // La ventana se cierra SOLA desde el servidor (con window.close() en la
+    // respuesta), recién cuando terminó de escribir el lead de verdad — así
+    // que acá no hace falta adivinar cuánto esperar antes de cerrarla.
+    // Este timeout es solo para mostrar el mensaje de éxito y, como
+    // respaldo, cerrar la ventana igual si por algo no se cerró sola.
     setTimeout(function() {
-      if (iframeEnvio.parentNode) iframeEnvio.parentNode.removeChild(iframeEnvio);
+      try { if (ventana && !ventana.closed) ventana.close(); } catch (e) {}
       document.getElementById('contenidoModal').innerHTML =
         '<div class="pantalla-exito"><div class="icono">🎉</div><h2>¡Listo!</h2>' +
         '<p class="sub-modal">Ya registramos tu consulta — un asesor de Instituto CCA te va a contactar muy pronto.</p>' +
         '<button class="btn-enviar" onclick="cerrarModal()">Cerrar</button></div>';
-    }, 1800);
+    }, 2500);
   }
 
   document.getElementById('fondoModal').addEventListener('click', function(e) {
