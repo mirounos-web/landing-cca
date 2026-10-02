@@ -20,8 +20,8 @@
     --verde-2: #1F5E3B;
   }
   * { box-sizing: border-box; }
-  body { margin: 0; font-family: 'Inter', sans-serif; background: var(--papel); color: var(--tinta-2); -webkit-font-smoothing: antialiased; }
-  h1, h2, h3, .display { font-family: 'Fraunces', serif; }
+  body { margin: 0; padding-bottom: 54px; font-family: 'Inter', sans-serif; background: var(--papel); color: var(--tinta-2); -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, .display { font-family: 'Fraunces', serif; letter-spacing: -0.01em; }
   a { color: inherit; text-decoration: none; }
   img { max-width: 100%; display: block; }
 
@@ -65,8 +65,8 @@
     display: inline-block; background: #FCEFD0; color: #8A6400; font-size: 12.5px; font-weight: 700; padding: 7px 16px;
     border-radius: 999px; margin-bottom: 20px;
   }
-  .hero h1 { font-size: clamp(30px, 4.6vw, 48px); line-height: 1.1; font-weight: 700; margin: 0 0 16px; color: var(--tinta); }
-  .hero p.sub { font-size: 16px; color: var(--texto-suave); line-height: 1.65; max-width: 560px; margin: 0 auto 26px; }
+  .hero h1 { font-size: clamp(30px, 4.6vw, 50px); line-height: 1.08; font-weight: 600; margin: 0 0 18px; color: var(--tinta); }
+  .hero p.sub { font-size: 17px; color: var(--texto-suave); line-height: 1.6; max-width: 540px; margin: 0 auto 28px; }
   .caja-inscripciones {
     border: 2px dashed var(--sello); border-radius: 16px; padding: 20px 22px; display: inline-flex; align-items: center;
     gap: 20px; flex-wrap: wrap; background: #FFFBEF;
@@ -79,15 +79,23 @@
   }
   .btn-inscribete:hover { background: var(--tinta-2); }
 
+  .barra-cifras {
+    background: var(--tinta-2); display: flex; align-items: center; justify-content: center;
+    gap: 36px; padding: 22px 24px; flex-wrap: wrap;
+  }
+  .cifra { display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .cifra b { font-family: 'Fraunces', serif; font-size: 26px; color: #fff; line-height: 1; }
+  .cifra span { font-size: 12.5px; color: #B6C3DC; margin-top: 4px; }
+  .separador-cifra { width: 1px; height: 32px; background: rgba(255,255,255,0.18); }
 
   .accesos-rapidos { max-width: 1180px; margin: 36px auto 0; padding: 0 24px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
   .tarjeta-acceso {
-    border: none; cursor: pointer; border-radius: 16px; padding: 26px 18px; text-align: center; color: #fff;
-    font-family: 'Inter', sans-serif; font-weight: 800; font-size: 13.5px; letter-spacing: 0.3px; text-transform: uppercase;
-    display: flex; flex-direction: column; align-items: center; gap: 10px; transition: transform 0.15s;
+    border: none; cursor: pointer; border-radius: 14px; padding: 28px 18px; text-align: center; color: #fff;
+    font-family: 'Inter', sans-serif; font-weight: 700; font-size: 14.5px;
+    display: flex; flex-direction: column; align-items: center; gap: 12px; transition: transform 0.18s ease;
   }
   .tarjeta-acceso:hover { transform: translateY(-3px); }
-  .tarjeta-acceso .icono { font-size: 26px; }
+  .tarjeta-acceso .icono { font-size: 28px; }
   .tarjeta-acceso.c-sedes { background: linear-gradient(160deg, var(--verde), var(--verde-2)); }
   .tarjeta-acceso.c-cca { background: linear-gradient(160deg, var(--tinta), var(--tinta-2)); }
   .tarjeta-acceso.c-esam { background: linear-gradient(160deg, #E0A200, #B37E00); }
@@ -98,6 +106,16 @@
   .quienes-somos p { font-size: 15.5px; color: var(--texto-suave); line-height: 1.75; margin: 0 0 22px; }
   .link-descubre { color: var(--tinta); font-weight: 700; font-size: 14px; border-bottom: 2px solid var(--sello); padding-bottom: 2px; }
 
+  .seccion-metodologia { max-width: 1180px; margin: 70px auto 0; padding: 0 24px; }
+  .seccion-metodologia .encabezado { text-align: center; margin-bottom: 30px; }
+  .seccion-metodologia h2 { font-size: 30px; color: var(--tinta); margin: 0 0 10px; }
+  .seccion-metodologia .encabezado p { font-size: 14.5px; color: var(--texto-suave); max-width: 520px; margin: 0 auto; line-height: 1.6; }
+  .grid-metodologia { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .tarjeta-metodologia { padding: 4px 6px; }
+  .icono-metodologia { font-size: 26px; display: block; margin-bottom: 12px; }
+  .tarjeta-metodologia h3 { font-size: 16px; margin: 0 0 6px; color: var(--tinta); font-family: 'Fraunces', serif; }
+  .tarjeta-metodologia p { font-size: 13px; color: var(--texto-suave); line-height: 1.55; margin: 0; }
+
   .seccion-sedes { max-width: 1180px; margin: 70px auto 0; padding: 0 24px; }
   .seccion-sedes .encabezado { text-align: center; margin-bottom: 30px; }
   .seccion-sedes h2 { font-size: 30px; color: var(--tinta); margin: 0 0 10px; }
@@ -105,7 +123,7 @@
   .grid-sedes { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
   .boton-sede {
     display: flex; align-items: center; gap: 16px; background: var(--papel-2); border: 1.5px solid var(--linea);
-    border-radius: 16px; padding: 24px; cursor: pointer; text-align: left; transition: box-shadow 0.15s, border-color 0.15s;
+    border-radius: 14px; padding: 24px; cursor: pointer; text-align: left; transition: box-shadow 0.15s, border-color 0.15s;
   }
   .boton-sede:hover { border-color: var(--tinta); box-shadow: 0 8px 20px rgba(22,48,90,0.10); }
   .boton-sede.activa { border-color: var(--tinta); background: #F0F4FC; box-shadow: 0 8px 20px rgba(22,48,90,0.12); }
@@ -119,14 +137,15 @@
   .titulo-categoria:first-child { margin-top: 0; }
   .grid-cursos { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 18px; }
   .tarjeta-curso {
-    background: var(--papel-2); border: 1px solid var(--linea); border-radius: 16px; padding: 0 22px 22px; overflow: hidden;
-    display: flex; flex-direction: column; transition: box-shadow 0.2s, transform 0.2s;
+    background: var(--papel-2); border: 1px solid var(--linea); border-top: 3px solid transparent; border-radius: 14px;
+    padding: 0 22px 22px; overflow: hidden; display: flex; flex-direction: column;
+    transition: border-top-color 0.2s ease, box-shadow 0.2s ease;
   }
   .tarjeta-curso:not(:has(.img-curso)) { padding-top: 22px; }
-  .tarjeta-curso:hover { box-shadow: 0 10px 26px rgba(22,48,90,0.10); transform: translateY(-2px); }
+  .tarjeta-curso:hover { border-top-color: var(--sello); box-shadow: 0 12px 28px rgba(22,48,90,0.09); }
   .img-curso { width: calc(100% + 44px); margin: 0 -22px 16px; display: block; aspect-ratio: 1 / 1; object-fit: cover; }
   .fila-badges { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
-  .badge { font-size: 10.5px; font-weight: 700; padding: 4px 10px; border-radius: 999px; text-transform: uppercase; letter-spacing: 0.3px; }
+  .badge { font-size: 11.5px; font-weight: 700; padding: 4px 10px; border-radius: 7px; }
   .badge.marca-cca { background: #E4EBF8; color: var(--tinta); }
   .badge.marca-esam { background: #FCEFD0; color: #8A6400; }
   .badge.modalidad { background: #E7F3EC; color: var(--verde); }
@@ -153,10 +172,18 @@
 
   .franja-carreras { background: var(--tinta-2); border-radius: 20px; padding: 36px 26px; margin-top: 46px; color: #fff; }
   .encabezado-marca { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
-  .encabezado-marca .icono-marca { width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 15px; }
+  .encabezado-marca .icono-marca { width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 20px; }
   .icono-marca.carreras { background: var(--tinta-2); color: #fff; border: 1px solid rgba(255,255,255,0.3); }
   .encabezado-marca h2 { font-size: 24px; margin: 0; color: #fff; }
   .encabezado-marca p { font-size: 13px; margin: 2px 0 0; color: #B6C3DC; }
+
+  .bloque-marca { margin-top: 46px; }
+  .bloque-marca:first-child { margin-top: 0; }
+  .bloque-marca .encabezado-marca { margin-bottom: 18px; padding-bottom: 18px; border-bottom: 1px solid var(--linea); }
+  .bloque-marca .encabezado-marca h2 { color: var(--tinta); }
+  .bloque-marca .encabezado-marca p { color: var(--texto-suave); }
+  .icono-marca.cca { background: var(--tinta); color: #fff; }
+  .icono-marca.esam { background: linear-gradient(160deg, #E0A200, #B37E00); color: #fff; }
   .franja-carreras .tarjeta-curso { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.18); }
   .franja-carreras .tarjeta-curso h3, .franja-carreras .precio-curso { color: #fff; }
   .franja-carreras .meta-curso, .franja-carreras .lista-puntos { color: #C9D5EA; }
@@ -179,7 +206,7 @@
   .footer-grid { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 30px; }
   .footer-marca { font-family: 'Fraunces', serif; font-weight: 800; font-size: 20px; color: var(--tinta); margin-bottom: 10px; }
   .footer-grid p { font-size: 13px; color: var(--texto-suave); line-height: 1.6; }
-  .footer-sede h4 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--tinta); margin: 0 0 10px; }
+  .footer-sede h4 { font-size: 14px; font-weight: 800; color: var(--tinta); margin: 0 0 10px; }
   .footer-sede p { margin: 0 0 4px; }
   .footer-inferior { max-width: 1180px; margin: 30px auto 0; padding-top: 20px; border-top: 1px solid var(--linea); text-align: center; font-size: 12px; color: var(--texto-suave); }
 
@@ -213,12 +240,32 @@
   .lista-detalle { list-style: none; margin: 0; padding: 0; font-size: 13.5px; color: var(--tinta-2); }
   .lista-detalle li { padding-left: 20px; position: relative; margin-bottom: 9px; line-height: 1.45; }
   .lista-detalle li::before { content: '✓'; position: absolute; left: 0; color: var(--verde); font-weight: 700; }
+  .texto-detalle { font-size: 13.5px; color: var(--tinta-2); line-height: 1.55; margin: 0; }
+  .lista-requisitos li::before { content: '·'; font-size: 20px; line-height: 1; top: -2px; color: var(--tinta); }
+
+  .barra-flotante {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 45; background: var(--tinta);
+    display: flex; align-items: center; justify-content: center; gap: 16px; padding: 12px 20px;
+    box-shadow: 0 -6px 20px rgba(14,32,56,0.2);
+  }
+  .texto-flotante { color: #fff; font-size: 13.5px; font-weight: 600; }
+  .btn-flotante {
+    background: var(--sello); color: var(--tinta-2); border: none; padding: 10px 20px; border-radius: 999px;
+    font-family: 'Inter', sans-serif; font-weight: 700; font-size: 13.5px; cursor: pointer; white-space: nowrap;
+  }
+  .btn-flotante:hover { background: var(--sello-2); }
 
   @media (max-width: 860px) {
     .accesos-rapidos { grid-template-columns: repeat(2, 1fr); }
     .grid-sedes { grid-template-columns: 1fr; }
     .footer-grid { grid-template-columns: 1fr; }
     .botones-header { width: 100%; justify-content: flex-start; }
+    .grid-metodologia { grid-template-columns: 1fr 1fr; }
+    .barra-cifras { gap: 24px; }
+  }
+  @media (max-width: 520px) {
+    .grid-metodologia { grid-template-columns: 1fr; }
+    .texto-flotante { display: none; }
   }
 </style>
 </head>
@@ -246,12 +293,14 @@
     <span class="etiqueta-hero">Transforma tu futuro con CCA</span>
     <h1>Fórmate en meses, no en años — con certificación real.</h1>
     <p class="sub">28 programas técnicos con práctica desde la primera semana: contabilidad, tecnología, diseño, oratoria y más. Elige tu curso y un asesor te contacta hoy mismo.</p>
-    <div class="caja-inscripciones">
-      <div class="texto"><span>¡Inscripciones abiertas!</span><b>Agosto — Septiembre 2026</b></div>
-      <button class="btn-inscribete" onclick="abrirModal(null)">Inscríbete ahora →</button>
-    </div>
   </div>
 </section>
+
+<div class="barra-cifras">
+  <div class="cifra"><b>+45.000</b><span>egresados</span></div>
+  <div class="separador-cifra"></div>
+  <div class="cifra"><b>30 años</b><span>formando profesionales técnicos</span></div>
+</div>
 
 <div class="accesos-rapidos">
   <button class="tarjeta-acceso c-sedes" onclick="document.getElementById('seccionSedes').scrollIntoView({behavior:'smooth'})"><span class="icono">📍</span>Sedes</button>
@@ -264,6 +313,45 @@
   <h2>Quiénes somos</h2>
   <p>El Instituto Técnico CCA forma profesionales técnicos con una metodología eminentemente práctica, pensada para que empieces a aplicar lo aprendido desde la primera semana de clases. Trabajamos junto a ESAM Escuela de Negocios para ofrecer una oferta amplia, con certificación avalada y docentes con experiencia real en cada área.</p>
   <a class="link-descubre" href="#cursos" onclick="document.getElementById('cursos').scrollIntoView({behavior:'smooth'});return false;">Descubre nuestros cursos ↓</a>
+</section>
+
+<section class="seccion-metodologia">
+  <div class="encabezado">
+    <h2>Cómo enseñamos</h2>
+    <p>Una metodología pensada para que salgas sabiendo hacer, no solo sabiendo teoría.</p>
+  </div>
+  <div class="grid-metodologia">
+    <div class="tarjeta-metodologia">
+      <span class="icono-metodologia">🛠️</span>
+      <h3>Aprendizaje 100% práctico</h3>
+      <p>Ejercicios y proyectos reales desde la primera semana — no te quedás solo con la teoría.</p>
+    </div>
+    <div class="tarjeta-metodologia">
+      <span class="icono-metodologia">🤖</span>
+      <h3>IA integrada en cada curso</h3>
+      <p>Todos nuestros programas incorporan herramientas de inteligencia artificial aplicadas a tu área.</p>
+    </div>
+    <div class="tarjeta-metodologia">
+      <span class="icono-metodologia">💻</span>
+      <h3>Plataforma Moodle</h3>
+      <p>Acceso a clases grabadas y recursos de apoyo para repasar a tu propio ritmo.</p>
+    </div>
+    <div class="tarjeta-metodologia">
+      <span class="icono-metodologia">📁</span>
+      <h3>Proyecto final con portafolio</h3>
+      <p>Cada curso cierra con un proyecto integrador que te sirve como evidencia real ante un futuro empleador.</p>
+    </div>
+    <div class="tarjeta-metodologia">
+      <span class="icono-metodologia">🧑‍🏫</span>
+      <h3>Docentes con experiencia real</h3>
+      <p>Profesionales que ejercen en el área que enseñan, no solo instructores académicos.</p>
+    </div>
+    <div class="tarjeta-metodologia">
+      <span class="icono-metodologia">🏅</span>
+      <h3>Certificación reconocida</h3>
+      <p>Instituto CCA, y ESAM Escuela de Negocios en convenio con la Universidad Siglo XX.</p>
+    </div>
+  </div>
 </section>
 
 <section class="seccion-sedes" id="seccionSedes">
@@ -322,6 +410,11 @@
     <button class="cerrar-modal" onclick="cerrarDetalle()">✕</button>
     <div id="contenidoDetalle"></div>
   </div>
+</div>
+
+<div class="barra-flotante">
+  <span class="texto-flotante">¿Listo para empezar?</span>
+  <button class="btn-flotante" onclick="abrirModal(null)">Inscríbete ahora →</button>
 </div>
 
 <script>
@@ -389,7 +482,15 @@
       "Ruta progresiva de 5 módulos, de lo básico a lo avanzado",
       "Plataforma Moodle con clases grabadas para repasar",
       "Opción de prácticas/pasantías según convenios y cupos"
-    ]
+    ],
+    "dirigidoA": "Bachilleres y jóvenes en busca de su primer empleo, personal administrativo que quiera formalizar sus conocimientos contables, y emprendedores que llevan la contabilidad de su propio negocio.",
+    "requisitos": [
+        "Fotocopia de carnet de identidad vigente",
+        "Comprobante de pago de la primera cuota"
+      ],
+    "metodologia": "Clases presenciales con práctica directa en sistemas contables reales (Visual, SIC JAC, SIGEP), avanzando en 5 módulos de lo básico a lo avanzado.",
+    "certificacion": "Certificado de Instituto CCA que acredita la formación en Asistente de Contabilidad.",
+    "perfilEgreso": "Vas a poder llevar la contabilidad comercial de una empresa, presentar formularios tributarios ante el SIAT, gestionar planillas y aportes patronales, y operar los principales sistemas contables que se usan en Bolivia."
   },
   "EJECUTIVO BANCARIO": {
     "contenido": [
@@ -404,7 +505,15 @@
       "Formación integrada: atención, normativa, operativa, caja y crédito",
       "Simulaciones reales de ventanilla, formularios y carpetas de crédito",
       "Plataforma Moodle con casos reales y simulados"
-    ]
+    ],
+    "dirigidoA": "Bachilleres que quieran ingresar al sector financiero, y personas que ya trabajan en banca y buscan formalizar y ampliar sus conocimientos en atención al cliente, caja y análisis crediticio.",
+    "requisitos": [
+        "Fotocopia de carnet de identidad vigente",
+        "Comprobante de pago de la primera cuota"
+      ],
+    "metodologia": "Formación presencial con simulaciones reales de ventanilla, formularios bancarios y carpetas de crédito, con una plataforma Moodle de apoyo con casos prácticos.",
+    "certificacion": "Certificado de ESAM, en convenio con la Universidad Siglo XX, que acredita la formación en Ejecutivo Bancario.",
+    "perfilEgreso": "Vas a poder atender a un cliente en ventanilla, operar como cajero/a, armar una carpeta de crédito completa, y aplicar la Ley 393 de Servicios Financieros en la operativa diaria de una entidad bancaria."
   },
   "EXPERTO EN MANTENIMIENTO Y REPARACIÓN DE PCs - LAPTOPS - IMPRESORAS - INSTALACIÓN DE CÁMARAS": {
     "contenido": [
@@ -419,7 +528,15 @@
       "Práctica intensiva con equipos y herramientas del laboratorio",
       "Resolución de fallas reales y simuladas",
       "Aprendes a armar presupuestos y dar asesoría técnica"
-    ]
+    ],
+    "dirigidoA": "Personas sin experiencia técnica previa que buscan un oficio con salida laboral inmediata, y técnicos empíricos que ya reparan equipos y quieren formalizar y ampliar sus conocimientos.",
+    "requisitos": [
+        "Fotocopia de carnet de identidad vigente",
+        "Comprobante de pago de la primera cuota"
+      ],
+    "metodologia": "Práctica intensiva con equipos y herramientas de laboratorio, resolviendo fallas reales y simuladas, con apoyo de IA para el diagnóstico.",
+    "certificacion": "Certificado de ESAM, en convenio con la Universidad Siglo XX, que acredita la formación en Mantenimiento y Reparación de PCs, Laptops, Impresoras e Instalación de Cámaras.",
+    "perfilEgreso": "Vas a poder diagnosticar y reparar PCs, laptops e impresoras, instalar y configurar sistemas de cámaras CCTV con monitoreo remoto, y armar presupuestos de servicio técnico para tus propios clientes."
   },
   "HARDWARE Y ELECTRÓNICA": {
     "contenido": [
@@ -434,7 +551,15 @@
       "Certificación por módulo + certificación integral",
       "Toolkit y prácticas con instrumentos reales",
       "Tutoría personalizada para el proyecto final"
-    ]
+    ],
+    "dirigidoA": "Estudiantes y entusiastas de la electrónica y la robótica que buscan una base técnica sólida, y técnicos en informática que quieran ampliar su perfil hacia hardware y automatización.",
+    "requisitos": [
+        "Fotocopia de carnet de identidad vigente",
+        "Comprobante de pago de la primera cuota"
+      ],
+    "metodologia": "3 módulos más 1 mes de proyecto integrador, con toolkit propio, instrumentos reales y tutoría personalizada para el proyecto final.",
+    "certificacion": "Certificación por cada módulo aprobado, más una certificación integral al completar el programa.",
+    "perfilEgreso": "Vas a poder diseñar y simular circuitos con KiCad y Multisim/Proteus, ensamblar y diagnosticar hardware de PC, y programar proyectos de automatización con Arduino."
   },
   "MANEJO DE PAQUETES PRESENCIAL": {
     "contenido": [
@@ -450,7 +575,15 @@
       "24 sesiones prácticas con portafolio de evidencias",
       "Computadora de uso individual durante las prácticas",
       "Incluye acceso al programa de Dactilografía"
-    ]
+    ],
+    "dirigidoA": "Diseñado para quienes buscan pasar de la ejecución manual a la gestión inteligente de la información: público en general que quiera actualizar su perfil digital, estudiantes de colegio, pregrado y postgrado, emprendedores y freelancers, personal administrativo, y profesionales de cualquier área.",
+    "requisitos": [
+        "Fotocopia de carnet de identidad vigente",
+        "Comprobante de pago de la primera cuota"
+      ],
+    "metodologia": "Programa presencial de 6 meses que desarrolla competencias operativas y de Inteligencia Artificial para automatizar documentación, gestionar flujos de trabajo en la nube, analizar datos y crear contenido multimedia.",
+    "certificacion": "Incluye certificación de Instituto CCA al completar el programa.",
+    "perfilEgreso": "Vas a poder automatizar informes y documentos con IA, construir dashboards en Excel y Power BI, diseñar piezas gráficas y editar video, y presentar un portafolio completo de evidencias."
   },
   "DE CERO A PROGRAMADOR": {
     "contenido": [
@@ -465,7 +598,15 @@
       "Laboratorios de código desde las primeras sesiones",
       "IA como apoyo para comprensión y depuración",
       "Revisión de código y retroalimentación personalizada"
-    ]
+    ],
+    "dirigidoA": "Personas sin experiencia previa en programación que quieran iniciarse en el desarrollo de software, y bachilleres o estudiantes que buscan una base sólida en lógica de programación y bases de datos.",
+    "requisitos": [
+        "Fotocopia de carnet de identidad vigente",
+        "Comprobante de pago de la primera cuota"
+      ],
+    "metodologia": "Formación progresiva desde cero, con laboratorios de código desde las primeras sesiones, apoyo de IA para comprender y depurar errores, y revisión personalizada de cada proyecto.",
+    "certificacion": "Certificado de ESAM, en convenio con la Universidad Siglo XX, que acredita la formación en Desarrollo de Software.",
+    "perfilEgreso": "Vas a poder programar en Python y C++, diseñar bases de datos relacionales y escribir consultas SQL, usar Git/GitHub para control de versiones, y presentar un proyecto final integrador."
   },
   "DACTILOGRAFÍA COMPUTARIZADA + IA": {
     "contenido": [
@@ -478,7 +619,15 @@
       "Entrenamiento progresivo con software mecanográfico",
       "Prácticas en laboratorio con plataforma Moodle",
       "Evidencias medibles: palabras por minuto y % de precisión"
-    ]
+    ],
+    "dirigidoA": "Estudiantes, personal administrativo y cualquier persona que quiera escribir más rápido y con menos errores, con apoyo de software mecanográfico e IA para mejorar su redacción.",
+    "requisitos": [
+        "Fotocopia de carnet de identidad vigente",
+        "Comprobante de pago de la primera cuota"
+      ],
+    "metodologia": "Entrenamiento progresivo con software mecanográfico y prácticas de laboratorio, con seguimiento medible de velocidad (palabras por minuto) y precisión.",
+    "certificacion": "Certificado de ESAM, en convenio con la Universidad Siglo XX, que acredita la formación en Dactilografía Computarizada + IA.",
+    "perfilEgreso": "Vas a escribir con mayor velocidad y precisión en el teclado alfabético y numérico, y vas a usar IA como apoyo para mejorar tu redacción."
   },
   "EXPERTO EN AUTOCAD, REVIT, SKETCHUP + PACK DE HERRAMIENTAS": {
     "contenido": [
@@ -492,7 +641,15 @@
       "Aprendizaje centrado en proyectos desde cero",
       "Entrega de archivos editables y PDF para tu portafolio",
       "Retroalimentación personalizada sobre precisión y presentación"
-    ]
+    ],
+    "dirigidoA": "Estudiantes y profesionales de arquitectura, construcción e ingeniería que necesiten dominar las herramientas de diseño y modelado 2D/3D más usadas del sector.",
+    "requisitos": [
+        "Fotocopia de carnet de identidad vigente",
+        "Comprobante de pago de la primera cuota"
+      ],
+    "metodologia": "Aprendizaje centrado en proyectos reales desde cero, con retroalimentación personalizada sobre precisión y presentación, usando IA integrada (Autodesk AI) en el flujo de trabajo.",
+    "certificacion": "Certificado de ESAM, en convenio con la Universidad Siglo XX, que acredita la formación en AutoCAD, Revit y SketchUp.",
+    "perfilEgreso": "Vas a poder dibujar planos en AutoCAD 2D, modelar proyectos arquitectónicos en SketchUp y Revit, y entregar documentación final con cortes, fachadas, renders y recorridos en video."
   },
   "Oratoria, Liderazgo y Debate Estudiantil — Niños": {
     "contenido": [
@@ -506,7 +663,16 @@
       "Actividades adaptadas a la edad: juegos, dramatizaciones",
       "Retroalimentación positiva centrada en los avances de cada niño/a",
       "Recursos visuales y acompañamiento en el uso de IA"
-    ]
+    ],
+    "dirigidoA": "Niñas y niños que quieran ganar confianza al hablar en público, con juegos, dramatizaciones y actividades adaptadas a su edad.",
+    "requisitos": [
+        "Fotocopia de carnet de identidad o certificado de nacimiento del niño/a",
+        "Autorización firmada del padre, madre o tutor",
+        "Comprobante de pago de la primera cuota"
+      ],
+    "metodologia": "Actividades lúdicas adaptadas a la edad (juegos, dramatizaciones, mini exposiciones), con retroalimentación positiva centrada en los avances de cada niño/a.",
+    "certificacion": "Certificado de participación de ESAM, en convenio con la Universidad Siglo XX.",
+    "perfilEgreso": "Tu hijo/a va a poder expresarse con más confianza frente a un público, trabajar en equipo, y participar en un debate estudiantil."
   },
   "Oratoria, Liderazgo y Debate Estudiantil — Adolescentes": {
     "contenido": [
@@ -520,7 +686,16 @@
       "Práctica constante con exposiciones y debates",
       "Feedback sobre voz, postura y argumentación",
       "Fortalece pensamiento crítico y convivencia"
-    ]
+    ],
+    "dirigidoA": "Adolescentes que quieran perder el miedo escénico, mejorar su comunicación y desarrollar pensamiento crítico a través del debate.",
+    "requisitos": [
+        "Fotocopia de carnet de identidad vigente",
+        "Autorización firmada del padre, madre o tutor (menores de edad)",
+        "Comprobante de pago de la primera cuota"
+      ],
+    "metodologia": "Práctica constante con exposiciones y debates, con retroalimentación individual sobre voz, postura y argumentación.",
+    "certificacion": "Certificado de ESAM, en convenio con la Universidad Siglo XX, que acredita la formación en Oratoria, Liderazgo y Debate Estudiantil.",
+    "perfilEgreso": "Vas a poder hablar en público con seguridad, argumentar y contraargumentar en un debate, y manejar conflictos con comunicación asertiva."
   },
   "EXPERTO EN COACHING + ORATORIA Y LIDERAZGO PROFESIONAL": {
     "contenido": [
@@ -535,7 +710,15 @@
       "Talleres de exposición, persuasión y debate",
       "Simulaciones de entrevistas, reuniones y paneles",
       "IA para estructurar discursos"
-    ]
+    ],
+    "dirigidoA": "Profesionales, líderes de equipo y emprendedores que necesiten comunicar con persuasión, liderar con más consciencia, y defender sus ideas en entornos de debate profesional.",
+    "requisitos": [
+        "Fotocopia de carnet de identidad vigente",
+        "Comprobante de pago de la primera cuota"
+      ],
+    "metodologia": "Talleres de exposición, persuasión y debate, con simulaciones de entrevistas, reuniones y paneles, y uso de IA para estructurar discursos.",
+    "certificacion": "Certificado de ESAM, en convenio con la Universidad Siglo XX, que acredita la formación en Coaching + Oratoria y Liderazgo Profesional.",
+    "perfilEgreso": "Vas a poder dar discursos persuasivos, aplicar herramientas de coaching a tu liderazgo, y argumentar con solidez en un debate profesional."
   },
   "EXPERTO EN COACHING + ORATORIA Y LIDERAZGO": {
     "contenido": [
@@ -549,7 +732,15 @@
       "Metodología vivencial: exposiciones, dinámicas, feedback",
       "Espacio de práctica escénica y recursos audiovisuales",
       "Evaluación por progreso y desempeño práctico"
-    ]
+    ],
+    "dirigidoA": "Personas que buscan perder el miedo escénico, fortalecer su liderazgo personal y trazar un plan de desarrollo con herramientas de coaching.",
+    "requisitos": [
+        "Fotocopia de carnet de identidad vigente",
+        "Comprobante de pago de la primera cuota"
+      ],
+    "metodologia": "Metodología vivencial con exposiciones, dinámicas y feedback constante, apoyada en IA (ChatGPT) para redactar y simular discursos.",
+    "certificacion": "Certificado de ESAM, en convenio con la Universidad Siglo XX, que acredita la formación en Coaching + Oratoria y Liderazgo.",
+    "perfilEgreso": "Vas a poder hablar en público sin miedo escénico, argumentar con influencia, y planificar tus propias metas personales con herramientas de coaching."
   },
   "EXPERTO EN COMMUNITY MANAGER Y MARKETING DIGITAL": {
     "contenido": [
@@ -563,7 +754,15 @@
       "Proyecto integrador para una marca real",
       "Práctica con gestores de redes y software de edición",
       "Portafolio digital con piezas, videos y campañas reales"
-    ]
+    ],
+    "dirigidoA": "Emprendedores que manejan las redes de su propio negocio, y personas que buscan especializarse en gestión de redes sociales, creación de contenido y publicidad digital.",
+    "requisitos": [
+        "Fotocopia de carnet de identidad vigente",
+        "Comprobante de pago de la primera cuota"
+      ],
+    "metodologia": "Proyecto integrador para una marca real, con práctica directa en gestores de redes y software de edición (Canva, CapCut).",
+    "certificacion": "Certificado de ESAM, en convenio con la Universidad Siglo XX, que acredita la formación en Community Manager y Marketing Digital.",
+    "perfilEgreso": "Vas a poder administrar las redes sociales de una marca, crear contenido para TikTok e Instagram, correr campañas de Meta Ads y TikTok Business, y medir resultados con KPIs."
   },
   "EXPERTO EN DISEÑO GRAFICO": {
     "contenido": [
@@ -577,7 +776,15 @@
       "Proyecto formativo para tu portafolio profesional",
       "Práctica directa con software Adobe e IA",
       "Entrega de archivos editables"
-    ]
+    ],
+    "dirigidoA": "Personas interesadas en el diseño gráfico profesional, ya trabajen en publicidad y comunicación o quieran iniciar su propio emprendimiento de diseño.",
+    "requisitos": [
+        "Fotocopia de carnet de identidad vigente",
+        "Comprobante de pago de la primera cuota"
+      ],
+    "metodologia": "Práctica directa con el paquete Adobe (Photoshop, Illustrator, InDesign) e IA generativa integrada en cada herramienta, con un proyecto formativo para portafolio.",
+    "certificacion": "Certificado de ESAM, en convenio con la Universidad Siglo XX, que acredita la formación en Diseño Gráfico.",
+    "perfilEgreso": "Vas a poder retocar y componer imágenes en Photoshop, crear diseño vectorial y branding en Illustrator, maquetar catálogos y publicaciones en InDesign, y preparar archivos para impresión y medios digitales."
   },
   "Excel + Power BI + IA para el Área Económica": {
     "contenido": [
@@ -591,7 +798,15 @@
       "Modalidad virtual compatible con trabajo o estudio",
       "Casos aplicados a finanzas y control gerencial",
       "Proyecto final con archivos reutilizables"
-    ]
+    ],
+    "dirigidoA": "Profesionales de áreas económicas, financieras y administrativas que necesiten controlar presupuestos, analizar datos financieros y automatizar reportes.",
+    "requisitos": [
+        "Fotocopia de carnet de identidad vigente",
+        "Comprobante de pago de la primera cuota"
+      ],
+    "metodologia": "Modalidad virtual compatible con trabajo o estudio, con casos aplicados a finanzas y control gerencial, y un proyecto final con archivos reutilizables.",
+    "certificacion": "Certificado de ESAM, en convenio con la Universidad Siglo XX, que acredita la formación en Excel + Power BI + IA para el Área Económica.",
+    "perfilEgreso": "Vas a poder construir presupuestos y flujos de caja, calcular indicadores financieros (VA, VF, TIR, VNA), y armar un dashboard ejecutivo con Power BI y análisis automatizado con IA."
   },
   "EXPERTO EN EXCEL BÁSICO, INTERMEDIO Y AVANZADO CON IA": {
     "contenido": [
@@ -604,7 +819,15 @@
       "Aprendizaje escalonado, de lo básico a lo avanzado",
       "Casos administrativos, financieros y comerciales reales",
       "Reportes y tableros reutilizables"
-    ]
+    ],
+    "dirigidoA": "Personas que usan Excel en su trabajo diario y quieren pasar de lo básico a un manejo avanzado, con macros, VBA e IA integrada.",
+    "requisitos": [
+        "Fotocopia de carnet de identidad vigente",
+        "Comprobante de pago de la primera cuota"
+      ],
+    "metodologia": "Aprendizaje escalonado de lo básico a lo avanzado, con casos administrativos, financieros y comerciales reales.",
+    "certificacion": "Certificado de ESAM, en convenio con la Universidad Siglo XX, que acredita la formación en Excel Básico, Intermedio y Avanzado con IA.",
+    "perfilEgreso": "Vas a poder usar fórmulas y funciones lógicas, construir reportes con BUSCARV e ÍNDICE/COINCIDIR, automatizar tareas con macros y VBA, e integrar IA en tus hojas de cálculo."
   },
   "EXPERTO EN INSTALACIONES ELÉCTRICAS SEGURIDAD ELECTRÓNICA Y DOMÓTICA": {
     "contenido": [
@@ -618,7 +841,15 @@
       "Talleres de montaje, medición y conexión supervisados",
       "Proyectos integradores con equipos de laboratorio",
       "Énfasis en protocolos preventivos y calidad técnica"
-    ]
+    ],
+    "dirigidoA": "Personas que buscan aprender un oficio técnico con alta demanda, y electricistas empíricos que quieran formalizar sus conocimientos bajo normativa boliviana (NB-777).",
+    "requisitos": [
+        "Fotocopia de carnet de identidad vigente",
+        "Comprobante de pago de la primera cuota"
+      ],
+    "metodologia": "Talleres de montaje, medición y conexión supervisados, con proyectos integradores en equipos de laboratorio y énfasis en protocolos preventivos.",
+    "certificacion": "Certificado de ESAM, en convenio con la Universidad Siglo XX, que acredita la formación en Instalaciones Eléctricas, Seguridad Electrónica y Domótica.",
+    "perfilEgreso": "Vas a poder diseñar y ejecutar instalaciones eléctricas bajo norma NB-777, armar presupuestos eléctricos, instalar sistemas de domótica y CCTV, y gestionar trámites ante SIB y la Alcaldía."
   },
   "OFIMÁTICA": {
     "contenido": [
@@ -633,7 +864,15 @@
       "Metodología 30% explicación / 70% práctica",
       "Portafolio digital final completo",
       "Acceso al programa de Dactilografía"
-    ]
+    ],
+    "dirigidoA": "Personas que necesiten una base sólida de herramientas ofimáticas para el trabajo o el estudio: Word, Excel, PowerPoint y Google Workspace, con apoyo de IA.",
+    "requisitos": [
+        "Fotocopia de carnet de identidad vigente",
+        "Comprobante de pago de la primera cuota"
+      ],
+    "metodologia": "Metodología 30% explicación / 70% práctica, con proyecto final integrador para armar tu propio portafolio digital.",
+    "certificacion": "Certificado de ESAM, en convenio con la Universidad Siglo XX, que acredita la formación en Ofimática.",
+    "perfilEgreso": "Vas a poder redactar documentos profesionales en Word, construir tablas y dashboards en Excel, armar presentaciones en PowerPoint y Canva, y trabajar de forma colaborativa en Google Workspace."
   }
 };
 
@@ -679,6 +918,9 @@
   function setSede(s) { sedeActiva = s; marcarSedeActiva(); pintarCursos(); }
   function buscarCurso_(valor) { terminoBusqueda = valor.toLowerCase(); pintarCursos(); if (valor) document.getElementById('cursos').scrollIntoView({behavior:'smooth'}); }
   function irACatalogo_(marca) {
+    const idPorMarca = { CCA: 'seccionCCA', ESAM: 'seccionESAM', CARRERAS: 'seccionCarreras' };
+    const seccion = idPorMarca[marca] ? document.getElementById(idPorMarca[marca]) : null;
+    if (seccion) { seccion.scrollIntoView({behavior:'smooth'}); return; }
     document.getElementById('cursos').scrollIntoView({behavior:'smooth'});
   }
 
@@ -726,17 +968,29 @@
     if (terminoBusqueda) cursosFiltrados = CURSOS.filter(function(c) { return c.nombre.toLowerCase().indexOf(terminoBusqueda) !== -1; });
 
     let html = '';
-    CATEGORIAS.forEach(function(cat) {
-      const cursosDeCategoria = cursosFiltrados.filter(function(c) { return c.cat === cat && c.cat !== 'Carreras Técnicas (30 meses)'; });
-      if (cursosDeCategoria.length === 0) return;
-      html += '<div class="titulo-categoria">' + cat + '</div><div class="grid-cursos">';
-      cursosDeCategoria.forEach(function(c) { html += tarjetaHTML(c); });
+
+    function pintarBloqueMarca(marca, idSeccion, titulo, subtitulo, iconoMarca) {
+      const cursosMarca = cursosFiltrados.filter(function(c) { return c.marca === marca; });
+      if (cursosMarca.length === 0) return;
+      html += '<div class="bloque-marca" id="' + idSeccion + '">' +
+        '<div class="encabezado-marca"><div class="icono-marca ' + marca.toLowerCase() + '">' + iconoMarca + '</div>' +
+        '<div><h2>' + titulo + '</h2><p>' + subtitulo + '</p></div></div>';
+      CATEGORIAS.forEach(function(cat) {
+        const cursosDeCategoria = cursosMarca.filter(function(c) { return c.cat === cat; });
+        if (cursosDeCategoria.length === 0) return;
+        html += '<div class="titulo-categoria">' + cat + '</div><div class="grid-cursos">';
+        cursosDeCategoria.forEach(function(c) { html += tarjetaHTML(c); });
+        html += '</div>';
+      });
       html += '</div>';
-    });
+    }
+
+    pintarBloqueMarca('CCA', 'seccionCCA', 'Cursos CCA', 'Formación propia de Instituto CCA', '🏫');
+    pintarBloqueMarca('ESAM', 'seccionESAM', 'Cursos ESAM', 'ESAM Escuela de Negocios, en convenio con la Universidad Siglo XX', '💼');
 
     const carreras = cursosFiltrados.filter(function(c) { return c.cat === 'Carreras Técnicas (30 meses)'; });
     if (carreras.length > 0) {
-      html += '<div class="franja-carreras"><div class="encabezado-marca">' +
+      html += '<div class="franja-carreras" id="seccionCarreras"><div class="encabezado-marca">' +
         '<div class="icono-marca carreras">🎓</div>' +
         '<div><h2>Carreras Técnicas Superiores</h2><p>Título técnico superior en 30 meses — presencial o virtual</p></div></div>';
       html += '<div class="grid-cursos">';
@@ -755,10 +1009,15 @@
     const cont = document.getElementById('contenidoDetalle');
     cont.innerHTML =
       '<h2>' + nombreCurso + '</h2>' +
+      (d.dirigidoA ? '<p class="titulo-seccion-detalle">👥 Dirigido a</p><p class="texto-detalle">' + d.dirigidoA + '</p>' : '') +
       '<p class="titulo-seccion-detalle">📚 Contenido del curso</p>' +
       '<ul class="lista-detalle">' + d.contenido.map(function(p) { return '<li>' + p + '</li>'; }).join('') + '</ul>' +
       '<p class="titulo-seccion-detalle">⭐ Por qué elegirlo</p>' +
       '<ul class="lista-detalle">' + d.ventajas.map(function(p) { return '<li>' + p + '</li>'; }).join('') + '</ul>' +
+      (d.perfilEgreso ? '<p class="titulo-seccion-detalle">🎯 Perfil de egreso</p><p class="texto-detalle">' + d.perfilEgreso + '</p>' : '') +
+      (d.metodologia ? '<p class="titulo-seccion-detalle">🛠️ Metodología</p><p class="texto-detalle">' + d.metodologia + '</p>' : '') +
+      (d.certificacion ? '<p class="titulo-seccion-detalle">🏅 Certificación</p><p class="texto-detalle">' + d.certificacion + '</p>' : '') +
+      (d.requisitos ? '<p class="titulo-seccion-detalle">📋 Requisitos de inscripción</p><ul class="lista-detalle lista-requisitos">' + d.requisitos.map(function(p) { return '<li>' + p + '</li>'; }).join('') + '</ul>' : '') +
       '<button class="btn-enviar" onclick=\'cerrarDetalle(); abrirModal(' + JSON.stringify(nombreCurso) + ', true);\'>Quiero contactarme con un Asesor →</button>';
     fondo.classList.add('abierto');
   }
@@ -815,20 +1074,14 @@
     aviso.className = 'aviso-modal';
     aviso.textContent = 'Enviando...';
 
-    // Ventana nueva (se cierra sola) en vez de iframe — confirmado con las
-    // herramientas de desarrollador que Apps Script BLOQUEA activamente
-    // ser cargado dentro de un iframe de otro dominio (protección estándar
-    // X-Frame-Options, no algo que se pueda evitar desde acá). Una pestaña
-    // nueva es una navegación normal, sin esa restricción — es lo mismo
-    // que pasa cuando abrís el link directo, que siempre funcionó.
-    const nombreVentana = 'envioLeadCCA';
-    const ventana = window.open('about:blank', nombreVentana);
-
+    // Navegación de página completa (sin target, misma pestaña) — es
+    // EXACTAMENTE lo mismo que pasa cuando abrís el link directo de Apps
+    // Script, que siempre funcionó sin problema. Nada de ventanas, iframes
+    // ni JS cross-origin: el navegador mismo lleva al usuario hasta Apps
+    // Script, que procesa el lead y devuelve una página de confirmación.
     const formEnvio = document.createElement('form');
     formEnvio.method = 'GET';
     formEnvio.action = URL_BACKEND_LEADS;
-    formEnvio.target = nombreVentana;
-    formEnvio.style.display = 'none';
     const inputAccion = document.createElement('input');
     inputAccion.name = 'accion';
     inputAccion.value = 'registrarLead';
@@ -839,15 +1092,6 @@
     formEnvio.appendChild(inputDatos);
     document.body.appendChild(formEnvio);
     formEnvio.submit();
-    document.body.removeChild(formEnvio);
-
-    setTimeout(function() {
-      try { if (ventana && !ventana.closed) ventana.close(); } catch (e) {}
-      document.getElementById('contenidoModal').innerHTML =
-        '<div class="pantalla-exito"><div class="icono">🎉</div><h2>¡Listo!</h2>' +
-        '<p class="sub-modal">Ya registramos tu consulta — un asesor de Instituto CCA te va a contactar muy pronto.</p>' +
-        '<button class="btn-enviar" onclick="cerrarModal()">Cerrar</button></div>';
-    }, 2500);
   }
 
   document.getElementById('fondoModal').addEventListener('click', function(e) {
