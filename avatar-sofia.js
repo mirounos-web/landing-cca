@@ -28,7 +28,7 @@
     segundosInvitacion: 5,
     segundosRecordatorio: 28,
     mejorarPagina: true,          // fondo, franja de Sofía y botón de WhatsApp en la barra
-    urlVisitas: ''                // URL del Apps Script "Visitas Landing CCA" (registro de visitas en la hoja)
+    urlVisitas: 'https://script.google.com/macros/s/AKfycbwdTBoUAF6qqZJMm4FvabhGj-XFPUYDQ2o72BuFgGsggpegGKCy3792IlztU1zKPfAA/exec' // Apps Script "Visitas Landing CCA"
   }, window.CCA_AVATAR || {});
 
   // Equipo comercial (mismos códigos del CRM). cel vacío = aún sin número: WhatsApp va a su coordinador(a).
