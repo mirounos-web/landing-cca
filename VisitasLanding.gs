@@ -1,13 +1,12 @@
 /**
- * Visitas Landing CCA — registra cada visita a la landing en la hoja de LEADS.
- * Proyecto independiente: NO toca el código del CRM ni el formulario de la landing.
- *
- * Crea/usa dos hojas dentro del archivo del CRM:
+ * VisitasLanding.gs — se agrega como ARCHIVO NUEVO dentro del Apps Script del CRM (el mismo de la hoja LEADS).
+ * Registra cada visita a la landing en dos pestañas nuevas de la MISMA hoja de cálculo:
  *   - "VISITAS LANDING": una fila por visita (se actualiza mientras la persona navega)
  *   - "RESUMEN VISITAS": totales, conversión y tablas por asesor, origen y dispositivo
  *
- * Pasos: pegar este código → ejecutar configurar() una vez → Implementar como aplicación web
- * (Ejecutar como: Yo · Quién tiene acceso: Cualquier usuario) → copiar la URL /exec.
+ * No reemplaza nada del CRM. Solo hay que agregar UNA línea al inicio del doGet(e) que ya existe:
+ *     var rv = atenderVisitaLanding_(e); if (rv) return rv;
+ * Luego: ejecutar configurarVisitas() una vez y actualizar la implementación (misma URL, nueva versión).
  */
 
 var ID_HOJA = '1XZGj-uyAGVoi2uX7dA_qG-hzlFxkmKYME8i9Fo_4CbM';
@@ -22,11 +21,11 @@ var COLUMNAS = [
   'TIPO DE VISITANTE', 'ÚLTIMA ACTUALIZACIÓN'
 ];
 
-function doGet(e) {
+/** Devuelve una respuesta solo si la petición es una visita; si no, devuelve null y el CRM sigue igual. */
+function atenderVisitaLanding_(e) {
   var p = (e && e.parameter) || {};
-  if (p.accion === 'visita' && p.datos) {
-    try { guardarVisita_(JSON.parse(p.datos)); } catch (err) { console.error(err); }
-  }
+  if (p.accion !== 'visita') return null;
+  try { if (p.datos) guardarVisita_(JSON.parse(p.datos)); } catch (err) { console.error(err); }
   return ContentService.createTextOutput('ok');
 }
 
@@ -60,7 +59,7 @@ function guardarVisita_(d) {
 }
 
 function obtenerHojaVisitas_() {
-  var libro = SpreadsheetApp.openById(ID_HOJA);
+  var libro = SpreadsheetApp.getActiveSpreadsheet() || SpreadsheetApp.openById(ID_HOJA);
   var hoja = libro.getSheetByName(HOJA_VISITAS);
   if (!hoja) {
     hoja = libro.insertSheet(HOJA_VISITAS);
@@ -74,9 +73,9 @@ function obtenerHojaVisitas_() {
   return hoja;
 }
 
-/** Ejecutar UNA vez: crea las hojas y el resumen con fórmulas. */
-function configurar() {
-  var libro = SpreadsheetApp.openById(ID_HOJA);
+/** Ejecutar UNA vez: crea las pestañas VISITAS LANDING y RESUMEN VISITAS en esta misma hoja. */
+function configurarVisitas() {
+  var libro = SpreadsheetApp.getActiveSpreadsheet() || SpreadsheetApp.openById(ID_HOJA);
   obtenerHojaVisitas_();
   var r = libro.getSheetByName(HOJA_RESUMEN) || libro.insertSheet(HOJA_RESUMEN);
   r.clear();
@@ -113,7 +112,7 @@ function configurar() {
 }
 
 /** Prueba manual: crea una visita de ejemplo (puedes borrar la fila después). */
-function probar() {
+function probarVisitas() {
   guardarVisita_({ visitaId: 'PRUEBA-1', visitante: 'PRUEBA', numVisita: 1, asesorCod: 'RSCF', asesor: 'Ramiro Santos Condori Flores',
     porLink: 'SÍ', sede: 'sucre', dispositivo: 'PC', navegador: 'Chrome', origen: 'directo', segundos: 42, scroll: 60,
     abrioSofia: 'SÍ', vistos: 'Diseño Gráfico', consultados: 'Diseño Gráfico', registro: 'NO', whatsapp: 'NO' });
