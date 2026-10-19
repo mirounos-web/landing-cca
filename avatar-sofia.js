@@ -27,7 +27,8 @@
     sinAsesor: 'rotar',           // 'rotar' reparte entre todo el equipo, o un código fijo (ej. 'RSCF')
     segundosInvitacion: 5,
     segundosRecordatorio: 28,
-    mejorarPagina: true           // fondo, franja de Sofía y botón de WhatsApp en la barra
+    mejorarPagina: true,          // fondo, franja de Sofía y botón de WhatsApp en la barra
+    urlVisitas: ''                // URL del Apps Script "Visitas Landing CCA" (registro de visitas en la hoja)
   }, window.CCA_AVATAR || {});
 
   // Equipo comercial (mismos códigos del CRM). cel vacío = aún sin número: WhatsApp va a su coordinador(a).
@@ -255,7 +256,7 @@
     horario: /horario|hora|turno|dias|manana|tarde|noche|sabado/,
     inicio: /inicio|empieza|comienza|empiezan|cuando|fecha/,
     requisitos: /requisito|documento|papeles|que necesito/,
-    contenido: /aprendo|aprender|contenido|temas|ensenan|materias|malla|que se ve|que voy/,
+    contenido: /aprendo|aprender|contenido|temas|ensenan|materias|malla|que se ve|que voy|modulo|plan de estudio/,
     certificado: /certific|titulo|aval/,
     modalidad: /virtual|presencial|online|modalidad|a distancia/,
     duracion: /dura|duracion|cuantos meses|tiempo/,
@@ -462,7 +463,11 @@
     '.burbuja b{color:' + CFG.tinta + '}' +
     '.burbuja .x{position:absolute;top:-9px;left:-9px;width:22px;height:22px;border-radius:50%;border:0;background:#1b2a44;color:#fff;font-size:11px;cursor:pointer}' +
     '@keyframes entrar{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}' +
-    '.panel{position:fixed;right:22px;bottom:' + CFG.abajo + 'px;width:400px;height:min(700px,calc(100vh - ' + (CFG.abajo + 20) + 'px));background:#fff;border-radius:24px;box-shadow:0 26px 64px rgba(14,32,56,.4);display:flex;flex-direction:column;overflow:hidden;animation:entrar .25s ease}' +
+    '.panel{position:fixed;inset:0;width:100%;height:100%;height:100dvh;background:#F4F6FA;display:flex;flex-direction:column;overflow:hidden;animation:abrirP .28s ease}' +
+    '@keyframes abrirP{from{opacity:0;transform:scale(.98)}to{opacity:1;transform:none}}' +
+    '.chat{flex:1;min-height:0;min-width:0;display:flex;flex-direction:column}' +
+    '.lado-acciones{display:none;flex-direction:column;gap:8px;margin-top:18px;text-align:left}' +
+    '.lado-acciones .op{font-size:14px}.op.claro{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.22);color:#fff}.op.claro .ic{background:rgba(255,255,255,.12)}.op.claro:hover{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.4)}' +
     '.escena{flex:none;position:relative;display:flex;gap:16px;align-items:flex-end;padding:16px 16px 14px;background:radial-gradient(120% 140% at 0% 0%,#2b5596 0%,' + CFG.tinta + ' 45%,' + CFG.tinta2 + ' 100%);color:#fff;overflow:hidden}' +
     '.escena::after{content:"";position:absolute;right:-40px;top:-40px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(242,183,5,.35),transparent 70%);pointer-events:none}' +
     '.retrato{flex:none;width:150px;height:200px;border-radius:18px;overflow:hidden;background:#0d2141;box-shadow:0 10px 26px rgba(0,0,0,.4);outline:3px solid rgba(255,255,255,.92);transition:outline-color .25s}' +
@@ -481,7 +486,7 @@
     '.acciones-cab{position:absolute;top:10px;right:10px;display:flex;gap:6px;z-index:2}' +
     '.ico{background:rgba(255,255,255,.14);border:0;color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:15px;display:grid;place-items:center}' +
     '.ico:hover{background:rgba(255,255,255,.26)}' +
-    '.msgs{position:relative;flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:9px;background:#F4F6FA;scroll-behavior:smooth}' +
+    '.msgs{position:relative;flex:1;overflow-y:auto;padding:16px max(14px,calc((100% - 780px)/2));display:flex;flex-direction:column;gap:9px;background:#F4F6FA;scroll-behavior:smooth}' +
     '.msgs>*{flex-shrink:0}' +
     '.m{max-width:90%;padding:11px 14px;border-radius:16px;font-size:14.5px;line-height:1.5;white-space:pre-wrap;animation:entrar .22s ease}' +
     '.bot{background:#fff;color:#1b2a44;align-self:flex-start;border-bottom-left-radius:5px;box-shadow:0 1px 2px rgba(14,32,56,.08);border:1px solid #e2e7f0}' +
@@ -494,6 +499,9 @@
     '.ficha .fila:first-of-type{border-top:0}.ficha .fila i{font-style:normal;flex:none;width:20px;text-align:center}' +
     '.ficha .fila strong{display:block;font-size:11px;color:#5C6B85;text-transform:uppercase;letter-spacing:.3px;margin-bottom:1px}' +
     '.ficha .precio{font-weight:700;color:' + CFG.tinta + '}' +
+    '.ficha .fila.mod i.num{width:26px;height:26px;border-radius:50%;background:' + CFG.tinta + ';color:#fff;font-weight:700;font-size:12.5px;display:grid;place-items:center}' +
+    '.ficha .fila.mod b.mt{display:block;font-size:14.5px;color:' + CFG.tinta + ';margin-bottom:2px}' +
+    '.ficha .fila.mod{position:relative}' +
     '.opciones{display:flex;flex-direction:column;gap:7px;align-self:stretch;animation:entrar .25s ease}' +
     '.op{display:flex;align-items:center;gap:10px;width:100%;text-align:left;border:1.5px solid #d4ddeb;background:#fff;color:' + CFG.tinta + ';padding:10px 13px;border-radius:14px;font-size:14px;font-weight:600;cursor:pointer;transition:background .15s,border-color .15s,transform .1s}' +
     '.op:hover{background:#eef3fb;border-color:' + CFG.tinta + '}.op:active{transform:scale(.99)}' +
@@ -514,7 +522,7 @@
     '.wa-form .op{margin-top:10px;justify-content:center}' +
     '.wa-form.datos{border-color:' + CFG.sello + ';background:#fffdf3}.wa-form.datos .av{background:' + CFG.sello + ';font-size:18px}' +
     '.wa-form.enviado{opacity:.75}.wa-form .nota.error{color:#c0392b;font-weight:600}' +
-    '.pie{flex:none;display:flex;gap:8px;padding:10px 12px 12px;background:#fff;border-top:1px solid #e2e7f0}' +
+    '.pie{flex:none;display:flex;gap:8px;padding:12px max(12px,calc((100% - 780px)/2)) 12px;background:#fff;border-top:1px solid #e2e7f0}' +
     '.pie input{flex:1;min-width:0;border:1.5px solid #d6dee9;border-radius:999px;padding:11px 16px;font-size:15px;outline:none;color:#1b2a44;background:#fff}' +
     '.pie input:focus{border-color:' + CFG.tinta + '}' +
     '.btn{width:44px;height:44px;flex:none;border-radius:50%;border:0;cursor:pointer;font-size:18px;display:grid;place-items:center;background:' + CFG.tinta + ';color:#fff}' +
@@ -526,13 +534,28 @@
     '.escribiendo i:nth-child(2){animation-delay:.15s}.escribiendo i:nth-child(3){animation-delay:.3s}' +
     '@keyframes pto{0%,100%{opacity:.3}50%{opacity:1}}' +
     '.aviso{font-size:11px;color:#5C6B85;text-align:center;padding:0 12px 9px;background:#fff}' +
+    '@media (min-width:900px){' +
+    '.panel{flex-direction:row}' +
+    '.escena{width:clamp(320px,32vw,420px);flex-direction:column;align-items:stretch;justify-content:flex-start;padding:28px 26px;gap:14px;overflow-y:auto}' +
+    '.escena>.retrato{margin-top:auto}.escena>.info{margin-bottom:auto}' +
+    '.retrato{height:min(46vh,420px);width:auto;aspect-ratio:3/4;margin:0 auto;border-radius:24px;outline-width:4px}' +
+    '.info{text-align:center;padding:0}.info h2{font-size:36px}.info .cargo{font-size:14px}.info .linea{justify-content:center;font-size:13.5px}' +
+    '.asesor-mini{font-size:13px}.lado-acciones{display:flex}' +
+    '.acciones-cab{position:fixed;top:16px;right:20px}' +
+    '.acciones-cab .ico{background:#fff;color:' + CFG.tinta + ';box-shadow:0 4px 14px rgba(14,32,56,.18);width:40px;height:40px;font-size:17px}' +
+    '.acciones-cab .ico:hover{background:#eef3fb}' +
+    '.lado-acciones{margin-top:14px}' +
+    '.escena::after{width:320px;height:320px;right:-120px;top:-120px}' +
+    '.m{font-size:15.5px;max-width:82%}' +
+    '}' +
+    '@media (min-width:601px) and (max-width:899px){.retrato{width:120px;height:160px}}' +
     '@media (max-width:600px){' +
     '.lanzador{right:12px;bottom:' + CFG.abajoMovil + 'px;width:72px;height:72px;border-radius:50%}' +
     '.lanzador .etq{display:none}.anillo{border-radius:50%}' +
     '.lanzador::after{content:"";position:absolute;right:6px;top:6px;width:12px;height:12px;border-radius:50%;background:#34d27b;border:2px solid #fff}' +
     '.burbuja{right:96px;bottom:' + (CFG.abajoMovil + 12) + 'px;max-width:210px;font-size:13.5px}' +
-    '.panel{right:0;left:0;bottom:0;width:100%;height:92vh;height:92dvh;border-radius:22px 22px 0 0}' +
-    '.retrato{width:96px;height:128px}.info h2{font-size:23px}.info .linea{margin-top:8px}.asesor-mini{margin-top:8px}.escena{padding:12px 14px;gap:14px}' +
+
+    '.retrato{width:92px;height:123px}.info h2{font-size:23px}.info .linea{margin-top:8px}.asesor-mini{margin-top:8px}.escena{padding:12px 14px;gap:14px;padding-top:max(12px,env(safe-area-inset-top))}' +
     '.m{font-size:15px}' +
     '}';
 
@@ -550,18 +573,26 @@
     '<div class="burbuja oculto" role="button"><button class="x" aria-label="Cerrar">✕</button><span class="txt"></span></div>' +
     '<div class="panel oculto" role="dialog" aria-label="' + CFG.nombre + ', asesora virtual">' +
     '  <div class="escena">' +
-    '    <div class="retrato"><canvas width="300" height="400" aria-hidden="true"></canvas></div>' +
+    '    <div class="retrato"><canvas width="480" height="640" aria-hidden="true"></canvas></div>' +
     '    <div class="info"><h2>' + CFG.nombre + '</h2><div class="cargo">' + CFG.cargo + '</div>' +
     '      <div class="linea"><i class="punto"></i><span class="ondas"><i></i><i></i><i></i><i></i></span><span class="estado">En línea</span></div>' +
-    '      <div class="asesor-mini">' + tuAsesorLink() + ': <b>' + ASESOR.n.split(' ').slice(0, 2).join(' ') + '</b></div></div>' +
+    '      <div class="asesor-mini">' + tuAsesorLink() + ': <b>' + ASESOR.n.split(' ').slice(0, 2).join(' ') + '</b></div>' +
+    '      <div class="lado-acciones">' +
+    '        <button type="button" class="op verde" data-lado="wa"><span class="ic">' + ICONO_WA + '</span><span class="tx">WhatsApp con ' + primerNombre(CONTACTO) + '</span></button>' +
+    '        <button type="button" class="op sello" data-lado="inscribir"><span class="ic">✍️</span><span class="tx">Quiero inscribirme</span></button>' +
+    '        <button type="button" class="op claro" data-lado="oferta"><span class="ic">📚</span><span class="tx">Ver toda la oferta</span></button>' +
+    '        <button type="button" class="op claro" data-lado="metodo"><span class="ic">🛠️</span><span class="tx">¿Cómo enseñamos?</span></button>' +
+    '      </div></div>' +
     '    <div class="acciones-cab"><button class="ico silencio" title="Silenciar voz" aria-label="Silenciar voz">🔊</button><button class="ico cerrar" title="Cerrar" aria-label="Cerrar">✕</button></div>' +
     '  </div>' +
+    '  <div class="chat">' +
     '  <div class="msgs" aria-live="polite"></div>' +
     '  <form class="pie"><input type="text" placeholder="Pregúntame por cualquier curso…" autocomplete="off" aria-label="Tu pregunta">' +
     '    <button type="button" class="btn mic" title="Hablar" aria-label="Hablar por micrófono">🎤</button>' +
     '    <button type="button" class="btn wa-mini" title="WhatsApp con tu asesor" aria-label="WhatsApp con tu asesor">' + ICONO_WA + '</button>' +
     '    <button type="submit" class="btn" title="Enviar" aria-label="Enviar">➤</button></form>' +
     '  <div class="aviso">Asistente automático · ' + tuAsesor().replace('tu', 'Tu') + ' confirma tu inscripción</div>' +
+    '  </div>' +
     '</div>';
   (document.body || document.documentElement).appendChild(host);
 
@@ -723,13 +754,85 @@
   function abrirWhatsApp(curso, origen) {
     var nombre = (visitante.nombre || '').trim();
     var c = curso ? titulo(curso.nombre) : '';
-    registrar(datosLead(curso, 'Clic en WhatsApp desde ' + (origen || 'Sofía') + ' — escribió a ' + CONTACTO.n));
-    if (curso) ss('ccaSofiaReg_' + curso.nombre, '1');
+    var claveReg = 'ccaSofiaReg_' + (curso ? curso.nombre : 'general');
+    if (ss(claveReg) !== '1') {            // un solo registro por curso y visita: evita filas repetidas en LEADS
+      registrar(datosLead(curso, 'Clic en WhatsApp desde ' + (origen || 'Sofía') + ' — escribió a ' + CONTACTO.n));
+      ss(claveReg, '1');
+    }
+    marcarVisita('whatsapp', curso ? corto(curso.nombre) : 'general');
     var ref = ASESOR !== CONTACTO ? ' (Me atendió ' + ASESOR.n + ', código ' + ASESOR.cod + ')' : '';
     var msg = 'Hola ' + nombreAsesor() + ' 👋, ' + (nombre ? 'soy ' + nombre + '. ' : '') +
       (c ? 'Vi en la página del Instituto CCA el curso *' + c + '* y quiero más información para inscribirme.' : 'Vi la oferta académica del Instituto CCA y quiero más información.') + ref;
     window.open('https://wa.me/591' + CONTACTO.cel + '?text=' + encodeURIComponent(msg), '_blank', 'noopener');
   }
+
+  // ===================== VISITAS (hoja VISITAS LANDING) =====================
+  var VIS = (function () {
+    var guardada = null;
+    try { guardada = JSON.parse(ss('ccaVisita') || 'null'); } catch (e) {}
+    if (guardada && guardada.visitaId) return guardada;
+    var id = ls('ccaVisitante');
+    if (!id) { id = 'V' + Date.now().toString(36).toUpperCase() + Math.random().toString(36).slice(2, 5).toUpperCase(); ls('ccaVisitante', id); }
+    var n = (+(ls('ccaVisitas') || 0)) + 1; ls('ccaVisitas', String(n));
+    var ua = navigator.userAgent || '';
+    var ref = '';
+    try { ref = document.referrer ? new URL(document.referrer).hostname.replace(/^www\./, '') : ''; } catch (e) {}
+    var origen = PARAMS.get('utm_source') || (PARAMS.get('fbclid') ? 'facebook' : '') || (PARAMS.get('gclid') ? 'google' : '') ||
+      (/FBAN|FBAV|FB_IAB/.test(ua) ? 'facebook (app)' : '') || (/Instagram/.test(ua) ? 'instagram (app)' : '') ||
+      (/TikTok|musical_ly|BytedanceWebview/i.test(ua) ? 'tiktok (app)' : '') || ref || 'directo';
+    return {
+      visitaId: id + '-' + n, visitante: id, numVisita: n, inicio: Date.now(),
+      asesorCod: ASESOR.cod, asesor: ASESOR.n, porLink: ASIG.porLink ? 'SÍ' : 'NO (asignado)',
+      sede: PARAMS.get('sede') || 'sucre',
+      dispositivo: /iPad|Tablet/i.test(ua) ? 'Tablet' : (/Mobi|Android|iPhone/i.test(ua) ? 'Celular' : 'PC'),
+      navegador: /FBAN|FBAV|FB_IAB/.test(ua) ? 'Facebook' : /Instagram/.test(ua) ? 'Instagram' : /Edg\//.test(ua) ? 'Edge' : /SamsungBrowser/.test(ua) ? 'Samsung' : /Chrome\//.test(ua) ? 'Chrome' : /Firefox\//.test(ua) ? 'Firefox' : /Safari\//.test(ua) ? 'Safari' : 'Otro',
+      origen: origen, campana: PARAMS.get('utm_campaign') || '',
+      segundos: 0, scroll: 0, abrioSofia: 'NO', vistos: [], consultados: [], registro: 'NO', whatsapp: 'NO'
+    };
+  })();
+  function guardarVis() { ss('ccaVisita', JSON.stringify(VIS)); }
+  var tVis = null;
+  function marcarVisita(tipo, valor) {
+    if (tipo === 'sofia') VIS.abrioSofia = 'SÍ';
+    if (tipo === 'curso' && VIS.consultados.indexOf(valor) === -1) VIS.consultados.push(valor);
+    if (tipo === 'visto' && VIS.vistos.indexOf(valor) === -1) VIS.vistos.push(valor);
+    if (tipo === 'registro') VIS.registro = valor || 'SÍ';
+    if (tipo === 'whatsapp') VIS.whatsapp = 'SÍ (' + (valor || 'general') + ')';
+    guardarVis();
+    clearTimeout(tVis); tVis = setTimeout(function () { enviarVisita(); }, tipo === 'visto' ? 6000 : 1500);
+  }
+  function enviarVisita() {
+    if (!CFG.urlVisitas) return;
+    VIS.segundos = Math.round((Date.now() - VIS.inicio) / 1000);
+    guardarVis();
+    var d = {
+      visitaId: VIS.visitaId, visitante: VIS.visitante, numVisita: VIS.numVisita,
+      asesorCod: VIS.asesorCod, asesor: VIS.asesor, porLink: VIS.porLink, sede: VIS.sede,
+      dispositivo: VIS.dispositivo, navegador: VIS.navegador, origen: VIS.origen, campana: VIS.campana,
+      segundos: VIS.segundos, scroll: VIS.scroll, abrioSofia: VIS.abrioSofia,
+      vistos: VIS.vistos.join(', '), consultados: VIS.consultados.join(', '), registro: VIS.registro, whatsapp: VIS.whatsapp
+    };
+    var q = CFG.urlVisitas + (CFG.urlVisitas.indexOf('?') === -1 ? '?' : '&') + 'accion=visita&datos=' + encodeURIComponent(JSON.stringify(d));
+    if (window.fetch) { try { fetch(q, { mode: 'no-cors', keepalive: true, credentials: 'omit' }).catch(function () {}); return; } catch (e) {} }
+    new Image().src = q;
+  }
+  window.addEventListener('scroll', function () {
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    var p = h > 0 ? Math.round(window.scrollY / h * 100) : 100;
+    if (p > VIS.scroll) VIS.scroll = Math.min(100, p);
+  }, { passive: true });
+  setTimeout(enviarVisita, 4000);
+  var latidos = 0;
+  setInterval(function () { if (!document.hidden && latidos < 12) { latidos++; enviarVisita(); } }, 50000);
+  document.addEventListener('visibilitychange', function () { if (document.hidden) enviarVisita(); });
+  window.addEventListener('pagehide', enviarVisita);
+  // envío del formulario original de la landing
+  document.addEventListener('click', function (e) {
+    if (e.target.closest && e.target.closest('#btnEnviarModal')) {
+      var n = document.getElementById('mNombre'), c = document.getElementById('mCelular');
+      if (n && c && n.value.trim() && c.value.trim()) { marcarVisita('registro', 'Formulario landing'); enviarVisita(); }
+    }
+  }, true);
 
   // ===================== MENSAJES =====================
   var contexto = null, ultimoTema = null;
@@ -781,11 +884,11 @@
     return { t: 'Quiero inscribirme', sub: 'Deja tus datos y te reservamos un cupo', ic: '✍️', estilo: 'sello', fn: function () { inscribir(c); } };
   }
   function opOferta() { return { t: 'Ver toda la oferta', sub: 'Cursos y carreras por fecha de inicio', ic: '📚', fn: function () { burbujaYo('Ver toda la oferta'); pensar(mostrarOferta); } }; }
-  function opsCurso(c) {
+  function opsCurso(c, sinModulos) {
     var l = [opWhatsApp(c), opInscribir(c)];
     l.push({ t: 'Precio y formas de pago', ic: '💰', fn: function () { preguntaCurso(c, 'Precio y formas de pago', { precio: true }); } });
     l.push({ t: 'Horarios', ic: '🕒', fn: function () { preguntaCurso(c, 'Horarios', { horario: true }); } });
-    l.push({ t: '¿Qué voy a aprender?', ic: '📖', fn: function () { preguntaCurso(c, '¿Qué voy a aprender?', { contenido: true }); } });
+    if (!sinModulos) l.splice(0, 0, opModulos(c));
     l.push({ t: 'Requisitos y certificado', ic: '📋', fn: function () { preguntaCurso(c, 'Requisitos y certificado', { requisitos: true, certificado: true }); } });
     if (detalles(c.nombre) && typeof window.abrirDetalle === 'function')
       l.push({ t: 'Ver la ficha completa', ic: '📄', fn: function () { cerrar(); window.abrirDetalle(c.nombre); } });
@@ -865,6 +968,7 @@
   }
   function presentarCurso(c) {
     contexto = c; ultimoTema = { tipo: 'curso', c: c };
+    marcarVisita('curso', corto(c.nombre));
     var reac = elegir(REACCIONES);
     var nombre = visitante.nombre ? ', ' + visitante.nombre.split(' ')[0] : '';
     var saludoCurso = reac.replace(/!$/, nombre + '!');
@@ -916,6 +1020,7 @@
       visitante.nombre = i1.value.trim(); visitante.celular = cel; visitante.correo = i3.value.trim();
       guardarVisitante();
       registrar(datosLead(c, 'Dejó sus datos a Sofía'));
+      marcarVisita('registro', 'Sofía');
       if (c) ss('ccaSofiaReg_' + c.nombre, '1');
       f.classList.add('enviado');
       b.disabled = true; b.querySelector('.tx').textContent = '¡Datos enviados! ✓';
@@ -961,6 +1066,49 @@
     hablar(intro + ' ' + items.map(function (r) { return r[1] + ': ' + r[2].replace(/\.?$/, '.'); }).join(' ') + ' ¿Qué curso te gustaría conocer?');
     setTimeout(function () { opciones(contexto ? [opWhatsApp(contexto), opInscribir(contexto), opOferta()] : [opOferta(), opWhatsApp(null)]); }, 250);
   }
+  // ===================== CONTENIDO POR MÓDULOS =====================
+  function modulos(c) {
+    var d = detalles(c.nombre);
+    var lista = (d && d.contenido && d.contenido.length) ? d.contenido : (c.puntos || []);
+    var declarados = null;
+    if (d && d.ventajas) d.ventajas.forEach(function (v) { var m = /(\d+)\s+m[oó]dulos/i.exec(v); if (m) declarados = +m[1]; });
+    var etiqueta = (declarados === null || declarados === lista.length) ? 'Módulo' : 'Unidad';
+    return { etiqueta: etiqueta, items: lista.map(function (t) {
+      var k = t.indexOf(':');
+      var desc = k > 0 ? t.slice(k + 1).trim() : '';
+      desc = desc.charAt(0).toUpperCase() + desc.slice(1);
+      return k > 0 ? [t.slice(0, k).trim(), desc] : [t.trim(), ''];
+    }) };
+  }
+  function mostrarModulos(c) {
+    contexto = c; ultimoTema = { tipo: 'curso', c: c };
+    if (esCarrera(c)) {
+      decir('La malla curricular completa de ' + titulo(c.nombre) + ' son 30 meses organizados por semestres, con prácticas y certificaciones intermedias en cada año. ' + nombreAsesor() + ' te envía la malla completa por WhatsApp.');
+      return opciones([opWhatsApp(c), opInscribir(c), opOferta()]);
+    }
+    var M = modulos(c);
+    var intro = 'Así está organizado ' + titulo(c.nombre) + ', ' + M.etiqueta.toLowerCase() + ' por ' + M.etiqueta.toLowerCase() + ':';
+    burbujaBot(intro);
+    var f = el('div', 'ficha modulos');
+    var h = el('div', 'cab-f'); h.appendChild(el('small', '', 'Contenido del curso · ' + c.duracion)); h.appendChild(el('b', '', titulo(c.nombre))); f.appendChild(h);
+    M.items.forEach(function (it, i) {
+      var fila = el('div', 'fila mod');
+      fila.appendChild(el('i', 'num', String(i + 1)));
+      var d = el('div'); d.appendChild(el('strong', '', M.etiqueta + ' ' + (i + 1)));
+      d.appendChild(el('b', 'mt', it[0]));
+      if (it[1]) d.appendChild(el('span', '', it[1]));
+      fila.appendChild(d); f.appendChild(fila);
+    });
+    var fin = el('div', 'fila'); fin.appendChild(el('i', '', '🏁'));
+    var fd = el('div'); fd.appendChild(el('strong', '', 'Al terminar')); fd.appendChild(el('span', '', habilidades(c)));
+    fin.appendChild(fd); f.appendChild(fin);
+    msgs.appendChild(f); bajar();
+    hablar(intro + ' ' + M.items.map(function (it, i) { return M.etiqueta + ' ' + (i + 1) + ': ' + it[0] + (it[1] ? ', ' + it[1] : '') + '.'; }).join(' ') +
+      ' Al terminar: ' + habilidades(c).replace(/\.?$/, '.') + ' ¿Te reservo un lugar?');
+    setTimeout(function () { opciones(opsCurso(c, true)); }, 250);
+  }
+  function opModulos(c) { return { t: 'Contenido por módulos', sub: 'Qué verás en cada módulo', ic: '📚', fn: function () { burbujaYo('Contenido por módulos'); pensar(function () { mostrarModulos(c); }); } }; }
+
   function opMetodo() { return { t: '¿Cómo enseñamos?', sub: 'Nuestra metodología práctica', ic: '🛠️', fn: function () { burbujaYo('¿Cómo enseñamos?'); pensar(comoEnsenamos); } }; }
 
   function responderCurso(c, it) {
@@ -975,7 +1123,7 @@
     if (it.precio) partes.push('La inversión para ' + n + ' es: ' + c.precio + '. Si pagas al contado ahorras, y también puedes pagar por transferencia o en oficina.');
     if (it.horario) partes.push(c.horario ? 'El horario es: ' + c.horario + '.' : 'El horario de ' + n + ' te lo confirma ' + nombreAsesor() + ' según el grupo disponible.');
     if (it.inicio) partes.push('Abrimos grupos nuevos seguido. ' + nombreAsesor() + ' te confirma la fecha del próximo inicio de ' + n + '.');
-    if (it.contenido) partes.push('En ' + n + ' vas a aprender: ' + ((d && d.contenido) ? d.contenido.slice(0, 5) : c.puntos).join('; ') + '.');
+    if (it.contenido) return mostrarModulos(c);
     if (it.requisitos) partes.push('Requisitos: ' + ((d && d.requisitos) ? d.requisitos.join('; ') : 'fotocopia de carnet de identidad vigente y comprobante de pago de la primera cuota') + '.');
     if (it.certificado) partes.push(esCarrera(c) ? 'Al terminar obtienes tu título de Técnico Superior.' : ((d && d.certificacion) ? d.certificacion : (c.marca === 'ESAM' ? 'Certificado de ESAM, en convenio con la Universidad Siglo XX.' : 'Certificado de Instituto CCA.')));
     if (it.modalidad) partes.push(n + ' es ' + c.modalidad.toLowerCase() + '.');
@@ -1166,11 +1314,14 @@
 
   // ===================== ABRIR / CERRAR =====================
   var saludado = false, abiertoAlgunaVez = false;
+  var overflowPrevio = '';
   function abrir(sinSaludo) {
+    if (panel.classList.contains('oculto')) { overflowPrevio = document.documentElement.style.overflow; document.documentElement.style.overflow = 'hidden'; }
     burbuja.classList.add('oculto');
     panel.classList.remove('oculto');
     lanzador.classList.add('oculto');
     abiertoAlgunaVez = true;
+    marcarVisita('sofia');
     if (!saludado && !sinSaludo) {
       saludado = true; anclarSiguiente = true;
       var nom = visitante.nombre ? ', ' + visitante.nombre.split(' ')[0] : '';
@@ -1193,6 +1344,7 @@
     if (window.innerWidth > 600) setTimeout(function () { input.focus(); }, 150);
   }
   function cerrar() {
+    document.documentElement.style.overflow = overflowPrevio;
     callar(); quitarRecordatorio();
     if (rec && escuchando) rec.stop();
     panel.classList.add('oculto');
@@ -1206,6 +1358,16 @@
     if (accion) accion();
   });
   $('.cerrar').addEventListener('click', cerrar);
+  raiz.querySelectorAll('[data-lado]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      quitarRecordatorio(); callar(); anclarSiguiente = true;
+      var a = b.getAttribute('data-lado');
+      if (a === 'wa') formularioWhatsApp(contexto, 'Sofía (botón lateral)');
+      if (a === 'inscribir') inscribir(contexto);
+      if (a === 'oferta') { burbujaYo('Ver toda la oferta'); pensar(mostrarOferta); }
+      if (a === 'metodo') { burbujaYo('¿Cómo enseñamos?'); pensar(comoEnsenamos); }
+    });
+  });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !panel.classList.contains('oculto')) cerrar(); });
 
   // burbuja junto a Sofía cuando el panel está cerrado
@@ -1264,7 +1426,7 @@
     var io = new IntersectionObserver(function (ents) {
       ents.forEach(function (en) {
         var c = cursoDeTarjeta(en.target); if (!c) return;
-        if (en.isIntersecting && en.intersectionRatio > 0.55) { vistos[c.nombre] = 1; ultimaTarjeta = c; }
+        if (en.isIntersecting && en.intersectionRatio > 0.55) { vistos[c.nombre] = 1; ultimaTarjeta = c; marcarVisita('visto', corto(c.nombre)); }
       });
     }, { threshold: [0.55] });
     var observar = function () { document.querySelectorAll('.tarjeta-curso').forEach(function (t) { if (!t.__ccaObs) { t.__ccaObs = 1; io.observe(t); } }); };
@@ -1296,14 +1458,48 @@
     var css = document.createElement('style');
     css.id = 'cca-sofia-pagina';
     css.textContent = '' +
+      // ---- fondo azul oscuro con textos claros ----
       'body{background:' +
-      'radial-gradient(900px 520px at 100% -5%,rgba(242,183,5,.20),transparent 62%),' +
-      'radial-gradient(800px 600px at -10% 18%,rgba(30,63,115,.16),transparent 60%),' +
-      'radial-gradient(700px 500px at 105% 55%,rgba(30,63,115,.12),transparent 60%),' +
-      'radial-gradient(800px 520px at -5% 92%,rgba(242,183,5,.14),transparent 60%),' +
-      'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'28\' height=\'28\'%3E%3Ccircle cx=\'2\' cy=\'2\' r=\'1.2\' fill=\'%231E3F73\' fill-opacity=\'.10\'/%3E%3C/svg%3E"),' +
-      '#F4F6FA !important;background-attachment:fixed !important}' +
-      '.hero{background:transparent!important}' +
+      'radial-gradient(900px 560px at 100% 0%,rgba(242,183,5,.16),transparent 62%),' +
+      'radial-gradient(900px 700px at -10% 25%,rgba(43,85,150,.45),transparent 62%),' +
+      'radial-gradient(800px 600px at 105% 60%,rgba(43,85,150,.35),transparent 62%),' +
+      'radial-gradient(800px 520px at -5% 95%,rgba(242,183,5,.10),transparent 60%),' +
+      'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'28\' height=\'28\'%3E%3Ccircle cx=\'2\' cy=\'2\' r=\'1.2\' fill=\'%23FFFFFF\' fill-opacity=\'.06\'/%3E%3C/svg%3E"),' +
+      'linear-gradient(180deg,#0E2347 0%,#0B1C3A 55%,#0A1833 100%) !important;background-color:#0B1C3A!important;background-attachment:scroll!important;color:#E6ECF7}' +
+      'html{background:#0B1C3A}' +
+      '.hero{background:transparent!important}.hero h1{color:#fff!important}.hero p.sub{color:#C9D5EA!important}' +
+      '.etiqueta-hero{background:rgba(242,183,5,.16)!important;color:#FFD34D!important;border:1px solid rgba(242,183,5,.4)}' +
+      '.barra-cifras{background:rgba(255,255,255,.04)!important;border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08)}' +
+      '.cifra b{color:#F2B705!important}.cifra span{color:#C9D5EA!important}' +
+      '.tarjeta-acceso{box-shadow:0 10px 26px rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.14)!important}' +
+      '.quienes-somos h2,.seccion-metodologia h2,.seccion-sedes h2{color:#fff!important}' +
+      '.quienes-somos p,.seccion-metodologia .encabezado p,.seccion-sedes .encabezado p,.seccion-sedes p{color:#C9D5EA!important}' +
+      '.link-descubre{color:#FFD34D!important}' +
+      '.tarjeta-metodologia{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:20px!important;transition:transform .2s,background .2s}' +
+      '.tarjeta-metodologia:hover{transform:translateY(-3px);background:rgba(255,255,255,.09)}' +
+      '.tarjeta-metodologia h3{color:#fff!important}.tarjeta-metodologia p{color:#B9C6DD!important}' +
+      '.boton-sede .texto-sede span{color:#5C6B85}' +
+      '.bloque-marca .encabezado-marca{border-bottom-color:rgba(255,255,255,.14)!important}' +
+      '.bloque-marca .encabezado-marca h2{color:#fff!important}.bloque-marca .encabezado-marca p{color:#B6C3DC!important}' +
+      '.pantalla-proximamente h2{color:#fff!important}.pantalla-proximamente p{color:#C9D5EA!important}' +
+      '.franja-carreras{background:rgba(255,255,255,.05)!important;border:1px solid rgba(255,255,255,.12)}' +
+      '.franja-cta{background:radial-gradient(120% 140% at 50% 0%,#2b5596 0%,#1E3F73 50%,#132B52 100%)!important;border-top:1px solid rgba(255,255,255,.1)}' +
+      '.cca-franja-sofia .caja{border:1px solid rgba(242,183,5,.35)}' +
+      // ---- cursos en dos columnas, tarjetas horizontales que llenan el espacio ----
+      '.bloque-marca{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;align-items:start}' +
+      '.bloque-marca>.encabezado-marca{grid-column:1/-1;margin-bottom:0!important}' +
+      '.bloque-marca>.titulo-categoria{display:none}' +
+      '.bloque-marca>.grid-cursos{display:contents}' +
+      '.badge.cca-cat{background:#EEF2F8;color:#1E3F73}' +
+      '.franja-carreras .grid-cursos{grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}' +
+      '@media (min-width:980px){' +
+      '.bloque-marca .tarjeta-curso:has(.img-curso){display:grid;grid-template-columns:minmax(0,42%) minmax(0,1fr);column-gap:20px;padding:0 20px 0 0;align-items:start}' +
+      '.bloque-marca .tarjeta-curso:has(.img-curso)>*{grid-column:2}' +
+      '.bloque-marca .tarjeta-curso:has(.img-curso)>.img-curso{grid-column:1;grid-row:1/span 40;width:100%;margin:0;aspect-ratio:1/1;height:auto;object-fit:cover;align-self:start;border-radius:0 0 14px 0}' +
+      '.bloque-marca .tarjeta-curso:has(.img-curso)>.fila-badges{margin-top:18px}' +
+      '.bloque-marca .tarjeta-curso:has(.img-curso)>.fila-botones-tarjeta{margin-bottom:18px}' +
+      '}' +
+      '@media (max-width:640px){.bloque-marca{grid-template-columns:1fr}}' +
       '.cca-franja-sofia{max-width:1180px;margin:22px auto 0;padding:0 24px}' +
       '.cca-franja-sofia .caja{position:relative;overflow:hidden;display:flex;align-items:center;gap:22px;padding:18px 24px;border-radius:20px;color:#fff;' +
       'background:radial-gradient(120% 160% at 0% 0%,#2b5596 0%,#1E3F73 45%,#132B52 100%);box-shadow:0 16px 36px rgba(22,48,90,.22)}' +
@@ -1354,6 +1550,12 @@
     }
     // Botón "Pregúntale a Sofía" en cada tarjeta de curso
     var agregarBotones = function () {
+      // etiqueta de categoría en cada tarjeta (los títulos de categoría se ocultan al usar dos columnas)
+      document.querySelectorAll('.bloque-marca .tarjeta-curso').forEach(function (t) {
+        if (t.querySelector('.cca-cat')) return;
+        var c = cursoDeTarjeta(t), fb = t.querySelector('.fila-badges');
+        if (c && fb) { var sp = document.createElement('span'); sp.className = 'badge cca-cat'; sp.textContent = c.cat; fb.appendChild(sp); }
+      });
       document.querySelectorAll('.tarjeta-curso .fila-botones-tarjeta').forEach(function (f) {
         if (f.querySelector('.cca-pregunta-sofia')) return;
         var b = document.createElement('button');
