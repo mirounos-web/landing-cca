@@ -178,7 +178,7 @@
   }
 
   // ===================== BÚSQUEDA DE CURSOS =====================
-  var STOP = ' experto en de del la las los y con para el a ia presencial virtual pack herramientas curso computarizada basico intermedio avanzado area profesional estudiantil instalacion ';
+  var STOP = ' experto en de del la las los y con para el a ia presencial virtual pack herramientas curso computarizada area profesional estudiantil instalacion ';
   var SINONIMOS = [
     [/contabilidad|contaduria/, ['contabilidad', 'contable', 'contador', 'contaduria', 'impuestos', 'tributario', 'siat', 'numeros']],
     [/bancario/, ['banco', 'bancario', 'cajero', 'credito', 'financiero', 'banca']],
