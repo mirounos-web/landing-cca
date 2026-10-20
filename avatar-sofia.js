@@ -166,8 +166,8 @@
   function etiquetaInicio(c) {
     if (esCarrera(c)) return 'Carrera técnica · ' + c.duracion + ' · ' + c.modalidad;
     var f = fechaInicio(c);
-    var base = (f && f >= HOY) ? 'Inicia el ' + f.getDate() + ' de ' + Object.keys(MESES)[f.getMonth()] : 'Inscripciones abiertas';
-    return base + ' · ' + c.modalidad + ' · ' + c.duracion;
+    var base = (f && f >= HOY) ? 'Inicia el ' + f.getDate() + ' de ' + Object.keys(MESES)[f.getMonth()] : 'Grupo en curso';
+    return base + ' · ' + (c.sede === 'potosi' ? 'Potosí' : 'Sucre') + ' · ' + c.modalidad;
   }
 
   // ===================== ENFOQUE DE VENTA POR CURSO =====================
@@ -189,7 +189,17 @@
     [/coaching/, 'Saber hablar en público y liderar te abre puertas en cualquier trabajo.', 'Vas a perder el miedo escénico y comunicarte con seguridad y persuasión.'],
     [/ninos/, 'La seguridad para hablar se construye desde pequeños, y se nota en el colegio y en la vida.', 'Tu hijo o hija va a ganar confianza, expresarse mejor y trabajar en equipo, aprendiendo con juegos.'],
     [/adolescentes/, 'En el colegio y en la universidad, quien expone bien destaca.', 'Va a perder el miedo escénico, argumentar con seguridad y desarrollar pensamiento crítico.'],
-    [/community/, 'Todos los negocios necesitan vender por redes sociales y buscan a alguien que lo haga bien.', 'Vas a manejar redes, crear contenido que vende y lanzar campañas pagadas en Meta y TikTok.'],
+    [/mantenimiento reparacion de pcs e instalacion/, 'Es un oficio con salida laboral inmediata en Potosí: computadoras y cámaras de seguridad se necesitan en cada casa y negocio.', 'Vas a reparar equipos e instalar sistemas de cámaras para tus propios clientes.'],
+    [/gestion tributaria/, 'Todo emprendedor y empresario necesita tener al día sus impuestos, sus trabajadores y su administración, sin depender siempre de terceros.', 'Vas a manejar la parte tributaria, laboral y administrativa de tu negocio con seguridad.'],
+    [/^ coaching oratoria y liderazgo /, 'Saber hablar en público y liderar te abre puertas en cualquier trabajo.', 'Vas a perder el miedo escénico y comunicarte con seguridad y persuasión.'],
+    [/instalaciones electricas y seguridad electronica/, 'Cada casa, edificio y negocio necesita instalaciones seguras y sistemas de seguridad electrónica.', 'Vas a hacer instalaciones eléctricas seguras y ofrecer sistemas de seguridad electrónica.'],
+    [/excel experto/, 'Excel es la herramienta que más piden en las ofertas de trabajo.', 'Vas a pasar de lo básico a lo avanzado y automatizar tu trabajo.'],
+    [/ingles/, 'El inglés comercial te da ventaja en entrevistas, negocios y atención al cliente.', 'Vas a comunicarte en inglés en situaciones de trabajo y negocios.'],
+    [/nivelacion/, 'Llegar bien preparado a los exámenes hace toda la diferencia en las notas.', 'Tu hijo o hija va a reforzar matemáticas, física y química en un mes intensivo.'],
+    [/gestion minera|contabilidad minera/, 'La minería mueve la economía de Potosí y necesita profesionales que entiendan su contabilidad y su comercio.', 'Vas a especializarte en la contabilidad, la gestión y la comercialización del sector minero.'],
+    [/comercio internacional de minerales/, 'Exportar minerales exige conocer normas, trámites y mercados internacionales: un perfil muy valorado en Potosí.', 'Vas a dominar el proceso de exportación y comercio internacional de minerales.'],
+    [/inventor/, 'Autodesk Inventor es el estándar para diseñar piezas y maquinaria en industria y minería.', 'Vas a diseñar piezas y ensambles mecánicos en 3D con planos profesionales.'],
+    [/community|marketing digital/, 'Todos los negocios necesitan vender por redes sociales y buscan a alguien que lo haga bien.', 'Vas a manejar redes, crear contenido que vende y lanzar campañas pagadas en Meta y TikTok.'],
     [/diseno grafico/, 'El diseño está en cada marca, publicidad y red social: es muy demandado y puedes trabajar por tu cuenta.', 'Vas a dominar Photoshop, Illustrator e InDesign y armar tu portafolio profesional.'],
     [/contaduria/, 'Un título de Técnico Superior en Contaduría te abre las puertas de empresas, bancos y entidades públicas.', 'Te formas como profesional contable con título, en 30 meses, presencial o virtual.'],
     [/secretariado/, 'Las empresas valoran muchísimo a una secretaria ejecutiva organizada y experta en herramientas digitales.', 'Te formas con título de Técnico Superior para ser la mano derecha de cualquier gerencia.'],
@@ -214,6 +224,11 @@
     [/contabilidad|contaduria/, ['contabilidad', 'contable', 'contador', 'contaduria', 'impuestos', 'tributario', 'siat', 'numeros']],
     [/bancario/, ['banco', 'bancario', 'cajero', 'credito', 'financiero', 'banca']],
     [/excel/, ['excel', 'power bi', 'tablas dinamicas', 'macros']],
+    [/ingles/, ['ingles', 'idioma', 'english']],
+    [/nivelacion/, ['nivelacion', 'matematicas', 'fisica', 'quimica', 'refuerzo escolar']],
+    [/minera|minerales/, ['mineria', 'minera', 'minerales', 'mina', 'exportacion', 'comercio exterior']],
+    [/tributaria/, ['tributaria', 'emprendedor', 'emprendedores', 'empresarios', 'laboral']],
+    [/inventor/, ['inventor', 'diseno mecanico', 'piezas']],
     [/hardware/, ['electronica', 'robotica', 'arduino', 'hardware']],
     [/mantenimiento/, ['reparacion', 'reparar', 'computadoras', 'laptop', 'laptops', 'impresoras', 'camaras', 'cctv']],
     [/electricas/, ['electricidad', 'electricista', 'domotica', 'electrica', 'electricas']],
@@ -225,7 +240,7 @@
     [/coaching/, ['coaching', 'liderazgo', 'hablar en publico']],
     [/ninos/, ['ninos', 'nino', 'nina', 'ninas', 'hijo', 'hija', 'mi hijo', 'mi hija', 'hijos']],
     [/adolescentes/, ['adolescente', 'adolescentes', 'colegio', 'jovenes', 'joven']],
-    [/community/, ['community', 'redes sociales', 'marketing digital', 'facebook', 'tiktok', 'publicidad', 'meta ads', 'redes']],
+    [/community|marketing digital/, ['community', 'redes sociales', 'marketing digital', 'facebook', 'tiktok', 'publicidad', 'meta ads', 'redes']],
     [/diseno grafico/, ['diseno', 'disenador', 'photoshop', 'illustrator', 'grafico']],
     [/sistemas informaticos/, ['sistemas', 'informatica']],
     [/mercadotecnia/, ['mercadotecnia', 'marketing']],
@@ -940,7 +955,7 @@
   function fichaCurso(c, filas) {
     var f = el('div', 'ficha');
     var h = el('div', 'cab-f');
-    h.appendChild(el('small', '', esCarrera(c) ? 'Carrera técnica superior' : (c.marca ? 'Curso ' + c.marca : 'Curso')));
+    h.appendChild(el('small', '', (esCarrera(c) ? 'Carrera técnica superior' : (c.marca ? 'Curso ' + c.marca : 'Curso')) + ' · ' + (c.sede === 'potosi' ? 'Potosí' : 'Sucre')));
     h.appendChild(el('b', '', titulo(c.nombre)));
     f.appendChild(h);
     filas.forEach(function (r) {
@@ -958,10 +973,15 @@
     var e = enfoque(c), d = detalles(c.nombre);
     var filas = [
       ['🎯', 'Por qué estudiarlo', e[1]],
-      ['🚀', 'Objetivo', e[2]],
-      ['💪', 'Lo que vas a lograr', habilidades(c)]
+      ['🚀', 'Objetivo', e[2]]
     ];
+    if (detalles(c.nombre) || c.sede !== 'potosi') filas.push(['💪', 'Lo que vas a lograr', habilidades(c)]);
+    else filas.push(['📍', 'Modalidad', c.modalidad + (c.aula ? ' · ' + c.aula : '')]);
     if (d && d.dirigidoA) filas.push(['👥', 'Ideal para', d.dirigidoA]);
+    else if (c.edades) filas.push(['👥', 'Ideal para', c.edades]);
+    var fi = fechaInicio(c);
+    if (fi && fi >= HOY) filas.push(['🗓', 'Inicio', c.inicio + ' · Sede ' + (c.sede === 'potosi' ? 'Potosí' : 'Sucre')]);
+    if (c.cupos) filas.push(['🔥', 'Cupos disponibles', c.cupos <= 5 ? '¡Solo quedan ' + c.cupos + '!' : c.cupos + ' cupos']);
     filas.push(['⏱', 'Duración y horario', c.duracion + ' · ' + c.modalidad + (c.horario ? ' · ' + c.horario : '')]);
     filas.push(['💰', 'Inversión', c.precio, 'precio']);
     return filas;
@@ -979,7 +999,8 @@
     // Sofía lee la ficha completa, sección por sección
     var lectura = saludoCurso + ' ' + etiqueta + ': ' + titulo(c.nombre) + '. ' +
       filas.map(function (f) { return f[1] + ': ' + f[2].replace(/\.?$/, '.'); }).join(' ');
-    var cierre = esCarrera(c) ? '¿Te imaginas con tu título de Técnico Superior? Los cupos son limitados.' : 'Los cupos son limitados y los grupos se llenan rápido.';
+    var cierre = esCarrera(c) ? '¿Te imaginas con tu título de Técnico Superior? Los cupos son limitados.' :
+      (c.cupos && c.cupos <= 5 ? '¡Ojo, solo quedan ' + c.cupos + ' cupo' + (c.cupos === 1 ? '' : 's') + '!' : 'Los cupos son limitados y los grupos se llenan rápido.');
     var yaRegistrado = ss('ccaSofiaReg_' + c.nombre) === '1';
     setTimeout(function () {
       if (!yaRegistrado && visitante.celular) {
@@ -1142,7 +1163,7 @@
       intro ? null : 'Aquí tienes toda nuestra oferta, ordenada por fecha de inicio. Toca el que te interese y te cuento todo.');
     var ops = [], grupo = null;
     lista.forEach(function (c) {
-      var f = fechaInicio(c), g = esCarrera(c) ? 'Carreras técnicas superiores' : ((f && f >= HOY) ? 'Próximos inicios' : 'Cursos con inscripciones abiertas');
+      var f = fechaInicio(c), g = esCarrera(c) ? 'Carreras técnicas superiores' : ((f && f >= HOY) ? 'Próximos inicios' : 'Grupos en curso (consulta el próximo inicio)');
       if (g !== grupo) { ops.push({ grupo: g }); grupo = g; }
       ops.push({ t: corto(c.nombre), sub: etiquetaInicio(c), ic: esCarrera(c) ? '🎓' : (c.marca === 'ESAM' ? '💼' : '🏫'),
         fn: function () { burbujaYo(corto(c.nombre)); pensar(function () { presentarCurso(c); }); } });
@@ -1280,9 +1301,9 @@
   function listaOfertaOps() {
     var ops = [], grupo = null;
     ofertaOrdenada().forEach(function (c) {
-      var f = fechaInicio(c), g = esCarrera(c) ? 'Carreras técnicas superiores' : ((f && f >= HOY) ? 'Próximos inicios' : 'Cursos con inscripciones abiertas');
+      var f = fechaInicio(c), g = esCarrera(c) ? 'Carreras técnicas superiores' : ((f && f >= HOY) ? 'Próximos inicios · Sucre y Potosí' : 'Grupos en curso (consulta el próximo inicio)');
       if (g !== grupo) { ops.push({ grupo: g }); grupo = g; }
-      ops.push({ t: corto(c.nombre), sub: etiquetaInicio(c), ic: esCarrera(c) ? '🎓' : (c.marca === 'ESAM' ? '💼' : '🏫'),
+      ops.push({ t: corto(c.nombre), sub: etiquetaInicio(c), ic: esCarrera(c) ? '🎓' : (c.sede === 'potosi' ? '🏔' : (c.marca === 'ESAM' ? '💼' : '🏫')),
         fn: function () { burbujaYo(corto(c.nombre)); pensar(function () { presentarCurso(c); }); } });
     });
     return ops;
@@ -1467,6 +1488,8 @@
       'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'28\' height=\'28\'%3E%3Ccircle cx=\'2\' cy=\'2\' r=\'1.2\' fill=\'%23FFFFFF\' fill-opacity=\'.06\'/%3E%3C/svg%3E"),' +
       'linear-gradient(180deg,#0E2347 0%,#0B1C3A 55%,#0A1833 100%) !important;background-color:#0B1C3A!important;background-attachment:scroll!important;color:#E6ECF7}' +
       'html{background:#0B1C3A}' +
+      '.fp-cab h2{color:#fff!important}.fp-cab p{color:#C9D5EA!important}.fp-item{border-color:rgba(255,255,255,.18)!important}' +
+      '.tarjeta-curso{color:#16305A}.tarjeta-curso h3{color:#1E3F73}.franja-carreras .tarjeta-curso h3{color:#fff!important}' +
       '.hero{background:transparent!important}.hero h1{color:#fff!important}.hero p.sub{color:#C9D5EA!important}' +
       '.etiqueta-hero{background:rgba(242,183,5,.16)!important;color:#FFD34D!important;border:1px solid rgba(242,183,5,.4)}' +
       '.barra-cifras{background:rgba(255,255,255,.04)!important;border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08)}' +

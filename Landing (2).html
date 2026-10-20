@@ -192,6 +192,29 @@
   .franja-carreras .btn-tarjeta:hover { background: var(--sello-2); }
 
   .pantalla-proximamente { text-align: center; padding: 70px 20px; }
+  .franja-proximos { max-width: 1180px; margin: 26px auto 0; padding: 0 24px; }
+  .fp-cab { text-align: center; margin-bottom: 16px; }
+  .fp-etq { display: inline-block; background: var(--sello); color: var(--tinta-2); font-weight: 800; font-size: 12px; padding: 6px 14px; border-radius: 999px; letter-spacing: .3px; }
+  .fp-cab h2 { font-size: clamp(22px, 3vw, 30px); margin: 10px 0 6px; color: var(--tinta); }
+  .fp-cab p { margin: 0; font-size: 14px; color: var(--texto-suave); }
+  .fp-lista { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 12px; }
+  .fp-item { display: flex; align-items: center; gap: 14px; text-align: left; background: #fff; border: 1px solid var(--linea); border-radius: 14px; padding: 12px 14px; cursor: pointer; font-family: 'Inter', sans-serif; transition: transform .15s, box-shadow .15s; position: relative; }
+  .fp-item:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,.18); }
+  .fp-fecha { flex: none; width: 54px; height: 58px; border-radius: 12px; background: var(--tinta); color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 12px; text-transform: uppercase; font-weight: 700; letter-spacing: .5px; }
+  .fp-fecha b { font-family: 'Fraunces', serif; font-size: 24px; line-height: 1; color: var(--sello); }
+  .fp-tx { flex: 1; min-width: 0; }
+  .fp-tx b { display: block; font-size: 14px; color: var(--tinta-2); line-height: 1.3; }
+  .fp-tx small { display: block; font-size: 12px; color: var(--texto-suave); margin-top: 3px; line-height: 1.35; }
+  .fp-sede { flex: none; font-size: 11px; font-weight: 800; padding: 4px 9px; border-radius: 999px; }
+  .fp-sede.sc { background: #E4EBF8; color: var(--tinta); } .fp-sede.pt { background: #FCEFD0; color: #8A6400; }
+  .fp-cupo { position: absolute; top: -8px; right: 12px; background: #D92D20; color: #fff; font-size: 10.5px; font-weight: 800; padding: 3px 8px; border-radius: 999px; }
+  .tarjeta-curso.resaltar { box-shadow: 0 0 0 4px var(--sello), 0 18px 40px rgba(0,0,0,.25) !important; }
+  @media (max-width: 520px) { .franja-proximos { padding: 0 16px; } .fp-lista { grid-template-columns: 1fr; gap: 10px; } .fp-sede { display: none; } .fp-item { padding: 10px 12px; gap: 12px; } .fp-tx b { font-size: 13.5px; } .fp-fecha { width: 48px; height: 52px; } }
+  .inicio-curso.en-curso { background: #E7F3EC; color: var(--verde-2); }
+  .cupos-curso { font-size: 12px; font-weight: 700; color: var(--tinta); background: #EEF2F8; padding: 6px 10px; border-radius: 8px; margin: -6px 0 14px; display: inline-block; }
+  .cupos-curso.pocos { background: #FDE8E8; color: #B42318; }
+  .icono-marca.proximos { background: var(--sello); color: var(--tinta-2); }
+  .bloque-proximos .encabezado-marca h2 { color: var(--tinta); }
   .pantalla-proximamente .icono { font-size: 52px; margin-bottom: 16px; }
   .pantalla-proximamente h2 { font-size: 26px; margin: 0 0 10px; color: var(--tinta); }
   .pantalla-proximamente p { font-size: 14.5px; color: var(--texto-suave); max-width: 420px; margin: 0 auto 24px; line-height: 1.6; }
@@ -295,6 +318,8 @@
     <p class="sub">28 programas técnicos con práctica desde la primera semana: contabilidad, tecnología, diseño, oratoria y más. Elige tu curso y un asesor te contacta hoy mismo.</p>
   </div>
 </section>
+
+<section class="franja-proximos" id="franjaProximos" aria-label="Próximos inicios"></section>
 
 <div class="barra-cifras">
   <div class="cifra"><b>+45.000</b><span>egresados</span></div>
@@ -742,7 +767,7 @@
     "certificacion": "Certificado de ESAM, en convenio con la Universidad Siglo XX, que acredita la formación en Coaching + Oratoria y Liderazgo.",
     "perfilEgreso": "Vas a poder hablar en público sin miedo escénico, argumentar con influencia, y planificar tus propias metas personales con herramientas de coaching."
   },
-  "EXPERTO EN COMMUNITY MANAGER Y MARKETING DIGITAL": {
+  "MARKETING DIGITAL Y CREACIÓN DE CONTENIDO CON IA": {
     "contenido": [
       "Community Management: Meta Business Suite, TikTok Business, WhatsApp Business",
       "Creación de contenido: guiones virales, grabación vertical, Canva, CapCut",
@@ -881,28 +906,40 @@
 
   const CURSOS = [
     { cat: "Contabilidad y Finanzas", marca: "CCA", nombre: "ASISTENTE DE CONTABILIDAD", modalidad: "Presencial", duracion: "10 meses", horario: "Lun, Mié y Vie · 19:30-21:00", precio: "Matrícula Bs 200 · Bs 350/mes · Bs 3.500 al contado", inicio: "24 de agosto de 2026", puntos: ["Contabilidad comercial y normas NIC/NIIF", "Régimen tributario boliviano completo (IVA, IT, IUE)", "Sistemas contables reales: Visual, SIC JAC, SIGEP"], img: IMG1 },
-    { cat: "Contabilidad y Finanzas", marca: "ESAM", nombre: "EJECUTIVO BANCARIO", img: FLYER_EJECUTIVO_FLYER, modalidad: "Presencial", duracion: "3 meses", horario: "Sábados · 15:00-18:00", precio: "Matrícula Bs 100 · Bs 300/mes · Bs 900 al contado", inicio: "11 de julio de 2026", puntos: ["Ley 393 de Servicios Financieros y normativa bancaria", "Operativa de caja y análisis crediticio (las 5 C)", "Simulaciones reales de ventanilla y carpetas de crédito"] },
+    { cat: "Contabilidad y Finanzas", marca: "ESAM", nombre: "EJECUTIVO BANCARIO", img: FLYER_EJECUTIVO_FLYER, modalidad: "Presencial", duracion: "3 meses", horario: "Sábados · 15:00-18:00", precio: "Matrícula Bs 100 · Bs 300/mes · Bs 900 al contado", inicio: "17 de octubre de 2026", puntos: ["Ley 393 de Servicios Financieros y normativa bancaria", "Operativa de caja y análisis crediticio (las 5 C)", "Simulaciones reales de ventanilla y carpetas de crédito"] },
     { cat: "Contabilidad y Finanzas", marca: "ESAM", nombre: "Excel + Power BI + IA para el Área Económica", img: FLYER_EXCEL_ECONOMIA_FLYER, modalidad: "Virtual", duracion: "4 meses", horario: "", precio: "Matrícula Bs 100 · Bs 250/mes · Bs 700 al contado", inicio: "", puntos: ["Excel aplicado a finanzas: TIR, VNA, punto de equilibrio", "Power BI: dashboards ejecutivos, Power Query, Power Pivot", "IA para informes automáticos y análisis predictivo"] },
     { cat: "Tecnología y Soporte Técnico", marca: "CCA", nombre: "HARDWARE Y ELECTRÓNICA", modalidad: "Presencial", duracion: "10 meses + proyecto integrador", horario: "Lun a Jue · 8:00-10:00", precio: "Matrícula Bs 200 · Bs 350/mes · Bs 3.500 al contado", inicio: "3 de agosto de 2026", puntos: ["Electrónica: PCB con KiCad, simulación con Multisim/Proteus", "Hardware: ensamblaje, BIOS/UEFI, redes básicas", "Robótica con Arduino, sensores y automatización"], img: IMG2 },
-    { cat: "Tecnología y Soporte Técnico", marca: "ESAM", nombre: "EXPERTO EN MANTENIMIENTO Y REPARACIÓN DE PCs - LAPTOPS - IMPRESORAS - INSTALACIÓN DE CÁMARAS", img: FLYER_MANTENIMIENTO_FLYER, modalidad: "Presencial", duracion: "3 meses", horario: "Sábados · 8:00-12:00", precio: "Matrícula Bs 100 · Bs 300/mes · Bs 900 al contado", inicio: "15 de agosto de 2026", puntos: ["Reparación de PC de escritorio, laptops e impresoras", "Instalación y monitoreo remoto de cámaras (CCTV/DVR)", "IA como apoyo para diagnóstico de fallas"] },
-    { cat: "Tecnología y Soporte Técnico", marca: "ESAM", nombre: "EXPERTO EN INSTALACIONES ELÉCTRICAS SEGURIDAD ELECTRÓNICA Y DOMÓTICA", img: FLYER_INSTALACIONES_FLYER, modalidad: "Presencial", duracion: "4 meses", horario: "Sábados · 08:00-12:00 (LAB C101)", precio: "Matrícula Bs 100 · Bs 300/mes · Bs 1.200 al contado", inicio: "19 de septiembre de 2026", puntos: ["Instalaciones bajo norma NB-777, tableros y puesta a tierra", "Domótica: interruptores inteligentes, Alexa/Google Assistant", "Seguridad: CCTV, cercos eléctricos, videoporteros"] },
-    { cat: "Ofimática y Productividad", marca: "CCA", nombre: "MANEJO DE PAQUETES PRESENCIAL", modalidad: "Presencial", duracion: "6 meses", horario: "Mar y Jue 16:00-18:30 (LAB 103) · Lun/Mié/Vie 10:00-12:00 (LAB C202) · Lun/Mié/Vie 20:00-21:30 (LAB 101)", precio: "Matrícula Bs 140 · Bs 300/mes · Bs 1.200 al contado", inicio: "14 o 15 de septiembre de 2026 (según horario elegido)", puntos: ["Word, Excel + Power BI, PowerPoint, Canva, Photoshop", "Google Workspace y trabajo colaborativo en la nube", "Incluye acceso al programa de Dactilografía"], img: IMG3 },
-    { cat: "Ofimática y Productividad", marca: "ESAM", nombre: "EXPERTO EN EXCEL BÁSICO, INTERMEDIO Y AVANZADO CON IA", img: FLYER_EXCEL_BASICO_FLYER, modalidad: "Presencial", duracion: "3 meses", horario: "Presencial: Sábados 12:00-15:00 (Aula C201) · Virtual: Lun/Mié/Vie 20:00-21:30", precio: "Matrícula Bs 100 · Bs 300/mes · Bs 900 al contado", inicio: "26 de septiembre (presencial) o 21 de septiembre de 2026 (virtual)", puntos: ["De fórmulas básicas a BUSCARV, ÍNDICE/COINCIDIR", "Macros, VBA, Power Pivot y modelado con DAX", "IA integrada para generar código y prompts"] },
-    { cat: "Ofimática y Productividad", marca: "ESAM", nombre: "DACTILOGRAFÍA COMPUTARIZADA + IA", img: FLYER_DACTILOGRAFIA_FLYER, modalidad: "Presencial", duracion: "3 meses", horario: "Lun/Mié 16:00-18:00 o Sáb 12:00-15:00", precio: "Matrícula Bs 100 · Bs 300/mes · Bs 900 al contado", inicio: "", puntos: ["Técnica de digitación y dominio del teclado completo", "Ejercicios cronometrados de velocidad y precisión", "IA para mejorar precisión y redacción de textos"] },
+    { cat: "Tecnología y Soporte Técnico", marca: "ESAM", nombre: "EXPERTO EN MANTENIMIENTO Y REPARACIÓN DE PCs - LAPTOPS - IMPRESORAS - INSTALACIÓN DE CÁMARAS", img: FLYER_MANTENIMIENTO_FLYER, modalidad: "Presencial", duracion: "3 meses", horario: "Sábados · 08:00-12:00", precio: "Matrícula Bs 100 · Bs 300/mes · Bs 900 al contado", inicio: "17 de octubre de 2026", puntos: ["Reparación de PC de escritorio, laptops e impresoras", "Instalación y monitoreo remoto de cámaras (CCTV/DVR)", "IA como apoyo para diagnóstico de fallas"] },
+    { cat: "Tecnología y Soporte Técnico", marca: "ESAM", nombre: "EXPERTO EN INSTALACIONES ELÉCTRICAS SEGURIDAD ELECTRÓNICA Y DOMÓTICA", img: FLYER_INSTALACIONES_FLYER, modalidad: "Presencial", duracion: "4 meses", horario: "Sábados · 14:30-18:30", precio: "Matrícula Bs 100 · Bs 300/mes · Bs 1.200 al contado", inicio: "31 de octubre de 2026", puntos: ["Instalaciones bajo norma NB-777, tableros y puesta a tierra", "Domótica: interruptores inteligentes, Alexa/Google Assistant", "Seguridad: CCTV, cercos eléctricos, videoporteros"] },
+    { cat: "Ofimática y Productividad", marca: "CCA", nombre: "MANEJO DE PAQUETES PRESENCIAL", modalidad: "Presencial", duracion: "6 meses", horario: "Sáb 15:00-19:00 · Mar y Jue 16:00-18:30 · Lun/Mié/Vie 10:00-12:00 · Lun/Mié/Vie 20:00-21:30", precio: "Matrícula Bs 140 · Bs 300/mes · Bs 1.200 al contado", inicio: "9 de octubre de 2026", puntos: ["Word, Excel + Power BI, PowerPoint, Canva, Photoshop", "Google Workspace y trabajo colaborativo en la nube", "Incluye acceso al programa de Dactilografía"], img: IMG3 },
+    { cat: "Ofimática y Productividad", marca: "ESAM", nombre: "EXPERTO EN EXCEL BÁSICO, INTERMEDIO Y AVANZADO CON IA", img: FLYER_EXCEL_BASICO_FLYER, modalidad: "Presencial", duracion: "3 meses", horario: "Presencial: Sábados 12:00-15:00 · Virtual: Mar y Jue 20:00-22:00", precio: "Matrícula Bs 100 · Bs 300/mes · Bs 900 al contado", inicio: "13 de octubre de 2026 (virtual) · presencial desde el 26 de septiembre", puntos: ["De fórmulas básicas a BUSCARV, ÍNDICE/COINCIDIR", "Macros, VBA, Power Pivot y modelado con DAX", "IA integrada para generar código y prompts"] },
+    { cat: "Ofimática y Productividad", marca: "ESAM", nombre: "DACTILOGRAFÍA COMPUTARIZADA + IA", img: FLYER_DACTILOGRAFIA_FLYER, modalidad: "Presencial", duracion: "3 meses", horario: "Lun y Mié 16:00-18:00 · Sáb 12:00-15:00", precio: "Matrícula Bs 100 · Bs 300/mes · Bs 900 al contado", inicio: "", puntos: ["Técnica de digitación y dominio del teclado completo", "Ejercicios cronometrados de velocidad y precisión", "IA para mejorar precisión y redacción de textos"] },
     { cat: "Ofimática y Productividad", marca: "ESAM", nombre: "OFIMÁTICA", img: FLYER_OFIMATICA_FLYER, modalidad: "Virtual", duracion: "3 meses", horario: "", precio: "Matrícula Bs 100 · Bs 250/mes · Bs 700 al contado", inicio: "", puntos: ["Word, Excel, PowerPoint, Canva y Google Workspace", "Metodología 30% teoría / 70% práctica", "Incluye acceso al programa de Dactilografía"] },
     { cat: "Programación y Sistemas", marca: "ESAM", nombre: "DE CERO A PROGRAMADOR", img: FLYER_PROGRAMACION_FLYER, modalidad: "Presencial", duracion: "3 meses", horario: "Presencial: 15:00-19:00 · Virtual: Lun/Mié/Vie 08:00-09:30", precio: "Matrícula Bs 100 · Bs 300/mes · Bs 900 al contado", inicio: "10 de octubre de 2026 presencial (reprogramado por disponibilidad de laboratorio) o 21 de septiembre de 2026 virtual", puntos: ["Python y C++, Git/GitHub, estructuras de control", "Programación orientada a objetos", "Bases de datos SQL y operaciones CRUD"] },
-    { cat: "Diseño Técnico (AutoCAD / Revit)", marca: "ESAM", nombre: "EXPERTO EN AUTOCAD, REVIT, SKETCHUP + PACK DE HERRAMIENTAS", img: FLYER_AUTOCAD_FLYER, modalidad: "Presencial", duracion: "3 meses", horario: "Sábados · 12:00-15:00 (LAB 101)", precio: "Bs 280/mes · Bs 750 al contado", inicio: "26 de septiembre de 2026", puntos: ["AutoCAD 2D: dibujo técnico, anotación, bloques", "SketchUp: modelado arquitectónico y renderizado", "Revit: modelado BIM completo"] },
-    { cat: "Oratoria y Liderazgo", marca: "ESAM", nombre: "EXPERTO EN COACHING + ORATORIA Y LIDERAZGO", img: FLYER_COACHING_LIDERAZGO_FLYER, modalidad: "Presencial", duracion: "3 meses", horario: "Sábados · 15:00-18:00 (Aula 3)", precio: "Matrícula Bs 100 · Bs 300/mes · Bs 900 al contado", inicio: "26 de septiembre de 2026", puntos: ["Manejo del miedo escénico y estructura del discurso", "Argumentación, debate y comunicación asertiva", "IA para redactar y simular discursos"] },
+    { cat: "Diseño Técnico (AutoCAD / Revit)", marca: "ESAM", nombre: "EXPERTO EN AUTOCAD, REVIT, SKETCHUP + PACK DE HERRAMIENTAS", img: FLYER_AUTOCAD_FLYER, modalidad: "Presencial", duracion: "3 meses", horario: "Mar y Jue · 18:30-20:00", precio: "Bs 280/mes · Bs 750 al contado", inicio: "20 de octubre de 2026", puntos: ["AutoCAD 2D: dibujo técnico, anotación, bloques", "SketchUp: modelado arquitectónico y renderizado", "Revit: modelado BIM completo"] },
+    { cat: "Oratoria y Liderazgo", marca: "ESAM", nombre: "EXPERTO EN COACHING + ORATORIA Y LIDERAZGO", img: FLYER_COACHING_LIDERAZGO_FLYER, modalidad: "Presencial", duracion: "3 meses", horario: "Sábados · 09:00-12:00", precio: "Matrícula Bs 100 · Bs 300/mes · Bs 900 al contado", inicio: "24 de octubre de 2026", puntos: ["Manejo del miedo escénico y estructura del discurso", "Argumentación, debate y comunicación asertiva", "IA para redactar y simular discursos"] },
     { cat: "Oratoria y Liderazgo", marca: "ESAM", nombre: "EXPERTO EN COACHING + ORATORIA Y LIDERAZGO PROFESIONAL", img: FLYER_ORATORIA_PROF_FLYER, modalidad: "Presencial", duracion: "3 meses", horario: "Lun y Mié · 19:00-21:00", precio: "Matrícula Bs 100 · Bs 300/mes · Bs 900 al contado", inicio: "31 de agosto de 2026", puntos: ["Oratoria profesional: storytelling y persuasión", "Coaching: autoconocimiento y liderazgo consciente", "IA para construir discursos y analizar argumentos"] },
     { cat: "Oratoria y Liderazgo", marca: "ESAM", nombre: "Oratoria, Liderazgo y Debate Estudiantil — Niños", img: FLYER_ORATORIA_NINOS_FLYER, modalidad: "Presencial", duracion: "3 meses", horario: "Sábados · 9:00-12:00", precio: "Matrícula Bs 100 · Bs 300/mes · Bs 900 al contado", inicio: "15 de agosto de 2026", puntos: ["Hablar con confianza y control de nervios", "Mini exposiciones adaptadas a su edad", "Inteligencia emocional y trabajo en equipo"], sinCert: true },
     { cat: "Oratoria y Liderazgo", marca: "ESAM", nombre: "Oratoria, Liderazgo y Debate Estudiantil — Adolescentes", img: FLYER_ORATORIA_ADOLESCENTES_FLYER, modalidad: "Presencial", duracion: "3 meses", horario: "Sábados · 9:00-12:00", precio: "Matrícula Bs 100 · Bs 300/mes · Bs 900 al contado", inicio: "15 de agosto de 2026", puntos: ["Manejo del miedo escénico y estructura de exposiciones", "Liderazgo juvenil y comunicación asertiva", "Introducción al debate estudiantil"], sinCert: true },
-    { cat: "Diseño y Marketing Digital", marca: "ESAM", nombre: "EXPERTO EN COMMUNITY MANAGER Y MARKETING DIGITAL", img: FLYER_COMMUNITY_MANAGER_FLYER, modalidad: "Presencial", duracion: "3 meses", horario: "Sábados · 15:00-18:00", precio: "Matrícula Bs 100 · Bs 300/mes · Bs 900 al contado", inicio: "10 de octubre de 2026 (fecha reprogramada por disponibilidad de laboratorio)", puntos: ["Meta Business Suite, TikTok Business, WhatsApp Business", "Creación de contenido: guiones virales, edición en CapCut", "Publicidad paga en Meta Ads y TikTok Ads"] },
-    { cat: "Diseño y Marketing Digital", marca: "ESAM", nombre: "EXPERTO EN DISEÑO GRAFICO", img: FLYER_DISENO_GRAFICO_FLYER, modalidad: "Presencial", duracion: "3 meses", horario: "Lun/Mié/Vie · 20:00-21:30 (LAB 103)", precio: "Matrícula Bs 100 · Bs 300/mes · Bs 900 al contado", inicio: "14 de septiembre de 2026", puntos: ["Photoshop: retoque profesional y fotomontajes", "Illustrator: diseño vectorial e identidad de marca", "InDesign: maquetación editorial con IA integrada"] },
+    { cat: "Diseño y Marketing Digital", marca: "ESAM", nombre: "MARKETING DIGITAL Y CREACIÓN DE CONTENIDO CON IA", img: FLYER_COMMUNITY_MANAGER_FLYER, modalidad: "Presencial o Virtual", duracion: "3 meses", horario: "Lun/Mié/Vie · 20:00-21:30", precio: "Matrícula Bs 100 · Bs 300/mes · Bs 900 al contado", inicio: "12 de octubre de 2026", puntos: ["Meta Business Suite, TikTok Business, WhatsApp Business", "Creación de contenido: guiones virales, edición en CapCut", "Publicidad paga en Meta Ads y TikTok Ads"] },
+    { cat: "Diseño y Marketing Digital", marca: "ESAM", nombre: "EXPERTO EN DISEÑO GRAFICO", img: FLYER_DISENO_GRAFICO_FLYER, modalidad: "Presencial", duracion: "3 meses", horario: "Mar y Jue · 20:00-22:00", precio: "Matrícula Bs 100 · Bs 300/mes · Bs 900 al contado", inicio: "13 de octubre de 2026", puntos: ["Photoshop: retoque profesional y fotomontajes", "Illustrator: diseño vectorial e identidad de marca", "InDesign: maquetación editorial con IA integrada"] },
     { cat: "Carreras Técnicas (30 meses)", marca: "", nombre: "CONTADURÍA GENERAL", emoji: "🧮", modalidad: "Presencial o Virtual", duracion: "30 meses", horario: "", precio: "Matrícula Bs 200 · Bs 360/mes · Bs 10.800 al contado", inicio: "", puntos: ["Título técnico superior", "Disponible presencial o virtual", "Currícula detallada la confirma un asesor"] },
     { cat: "Carreras Técnicas (30 meses)", marca: "", nombre: "SECRETARIADO EJECUTIVO", emoji: "🎓", modalidad: "Presencial o Virtual", duracion: "30 meses", horario: "", precio: "Matrícula Bs 200 · Bs 360/mes · Bs 10.800 al contado", inicio: "", puntos: ["Título técnico superior", "Disponible presencial o virtual", "Currícula detallada la confirma un asesor"] },
     { cat: "Carreras Técnicas (30 meses)", marca: "", nombre: "MERCADOTECNIA", emoji: "📊", modalidad: "Presencial o Virtual", duracion: "30 meses", horario: "", precio: "Matrícula Bs 200 · Bs 360/mes · Bs 10.800 al contado", inicio: "", puntos: ["Título técnico superior", "Disponible presencial o virtual", "Currícula detallada la confirma un asesor"] },
     { cat: "Carreras Técnicas (30 meses)", marca: "", nombre: "Sistemas Informáticos", emoji: "💻", modalidad: "Presencial o Virtual", duracion: "30 meses", horario: "", precio: "Matrícula Bs 200 · Bs 360/mes · Bs 10.800 al contado", inicio: "", puntos: ["Título técnico superior", "Disponible presencial o virtual", "Currícula detallada la confirma un asesor"] },
-    { cat: "Carreras Técnicas (30 meses)", marca: "", nombre: "Administración de Empresas", emoji: "💼", modalidad: "Presencial o Virtual", duracion: "30 meses", horario: "", precio: "Matrícula Bs 200 · Bs 360/mes · Bs 10.800 al contado", inicio: "", puntos: ["Título técnico superior", "Disponible presencial o virtual", "Currícula detallada la confirma un asesor"] }
+    { cat: "Carreras Técnicas (30 meses)", marca: "", nombre: "Administración de Empresas", emoji: "💼", modalidad: "Presencial o Virtual", duracion: "30 meses", horario: "", precio: "Matrícula Bs 200 · Bs 360/mes · Bs 10.800 al contado", inicio: "", puntos: ["Título técnico superior", "Disponible presencial o virtual", "Currícula detallada la confirma un asesor"] },
+    // ===== OFERTA POTOSÍ (octubre 2026) =====
+    {"sede": "potosi", "cat": "Tecnología y Soporte Técnico", "marca": "", "nombre": "EXPERTO EN MANTENIMIENTO REPARACIÓN DE PCS E INSTALACIÓN DE CÁMARAS DE SEGURIDAD", "emoji": "🛠️", "modalidad": "Presencial", "duracion": "3 meses", "horario": "Sábados · 17:00-19:00", "precio": "Inversión: consulta con tu asesor de Potosí", "inicio": "4 de octubre de 2026", "puntos": ["Presencial · Aula 101", "3 meses · Sábados · 17:00-19:00", "Para: 14 años en adelante"], "edades": "14 años en adelante", "cupos": 1, "aula": "Aula 101"},
+    {"sede": "potosi", "cat": "Contabilidad y Finanzas", "marca": "", "nombre": "GESTIÓN TRIBUTARIA, LABORAL Y ADMINISTRATIVA PARA EMPRENDEDORES Y EMPRESARIOS", "emoji": "📑", "modalidad": "Virtual", "duracion": "3 meses", "horario": "Lun/Mié/Vie · 20:00-21:30", "precio": "Inversión: consulta con tu asesor de Potosí", "inicio": "19 de octubre de 2026", "puntos": ["Virtual", "3 meses · Lun/Mié/Vie · 20:00-21:30", "Para: 18 años en adelante"], "edades": "18 años en adelante", "cupos": 20, "aula": ""},
+    {"sede": "potosi", "cat": "Oratoria y Liderazgo", "marca": "", "nombre": "COACHING, ORATORIA Y LIDERAZGO", "emoji": "🎤", "modalidad": "Presencial", "duracion": "3 meses", "horario": "Sábados · 09:00-12:00", "precio": "Inversión: consulta con tu asesor de Potosí", "inicio": "24 de octubre de 2026", "puntos": ["Presencial · Aula 102", "3 meses · Sábados · 09:00-12:00", "Para: 18 a 40 años"], "edades": "18 a 40 años", "cupos": 11, "aula": "Aula 102"},
+    {"sede": "potosi", "cat": "Tecnología y Soporte Técnico", "marca": "", "nombre": "EXPERTO EN INSTALACIONES ELÉCTRICAS Y SEGURIDAD ELECTRÓNICA", "emoji": "⚡", "modalidad": "Presencial", "duracion": "3 meses", "horario": "Sábados · 15:00-18:00", "precio": "Inversión: consulta con tu asesor de Potosí", "inicio": "24 de octubre de 2026", "puntos": ["Presencial · Aula 205", "3 meses · Sábados · 15:00-18:00", "Para: 18 a 30 años"], "edades": "18 a 30 años", "cupos": 15, "aula": "Aula 205"},
+    {"sede": "potosi", "cat": "Ofimática y Productividad", "marca": "", "nombre": "EXCEL EXPERTO: DE BÁSICO A AVANZADO", "emoji": "📊", "modalidad": "Presencial", "duracion": "3 meses", "horario": "Sábados · 09:00-12:00", "precio": "Inversión: consulta con tu asesor de Potosí", "inicio": "17 de octubre de 2026", "puntos": ["Presencial · Gabinete", "3 meses · Sábados · 09:00-12:00", "Para: 15 años en adelante"], "edades": "15 años en adelante", "cupos": 15, "aula": "Gabinete"},
+    {"sede": "potosi", "cat": "Idiomas", "marca": "", "nombre": "INGLÉS COMERCIAL INTERMEDIO", "emoji": "🇬🇧", "modalidad": "Presencial", "duracion": "4 meses", "horario": "Sábados · 14:30-17:30", "precio": "Inversión: consulta con tu asesor de Potosí", "inicio": "26 de octubre de 2026", "puntos": ["Presencial · Aula 204", "4 meses · Sábados · 14:30-17:30", "Para: 17 años en adelante"], "edades": "17 años en adelante", "cupos": 25, "aula": "Aula 204"},
+    {"sede": "potosi", "cat": "Nivelación Escolar", "marca": "", "nombre": "NIVELACIÓN SECUNDARIA DE MATEMÁTICAS, FÍSICA Y QUÍMICA (INTENSIVO)", "emoji": "📐", "modalidad": "Presencial", "duracion": "1 mes", "horario": "Sábados · 13:00-15:00", "precio": "Inversión: consulta con tu asesor de Potosí", "inicio": "17 de octubre de 2026", "puntos": ["Presencial · Aula 202", "1 mes · Sábados · 13:00-15:00", "Para: 3ro y 4to de secundaria"], "edades": "3ro y 4to de secundaria", "cupos": 22, "aula": "Aula 202"},
+    {"sede": "potosi", "cat": "Minería y Comercio Exterior", "marca": "", "nombre": "TÉCNICO EN CONTABILIDAD Y GESTIÓN MINERA", "emoji": "⛏️", "modalidad": "Virtual", "duracion": "3 meses", "horario": "Lun/Mié/Vie · 18:30-20:00", "precio": "Inversión: consulta con tu asesor de Potosí", "inicio": "5 de octubre de 2026", "puntos": ["Virtual", "3 meses · Lun/Mié/Vie · 18:30-20:00", "Para: 17 años en adelante"], "edades": "17 años en adelante", "cupos": 10, "aula": ""},
+    {"sede": "potosi", "cat": "Minería y Comercio Exterior", "marca": "", "nombre": "EXPERTO EN EXPORTACIÓN Y COMERCIO INTERNACIONAL DE MINERALES", "emoji": "🌎", "modalidad": "Virtual", "duracion": "3 meses", "horario": "Lun/Mié/Vie · 20:00-21:30", "precio": "Inversión: consulta con tu asesor de Potosí", "inicio": "14 de septiembre de 2026", "puntos": ["Virtual", "3 meses · Lun/Mié/Vie · 20:00-21:30"], "edades": "", "cupos": 8, "aula": ""},
+    {"sede": "potosi", "cat": "Minería y Comercio Exterior", "marca": "", "nombre": "EXPERTO EN COMERCIO, EXPORTACIÓN Y CONTABILIDAD MINERA", "emoji": "💎", "modalidad": "Presencial o Virtual", "duracion": "4 meses", "horario": "Presencial: Lun/Mié/Jue 20:00-21:30 (Aula 204) · Presencial: Sáb 09:00-12:00 (Aula 102) · Virtual: Lun/Mié/Vie 20:00-21:30", "precio": "Inversión: consulta con tu asesor de Potosí", "inicio": "19 de octubre de 2026 (Lun/Mié/Jue) · 24 de octubre (sábados) · 26 de octubre (virtual)", "puntos": ["Presencial o Virtual · Aula 204 / Aula 102", "4 meses · Presencial: Lun/Mié/Jue 20:00-21:30 (Aula 204) · Presencial: Sáb 09:00-12:00 (Aula 102) · Virtual: Lun/Mié/Vie 20:00-21:30", "Para: 18 a 45 años (grupo de sábados)"], "edades": "18 a 45 años (grupo de sábados)", "cupos": 15, "aula": "Aula 204 / Aula 102"},
+    {"sede": "potosi", "cat": "Diseño Técnico (AutoCAD / Revit)", "marca": "", "nombre": "EXPERTO EN AUTODESK INVENTOR", "emoji": "⚙️", "modalidad": "Virtual", "duracion": "3 meses", "horario": "Lun/Mié/Vie · 19:30-21:00", "precio": "Inversión: consulta con tu asesor de Potosí", "inicio": "4 de noviembre de 2026", "puntos": ["Virtual", "3 meses · Lun/Mié/Vie · 19:30-21:00"], "edades": "", "cupos": 20, "aula": ""}
   ];
 
   const CATEGORIAS = [];
@@ -924,6 +961,15 @@
     document.getElementById('cursos').scrollIntoView({behavior:'smooth'});
   }
 
+  const MESES_INICIO = { enero:0, febrero:1, marzo:2, abril:3, mayo:4, junio:5, julio:6, agosto:7, septiembre:8, setiembre:8, octubre:9, noviembre:10, diciembre:11 };
+  function hoySinHora() { const d = new Date(); d.setHours(0,0,0,0); return d; }
+  function fechaInicioCurso(c) {
+    const t = String(c.inicio || '').toLowerCase();
+    const m = /(\d{1,2}) de (enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|setiembre|octubre|noviembre|diciembre)/.exec(t);
+    if (!m) return null;
+    const y = /(20\d\d)/.exec(t);
+    return new Date(y ? +y[1] : new Date().getFullYear(), MESES_INICIO[m[2]], +m[1]);
+  }
   function tarjetaHTML(c) {
     let html = '<div class="tarjeta-curso">';
     if (c.img) html += '<img class="img-curso" src="' + c.img + '" alt="' + c.nombre + '" loading="lazy">';
@@ -939,7 +985,16 @@
       html += '<h3>' + c.nombre + '</h3>';
     }
     html += '<div class="meta-curso">⏱ ' + c.duracion + (c.horario ? ' · ' + c.horario : '') + (c.sinCert ? ' · Sin certificación' : '') + '</div>';
-    if (c.inicio) html += '<div class="inicio-curso">🗓 Próximo inicio: ' + c.inicio + '</div>';
+    if (c.inicio) {
+      const fi = fechaInicioCurso(c);
+      if (fi && fi >= hoySinHora()) {
+        const dias = Math.round((fi - hoySinHora()) / 86400000);
+        html += '<div class="inicio-curso">🗓 Inicia: ' + c.inicio + (dias <= 7 ? ' <b>· ¡' + (dias === 0 ? 'hoy' : dias === 1 ? 'mañana' : 'en ' + dias + ' días') + '!</b>' : '') + '</div>';
+      } else {
+        html += '<div class="inicio-curso en-curso">🟢 Grupo en curso · consulta el próximo inicio</div>';
+      }
+    }
+    if (c.cupos) html += '<div class="cupos-curso' + (c.cupos <= 5 ? ' pocos' : '') + '">' + (c.cupos <= 5 ? '🔥 ¡Últimos ' + c.cupos + ' cupo' + (c.cupos === 1 ? '' : 's') + '!' : '👥 ' + c.cupos + ' cupos disponibles') + '</div>';
     html += '<div class="precio-curso">' + c.precio + '</div>';
     html += '<ul class="lista-puntos">' + c.puntos.map(function(p) { return '<li>' + p + '</li>'; }).join('') + '</ul>';
     html += '<div class="fila-botones-tarjeta">';
@@ -953,7 +1008,7 @@
   function pintarCursos() {
     const cont = document.getElementById('cursos');
 
-    if (sedeActiva === 'potosi') {
+    if (sedeActiva === 'potosi' && !CURSOS.some(function(c) { return c.sede === 'potosi'; })) {
       cont.innerHTML =
         '<div class="pantalla-proximamente">' +
         '<div class="icono">🚧</div>' +
@@ -964,10 +1019,36 @@
       return;
     }
 
-    let cursosFiltrados = CURSOS;
-    if (terminoBusqueda) cursosFiltrados = CURSOS.filter(function(c) { return c.nombre.toLowerCase().indexOf(terminoBusqueda) !== -1; });
+    const deLaSede = CURSOS.filter(function(c) { return (c.sede || 'sucre') === sedeActiva; });
+    let cursosFiltrados = deLaSede;
+    if (terminoBusqueda) cursosFiltrados = deLaSede.filter(function(c) { return c.nombre.toLowerCase().indexOf(terminoBusqueda) !== -1; });
 
     let html = '';
+
+    // Próximos inicios de la sede, del más cercano al más lejano
+    const proximos = cursosFiltrados.filter(function(c) { const f = fechaInicioCurso(c); return f && f >= hoySinHora(); })
+      .sort(function(a, b) { return fechaInicioCurso(a) - fechaInicioCurso(b); });
+    if (proximos.length) {
+      html += '<div class="bloque-marca bloque-proximos" id="seccionProximos"><div class="encabezado-marca"><div class="icono-marca proximos">🗓</div>' +
+        '<div><h2>Próximos inicios · ' + (sedeActiva === 'potosi' ? 'Potosí' : 'Sucre') + '</h2><p>Ordenados por fecha de inicio — asegura tu cupo antes de que se llenen</p></div></div>';
+      html += '<div class="grid-cursos">';
+      proximos.forEach(function(c) { html += tarjetaHTML(c); });
+      html += '</div></div>';
+    }
+
+    if (sedeActiva === 'potosi') {
+      const resto = cursosFiltrados.filter(function(c) { return proximos.indexOf(c) === -1; });
+      if (resto.length) {
+        html += '<div class="bloque-marca" id="seccionPotosi"><div class="encabezado-marca"><div class="icono-marca cca">🏔</div>' +
+          '<div><h2>Cursos en curso · Potosí</h2><p>Grupos que ya iniciaron — consulta con tu asesor si aún puedes sumarte o cuándo abre el próximo</p></div></div><div class="grid-cursos">';
+        resto.forEach(function(c) { html += tarjetaHTML(c); });
+        html += '</div></div>';
+      }
+      if (!html) html = '<p style="text-align:center;color:var(--texto-suave);padding:40px 0;">No hay cursos que coincidan con tu búsqueda.</p>';
+      cont.innerHTML = html;
+      return;
+    }
+    cursosFiltrados = cursosFiltrados.filter(function(c) { return proximos.indexOf(c) === -1; });
 
     function pintarBloqueMarca(marca, idSeccion, titulo, subtitulo, iconoMarca) {
       const cursosMarca = cursosFiltrados.filter(function(c) { return c.marca === marca; });
@@ -1107,8 +1188,40 @@
     img.src = MAPA_IMG[img.getAttribute('data-imgref')];
   });
 
+  function pintarFranjaProximos() {
+    const cont = document.getElementById('franjaProximos');
+    if (!cont) return;
+    const lista = CURSOS.filter(function(c) { const f = fechaInicioCurso(c); return f && f >= hoySinHora(); })
+      .sort(function(a, b) { return fechaInicioCurso(a) - fechaInicioCurso(b); });
+    if (!lista.length) { cont.style.display = 'none'; return; }
+    const nombreMes = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+    let html = '<div class="fp-cab"><span class="fp-etq">🗓 Próximos inicios</span><h2>Empieza este mes en Sucre o Potosí</h2>' +
+      '<p>Ordenados por fecha de inicio. Toca un curso para ver horarios y reservar tu cupo.</p></div><div class="fp-lista">';
+    lista.forEach(function(c) {
+      const f = fechaInicioCurso(c), sede = (c.sede || 'sucre') === 'potosi' ? 'Potosí' : 'Sucre';
+      html += '<button class="fp-item" onclick=\'irACursoDesdeFranja(' + JSON.stringify(c.nombre) + ',' + JSON.stringify(c.sede || 'sucre') + ')\'>' +
+        '<span class="fp-fecha"><b>' + f.getDate() + '</b>' + nombreMes[f.getMonth()] + '</span>' +
+        '<span class="fp-tx"><b>' + c.nombre.replace(/^EXPERTO EN /i, '') + '</b><small>' + sede + ' · ' + c.modalidad + ' · ' + ((c.horario || '').split('·').length > 2 ? 'Varios horarios' : (c.horario || c.duracion)) + '</small></span>' +
+        (c.cupos && c.cupos <= 5 ? '<span class="fp-cupo">¡' + c.cupos + ' cupo' + (c.cupos === 1 ? '' : 's') + '!</span>' : '') +
+        '<span class="fp-sede ' + (sede === 'Potosí' ? 'pt' : 'sc') + '">' + sede + '</span></button>';
+    });
+    cont.innerHTML = html + '</div>';
+  }
+  function irACursoDesdeFranja(nombre, sede) {
+    if (sede !== sedeActiva) setSede(sede);
+    setTimeout(function() {
+      const t = Array.from(document.querySelectorAll('.tarjeta-curso')).find(function(el) {
+        const h = el.querySelector('h3'), im = el.querySelector('img.img-curso');
+        return ((h && h.textContent) || (im && im.alt) || '').trim() === nombre;
+      });
+      if (t) { t.scrollIntoView({ behavior: 'smooth', block: 'center' }); t.classList.add('resaltar'); setTimeout(function() { t.classList.remove('resaltar'); }, 2200); }
+      else document.getElementById('cursos').scrollIntoView({ behavior: 'smooth' });
+    }, 60);
+  }
+
   marcarSedeActiva();
   pintarCursos();
+  pintarFranjaProximos();
 </script>
 <script src="avatar-sofia.js"></script>
 </body>
