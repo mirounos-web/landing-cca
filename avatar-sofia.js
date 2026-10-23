@@ -28,7 +28,7 @@
     segundosInvitacion: 5,
     segundosRecordatorio: 28,
     mejorarPagina: true,
-    imgPromoWA: 'promo-whatsapp-descuento.jpg',   // imagen "Haz clic en WhatsApp y obtén tu descuento" (junto a la landing)          // fondo, franja de Sofía y botón de WhatsApp en la barra
+    imgPromoWA: 'promo-whatsapp-descuento.jpg?v=202610231754',   // imagen "Haz clic en WhatsApp y obtén tu descuento" (junto a la landing)          // fondo, franja de Sofía y botón de WhatsApp en la barra
     urlVisitas: 'https://script.google.com/macros/s/AKfycbwdTBoUAF6qqZJMm4FvabhGj-XFPUYDQ2o72BuFgGsggpegGKCy3792IlztU1zKPfAA/exec' // Apps Script "Visitas Landing CCA"
   }, window.CCA_AVATAR || {});
 
