@@ -28,7 +28,7 @@
     segundosInvitacion: 5,
     segundosRecordatorio: 28,
     mejorarPagina: true,
-    imgPromoWA: 'promo-whatsapp-10.jpg',   // imagen "Haz clic en WhatsApp y obtén tu descuento del 10%" (junto a la landing)          // fondo, franja de Sofía y botón de WhatsApp en la barra
+    imgPromoWA: 'promo-whatsapp-descuento.jpg',   // imagen "Haz clic en WhatsApp y obtén tu descuento" (junto a la landing)          // fondo, franja de Sofía y botón de WhatsApp en la barra
     urlVisitas: 'https://script.google.com/macros/s/AKfycbwdTBoUAF6qqZJMm4FvabhGj-XFPUYDQ2o72BuFgGsggpegGKCy3792IlztU1zKPfAA/exec' // Apps Script "Visitas Landing CCA"
   }, window.CCA_AVATAR || {});
 
@@ -854,7 +854,7 @@
   function enlaceDescuento(curso) {
     var c = curso ? titulo(curso.nombre) : '';
     var ref = ASESOR !== CONTACTO ? ' (Me atendió ' + ASESOR.n + ', código ' + ASESOR.cod + ')' : '';
-    var msg = 'Hola ' + nombreAsesor() + ' 👋, ¡quiero mi descuento del 10%! 🎉' +
+    var msg = 'Hola ' + nombreAsesor() + ' 👋, ¡quiero mi descuento! 🎉' +
       (c ? '\nMe interesa el curso: *' + c + '*' + (curso.sede === 'potosi' ? ' (Potosí)' : ' (Sucre)') : '') +
       '\nVi la promoción en la página del Instituto CCA.' + ref;
     return 'https://wa.me/591' + CONTACTO.cel + '?text=' + encodeURIComponent(msg);
@@ -862,7 +862,7 @@
   function registrarDescuento(curso) {
     var clave = 'ccaSofiaDesc_' + (curso ? curso.nombre : 'general');
     if (ss(clave) !== '1') {
-      registrar(datosLead(curso, 'Clic en promo "Quiero mi descuento 10%" — escribió a ' + CONTACTO.n));
+      registrar(datosLead(curso, 'Clic en promo "Quiero mi descuento" — escribió a ' + CONTACTO.n));
       ss(clave, '1');
     }
     marcarVisita('whatsapp', 'descuento ' + (curso ? corto(curso.nombre) : 'general'));
@@ -1614,8 +1614,8 @@
         var a = document.createElement('a');
         a.className = 'cca-promo-wa'; a.target = '_blank'; a.rel = 'noopener';
         a.href = enlaceDescuento(c);
-        a.setAttribute('aria-label', 'Escribir por WhatsApp a ' + nombreAsesor() + ' y obtener 10% de descuento' + (c ? ' en ' + corto(c.nombre) : ''));
-        a.innerHTML = '<img src="' + CFG.imgPromoWA + '" alt="Haz clic en WhatsApp y obtén tu descuento del 10% · Reclama tu inscripción 0 Bs." loading="lazy">' +
+        a.setAttribute('aria-label', 'Escribir por WhatsApp a ' + nombreAsesor() + ' y obtener tu descuento' + (c ? ' en ' + corto(c.nombre) : ''));
+        a.innerHTML = '<img src="' + CFG.imgPromoWA + '" alt="Haz clic en WhatsApp y obtén tu descuento · Reclama tu inscripción 0 Bs." loading="lazy">' +
           '<span class="cca-promo-tx">💬 Quiero mi descuento · ' + esc(nombreAsesor()) + '</span>';
         a.addEventListener('click', function () { registrarDescuento(c); });
         var im = t.querySelector(':scope > img.img-curso');
