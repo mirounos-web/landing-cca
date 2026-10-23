@@ -27,7 +27,8 @@
     sinAsesor: 'rotar',           // 'rotar' reparte entre todo el equipo, o un código fijo (ej. 'RSCF')
     segundosInvitacion: 5,
     segundosRecordatorio: 28,
-    mejorarPagina: true,          // fondo, franja de Sofía y botón de WhatsApp en la barra
+    mejorarPagina: true,
+    imgPromoWA: 'promo-whatsapp-10.jpg',   // imagen "Haz clic en WhatsApp y obtén tu descuento del 10%" (junto a la landing)          // fondo, franja de Sofía y botón de WhatsApp en la barra
     urlVisitas: 'https://script.google.com/macros/s/AKfycbwdTBoUAF6qqZJMm4FvabhGj-XFPUYDQ2o72BuFgGsggpegGKCy3792IlztU1zKPfAA/exec' // Apps Script "Visitas Landing CCA"
   }, window.CCA_AVATAR || {});
 
@@ -849,6 +850,24 @@
     }
   }, true);
 
+  // ===================== PROMO: "QUIERO MI DESCUENTO" =====================
+  function enlaceDescuento(curso) {
+    var c = curso ? titulo(curso.nombre) : '';
+    var ref = ASESOR !== CONTACTO ? ' (Me atendió ' + ASESOR.n + ', código ' + ASESOR.cod + ')' : '';
+    var msg = 'Hola ' + nombreAsesor() + ' 👋, ¡quiero mi descuento del 10%! 🎉' +
+      (c ? '\nMe interesa el curso: *' + c + '*' + (curso.sede === 'potosi' ? ' (Potosí)' : ' (Sucre)') : '') +
+      '\nVi la promoción en la página del Instituto CCA.' + ref;
+    return 'https://wa.me/591' + CONTACTO.cel + '?text=' + encodeURIComponent(msg);
+  }
+  function registrarDescuento(curso) {
+    var clave = 'ccaSofiaDesc_' + (curso ? curso.nombre : 'general');
+    if (ss(clave) !== '1') {
+      registrar(datosLead(curso, 'Clic en promo "Quiero mi descuento 10%" — escribió a ' + CONTACTO.n));
+      ss(clave, '1');
+    }
+    marcarVisita('whatsapp', 'descuento ' + (curso ? corto(curso.nombre) : 'general'));
+  }
+
   // ===================== MENSAJES =====================
   var contexto = null, ultimoTema = null;
   // la vista se queda en el inicio de cada respuesta para que se lea completa
@@ -1518,11 +1537,20 @@
       '@media (min-width:980px){' +
       '.bloque-marca .tarjeta-curso:has(.img-curso){display:grid;grid-template-columns:minmax(0,42%) minmax(0,1fr);column-gap:20px;padding:0 20px 0 0;align-items:start}' +
       '.bloque-marca .tarjeta-curso:has(.img-curso)>*{grid-column:2}' +
-      '.bloque-marca .tarjeta-curso:has(.img-curso)>.img-curso{grid-column:1;grid-row:1/span 40;width:100%;margin:0;aspect-ratio:1/1;height:auto;object-fit:cover;align-self:start;border-radius:0 0 14px 0}' +
+      '.bloque-marca .tarjeta-curso:has(.img-curso)>.cca-col-img{grid-column:1;grid-row:1/span 40;display:flex;flex-direction:column;gap:14px;padding-bottom:18px}' +
+      '.bloque-marca .tarjeta-curso:has(.img-curso)>.cca-col-img>.cca-promo-wa{margin:0 0 0 16px}' +
+      '.bloque-marca .tarjeta-curso:has(.img-curso) .cca-col-img>.img-curso{width:100%;margin:0;aspect-ratio:1/1;height:auto;object-fit:cover;align-self:start;border-radius:0 0 14px 0}' +
       '.bloque-marca .tarjeta-curso:has(.img-curso)>.fila-badges{margin-top:18px}' +
       '.bloque-marca .tarjeta-curso:has(.img-curso)>.fila-botones-tarjeta{margin-bottom:18px}' +
       '}' +
       '@media (max-width:640px){.bloque-marca{grid-template-columns:1fr}}' +
+      '.cca-promo-wa{display:block;border-radius:14px;overflow:hidden;text-decoration:none;background:#1FAF5A;box-shadow:0 8px 20px rgba(31,175,90,.28);transition:transform .15s,box-shadow .15s;animation:ccaLatido 2.4s ease-in-out infinite}' +
+      '.cca-promo-wa:hover{transform:translateY(-2px) scale(1.01);box-shadow:0 12px 26px rgba(31,175,90,.38)}' +
+      '.cca-promo-wa img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block}' +
+      '.cca-promo-tx{display:block;text-align:center;color:#fff;font-family:Inter,sans-serif;font-weight:800;font-size:13.5px;padding:9px 8px}' +
+      '@keyframes ccaLatido{0%,100%{box-shadow:0 8px 20px rgba(31,175,90,.28)}50%{box-shadow:0 8px 28px rgba(31,175,90,.55)}}' +
+      '.tarjeta-curso>.cca-promo-wa{margin-top:12px}.tarjeta-curso>.cca-promo-wa img{aspect-ratio:auto;max-height:260px;object-fit:contain;background:#fff}' +
+      '@media (max-width:979px){.cca-col-img{display:contents}.cca-col-img>.cca-promo-wa{order:99;margin-top:12px}.cca-col-img>.cca-promo-wa img{max-height:300px;object-fit:contain;background:#fff}}' +
       '.cca-franja-sofia{max-width:1180px;margin:22px auto 0;padding:0 24px}' +
       '.cca-franja-sofia .caja{position:relative;overflow:hidden;display:flex;align-items:center;gap:22px;padding:18px 24px;border-radius:20px;color:#fff;' +
       'background:radial-gradient(120% 160% at 0% 0%,#2b5596 0%,#1E3F73 45%,#132B52 100%);box-shadow:0 16px 36px rgba(22,48,90,.22)}' +
@@ -1578,6 +1606,25 @@
         if (t.querySelector('.cca-cat')) return;
         var c = cursoDeTarjeta(t), fb = t.querySelector('.fila-badges');
         if (c && fb) { var sp = document.createElement('span'); sp.className = 'badge cca-cat'; sp.textContent = c.cat; fb.appendChild(sp); }
+      });
+      // imagen de la promo de WhatsApp: en el espacio libre bajo la foto del curso
+      if (CFG.imgPromoWA) document.querySelectorAll('.bloque-marca .tarjeta-curso').forEach(function (t) {
+        if (t.querySelector('.cca-promo-wa')) return;
+        var c = cursoDeTarjeta(t);
+        var a = document.createElement('a');
+        a.className = 'cca-promo-wa'; a.target = '_blank'; a.rel = 'noopener';
+        a.href = enlaceDescuento(c);
+        a.setAttribute('aria-label', 'Escribir por WhatsApp a ' + nombreAsesor() + ' y obtener 10% de descuento' + (c ? ' en ' + corto(c.nombre) : ''));
+        a.innerHTML = '<img src="' + CFG.imgPromoWA + '" alt="Haz clic en WhatsApp y obtén tu descuento del 10% · Reclama tu inscripción 0 Bs." loading="lazy">' +
+          '<span class="cca-promo-tx">💬 Quiero mi descuento · ' + esc(nombreAsesor()) + '</span>';
+        a.addEventListener('click', function () { registrarDescuento(c); });
+        var im = t.querySelector(':scope > img.img-curso');
+        if (im) {
+          var col = document.createElement('div'); col.className = 'cca-col-img';
+          t.insertBefore(col, im); col.appendChild(im); col.appendChild(a);
+        } else {
+          t.appendChild(a);
+        }
       });
       document.querySelectorAll('.tarjeta-curso .fila-botones-tarjeta').forEach(function (f) {
         if (f.querySelector('.cca-pregunta-sofia')) return;
