@@ -186,6 +186,8 @@
     [/^ ofimatica /, 'Es la base que piden en casi cualquier empleo, y la estudias virtual, desde tu casa.', 'Vas a manejar Word, Excel, PowerPoint, Canva y Google Workspace con total seguridad.'],
     [/programador/, 'La programación es una de las profesiones mejor pagadas del mundo, y aquí empiezas desde cero.', 'Vas a escribir tus propios programas en Python y C++ y a manejar bases de datos.'],
     [/autocad/, 'Arquitectos, ingenieros y constructoras buscan gente que domine AutoCAD, Revit y SketchUp.', 'Vas a dibujar planos, modelar en 3D y entregar renders profesionales para tu portafolio.'],
+    [/defensas de tesis/, 'La defensa de grado es el momento más importante de tu carrera: prepararla bien marca la diferencia en tu nota.', 'Vas a defender tu tesis o proyecto con seguridad, buena estructura y control de los nervios.'],
+    [/revit intermedio/, 'BIM es lo que hoy piden las constructoras y consultoras: quien domina Revit avanzado se diferencia.', 'Vas a llevar tu manejo de Revit al nivel intermedio-avanzado con metodología BIM.'],
     [/coaching.*profesional/, 'Los profesionales que comunican bien son los que ascienden y lideran.', 'Vas a dirigir reuniones, presentar tus ideas con persuasión y liderar equipos.'],
     [/coaching/, 'Saber hablar en público y liderar te abre puertas en cualquier trabajo.', 'Vas a perder el miedo escénico y comunicarte con seguridad y persuasión.'],
     [/ninos/, 'La seguridad para hablar se construye desde pequeños, y se nota en el colegio y en la vida.', 'Tu hijo o hija va a ganar confianza, expresarse mejor y trabajar en equipo, aprendiendo con juegos.'],
@@ -1000,7 +1002,8 @@
     else if (c.edades) filas.push(['👥', 'Ideal para', c.edades]);
     var fi = fechaInicio(c);
     if (fi && fi >= HOY) filas.push(['🗓', 'Inicio', c.inicio + ' · Sede ' + (c.sede === 'potosi' ? 'Potosí' : 'Sucre')]);
-    if (c.cupos) filas.push(['🔥', 'Cupos disponibles', c.cupos <= 5 ? '¡Solo quedan ' + c.cupos + '!' : c.cupos + ' cupos']);
+    if (c.cupos === 0) filas.push(['⛔', 'Cupos', 'Grupo lleno · consulta el próximo inicio']);
+    else if (c.cupos) filas.push(['🔥', 'Cupos disponibles', c.cupos === 1 ? '¡Queda solo 1!' : c.cupos <= 5 ? '¡Solo quedan ' + c.cupos + '!' : c.cupos + ' cupos']);
     filas.push(['⏱', 'Duración y horario', c.duracion + ' · ' + c.modalidad + (c.horario ? ' · ' + c.horario : '')]);
     filas.push(['💰', 'Inversión', c.precio, 'precio']);
     return filas;
@@ -1019,7 +1022,9 @@
     var lectura = saludoCurso + ' ' + etiqueta + ': ' + titulo(c.nombre) + '. ' +
       filas.map(function (f) { return f[1] + ': ' + f[2].replace(/\.?$/, '.'); }).join(' ');
     var cierre = esCarrera(c) ? '¿Te imaginas con tu título de Técnico Superior? Los cupos son limitados.' :
-      (c.cupos && c.cupos <= 5 ? '¡Ojo, solo quedan ' + c.cupos + ' cupo' + (c.cupos === 1 ? '' : 's') + '!' : 'Los cupos son limitados y los grupos se llenan rápido.');
+      (c.cupos === 0 ? 'Este grupo ya está lleno, pero ' + nombreAsesor() + ' te avisa apenas abra el próximo.' :
+      c.cupos === 1 ? '¡Ojo, queda solo 1 cupo!' :
+      (c.cupos && c.cupos <= 5 ? '¡Ojo, solo quedan ' + c.cupos + ' cupos!' : 'Los cupos son limitados y los grupos se llenan rápido.'));
     var yaRegistrado = ss('ccaSofiaReg_' + c.nombre) === '1';
     setTimeout(function () {
       if (!yaRegistrado && visitante.celular) {
