@@ -1389,6 +1389,7 @@
   /* ===== OFERTA EN VIVO: fechas, horarios y modalidad desde OFERTA ACADEMICA del CRM =====
      Si no responde, la página sigue funcionando con los datos escritos arriba. Nunca se traen precios ni cupos. */
   (function() {
+    const URL_OFERTA_CRM = 'https://script.google.com/macros/s/AKfycbzvVTtbBcZL9ROmPY4CnPz6J_wIm0cJZbmjr9wdtDhyfYz5Z_FbF3kUq01XORqfQORUJQ/exec';
     const MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
     const VACIAS = ['EXPER', 'CURSO', 'CAPAC', 'PRESE', 'VIRTU', 'BASIC', 'ESTRA', 'METOD'];
     const limpio = function(s) { return String(s == null ? '' : s).replace(/[<>"'&`]/g, '').replace(/\s+/g, ' ').trim(); };
@@ -1443,7 +1444,7 @@
         const reloj = setTimeout(function() { rechazar(new Error('tiempo')); }, 25000);
         window[nombre] = function(r) { clearTimeout(reloj); s.remove(); delete window[nombre]; if (r && r.ok && r.cursos && r.cursos.length) resolver(r.cursos); else rechazar(new Error('sin datos')); };
         s.onerror = function() { clearTimeout(reloj); rechazar(new Error('red')); };
-        s.src = URL_BACKEND_LEADS + '?accion=catalogo&sede=' + sede.toUpperCase() + '&callback=' + nombre;
+        s.src = URL_OFERTA_CRM + '?accion=catalogo&sede=' + sede.toUpperCase() + '&callback=' + nombre;
         document.head.appendChild(s);
       });
     }
