@@ -1204,7 +1204,7 @@
       const resto = cursosFiltrados.filter(function(c) { return proximos.indexOf(c) === -1; });
       if (resto.length) {
         html += '<div class="bloque-marca" id="seccionPotosi"><div class="encabezado-marca"><div class="icono-marca cca">🏔</div>' +
-          '<div><h2>Cursos en curso · Potosí</h2><p>Grupos que ya iniciaron — consulta con tu asesor si aún puedes sumarte o cuándo abre el próximo</p></div></div><div class="grid-cursos">';
+          '<div><h2>Cursos de Potosí</h2><p>Consulta con tu asesor cuándo abre el próximo grupo</p></div></div><div class="grid-cursos">';
         resto.forEach(function(c) { html += tarjetaHTML(c); });
         html += '</div></div>';
       }
@@ -1386,6 +1386,71 @@
   marcarSedeActiva();
   pintarCursos();
   pintarFranjaProximos();
+  /* ===== OFERTA EN VIVO: fechas, horarios y modalidad desde OFERTA ACADEMICA del CRM =====
+     Si no responde, la página sigue funcionando con los datos escritos arriba. Nunca se traen precios ni cupos. */
+  (function() {
+    const MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+    const VACIAS = ['EXPER', 'CURSO', 'CAPAC', 'PRESE', 'VIRTU', 'BASIC', 'ESTRA', 'METOD'];
+    const limpio = function(s) { return String(s == null ? '' : s).replace(/[<>"'&`]/g, '').replace(/\s+/g, ' ').trim(); };
+    const norm = function(s) { return String(s || '').normalize('NFD').replace(/[̀-ͯ]/g, '').toUpperCase(); };
+    const raices = function(s) {
+      return norm(s).replace(/[^A-Z0-9 ]+/g, ' ').split(' ').filter(function(w) { return w.length >= 4; }).map(function(w) { return w.slice(0, 5); })
+        .filter(function(w, i, a) { return VACIAS.indexOf(w) === -1 && a.indexOf(w) === i; });
+    };
+    function puntaje(a, b) {
+      const ra = raices(a), rb = raices(b);
+      if (!ra.length || !rb.length) return 0;
+      const comunes = ra.filter(function(w) { return rb.indexOf(w) !== -1; }).length;
+      const menor = Math.min(ra.length, rb.length);
+      return comunes >= Math.min(2, menor) && comunes / menor >= 0.7 ? comunes / Math.max(ra.length, rb.length) + comunes / menor : 0;
+    }
+    function fechaLarga(ddmmaaaa) {
+      const p = String(ddmmaaaa || '').split('/');
+      return p.length === 3 ? (+p[0]) + ' de ' + MESES[+p[1] - 1] + ' de ' + p[2] : '';
+    }
+    function aplicar(sede, oferta) {
+      const propios = CURSOS.filter(function(c) { return (c.sede || 'sucre') === sede; });
+      propios.forEach(function(c) { c.inicio = ''; delete c.cupos; });
+      const usados = [];
+      oferta.forEach(function(o) {
+        const grupo = o.grupos[0] || {};
+        const nombre = limpio(o.curso);
+        const horario = [limpio(grupo.dias), limpio(grupo.horario)].filter(Boolean).join(' · ');
+        const modalidad = grupo.modalidad === 'VIRTUAL' ? 'Virtual' : 'Presencial';
+        let mejor = null, nota = 0;
+        propios.forEach(function(c) {
+          if (usados.indexOf(c) !== -1) return;
+          const n = puntaje(c.nombre, nombre);
+          if (n > nota) { nota = n; mejor = c; }
+        });
+        if (mejor) {
+          usados.push(mejor);
+          mejor.inicio = fechaLarga(o.inicio);
+          if (horario) mejor.horario = horario;
+          if (grupo.duracion) mejor.duracion = limpio(grupo.duracion);
+          mejor.modalidad = modalidad;
+        } else {
+          const nuevo = { sede: sede, cat: 'Cursos de este mes', marca: '', nombre: nombre, emoji: '🎓', modalidad: modalidad, duracion: limpio(grupo.duracion) || 'Consulta con tu asesor', horario: horario,
+            precio: 'Inversión: consulta con tu asesor', inicio: fechaLarga(o.inicio), puntos: [modalidad + (horario ? ' · ' + horario : '')] };
+          CURSOS.push(nuevo);
+          if (CATEGORIAS.indexOf(nuevo.cat) === -1) CATEGORIAS.push(nuevo.cat);
+        }
+      });
+    }
+    function pedir(sede) {
+      return new Promise(function(resolver, rechazar) {
+        const nombre = 'ofertaCB_' + sede, s = document.createElement('script');
+        const reloj = setTimeout(function() { rechazar(new Error('tiempo')); }, 25000);
+        window[nombre] = function(r) { clearTimeout(reloj); s.remove(); delete window[nombre]; if (r && r.ok && r.cursos && r.cursos.length) resolver(r.cursos); else rechazar(new Error('sin datos')); };
+        s.onerror = function() { clearTimeout(reloj); rechazar(new Error('red')); };
+        s.src = URL_BACKEND_LEADS + '?accion=catalogo&sede=' + sede.toUpperCase() + '&callback=' + nombre;
+        document.head.appendChild(s);
+      });
+    }
+    ['sucre', 'potosi'].forEach(function(sede) {
+      pedir(sede).then(function(oferta) { aplicar(sede, oferta); pintarCursos(); pintarFranjaProximos(); }).catch(function(e) { console.log('Oferta ' + sede + ': ' + e.message); });
+    });
+  })();
 </script>
 <script src="avatar-sofia.js?v=202610241212"></script>
 </body>
