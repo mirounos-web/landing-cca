@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Inscripción · Instituto Técnico CCA</title>
+<meta name="description" content="Llena tus datos en 1 minuto y asegura tu cupo.">
+<meta property="og:title" content="📝 Inscripción · Instituto Técnico CCA">
+<meta property="og:description" content="Llena tus datos en 1 minuto y asegura tu cupo.">
+<meta name="robots" content="noindex">
+<style>
+  body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:#EEF2F8;color:#1B2433;display:flex;min-height:100vh;align-items:center;justify-content:center;text-align:center;padding:16px;box-sizing:border-box}
+  a{color:#2D4E89;font-weight:700}
+</style>
+</head>
+<body>
+<div>
+  <p style="font-size:44px;margin:0">📝</p>
+  <p>Abriendo el formulario de inscripción…</p>
+  <p><a id="ir" href="https://script.google.com/macros/s/AKfycbzvVTtbBcZL9ROmPY4CnPz6J_wIm0cJZbmjr9wdtDhyfYz5Z_FbF3kUq01XORqfQORUJQ/exec?vista=inscripcion">Toca aquí si no se abre</a></p>
+</div>
+<script>
+/* Enlace corto de inscripción del Instituto CCA (12/11/2026).
+   /i/?c=<código del curso>&a=<código del asesor>&s=p (Potosí) → abre el formulario del CRM con el curso ya elegido. */
+(function () {
+  var BASE = 'https://script.google.com/macros/s/AKfycbzvVTtbBcZL9ROmPY4CnPz6J_wIm0cJZbmjr9wdtDhyfYz5Z_FbF3kUq01XORqfQORUJQ/exec';
+  var q = new URLSearchParams(location.search), p = new URLSearchParams();
+  p.set('vista', 'inscripcion');
+  p.set('s', /^p/i.test(q.get('s') || '') ? 'potosi' : 'sucre');
+  var c = (q.get('c') || '').replace(/[^A-Za-z0-9]/g, '').toUpperCase().slice(0, 6);
+  if (c) p.set('curso', c);
+  var a = (q.get('a') || '').replace(/[^A-Za-z]/g, '').toUpperCase().slice(0, 8);
+  if (a) p.set('a', a);
+  p.set('o', (q.get('o') || 'whatsapp').replace(/[^a-z]/gi, '').slice(0, 15));
+  var url = BASE + '?' + p.toString();
+  document.getElementById('ir').href = url;
+  location.replace(url);
+})();
+</script>
+</body>
+</html>
