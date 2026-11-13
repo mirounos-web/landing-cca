@@ -1470,7 +1470,8 @@
   pintarCursos();
   pintarFranjaProximos();
   /* ===== OFERTA EN VIVO: fechas, horarios y modalidad desde OFERTA ACADEMICA del CRM =====
-     Si no responde, la página sigue funcionando con los datos escritos arriba. Nunca se traen precios ni cupos. */
+     Si no responde, la página sigue funcionando con los datos escritos arriba. Nunca se traen cupos.
+     Duración y precio (12/11/2026): de las hojas INVERSION SUCRE / INVERSION POTOSI del CRM (nunca el precio promocional). */
   (function() {
     const URL_OFERTA_CRM = 'https://script.google.com/macros/s/AKfycbzvVTtbBcZL9ROmPY4CnPz6J_wIm0cJZbmjr9wdtDhyfYz5Z_FbF3kUq01XORqfQORUJQ/exec';
     const MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
@@ -1521,18 +1522,58 @@
         }
       });
     }
+    /* ---- Duración y precio desde INVERSION SUCRE / POTOSI: misma regla que invPorOferta_ del CRM ---- */
+    const COMUNES_INV = ['EXPERTO', 'BASICO', 'INTERMEDIO', 'AVANZADO', 'PRESENCIAL', 'VIRTUAL', 'CURSO', 'TECNICO', 'TECNICA', 'SUPERIOR', 'CARRERA', 'PARA', 'INTELIGENCIA', 'ARTIFICIAL', 'CON', 'DEL', 'LAS', 'LOS'];
+    const clavesInv = function(s) { return norm(s).replace(/\([^)]*\)/g, ' ').split(/[^A-Z0-9]+/).filter(function(w) { return w.length >= 4 && COMUNES_INV.indexOf(w) === -1; }).map(function(w) { return w.slice(0, 6); }).filter(function(w, i, a) { return a.indexOf(w) === i; }); };
+    const baseInv = function(s) { return norm(s).replace(/\s*\([^)]*\)/g, '').replace(/^(CARRERA TECNICA EN|TECNICO SUPERIOR EN) /, '').replace(/\s+/g, ' ').trim(); };
+    const PUBLICOS = ['NINOS', 'ADOLESCENTES', 'ESTUDIANTIL', 'PROFESIONAL', 'MAYORES'];   // si los dos nombres dicen para quién es y no coincide, son cursos distintos
+    const publico = function(s) { return norm(s).split(/[^A-Z0-9]+/).filter(function(w) { return PUBLICOS.indexOf(w) !== -1; }).sort().join(' '); };
+    function filasDe(filas, nombre) {
+      const x = clavesInv(nombre), px = publico(nombre);
+      if (!x.length) return [];
+      let mejor = 0, base = '';
+      filas.forEach(function(f) {
+        const k = clavesInv(f.programa), n = x.filter(function(w) { return k.indexOf(w) !== -1; }).length, pk = publico(f.programa);
+        const ok = (!px || !pk || px === pk) && ((n === x.length && n / k.length >= 0.5) || (n >= 3 && n / k.length >= 0.75));
+        if (ok && n / k.length > mejor) { mejor = n / k.length; base = baseInv(f.programa); }
+      });
+      return base ? filas.filter(function(f) { return baseInv(f.programa) === base; }) : [];
+    }
+    function textoPrecio(f) {
+      const p = [];
+      if (f.mensual) p.push('Bs ' + f.mensual + '/mes' + (f.cuotas && f.cuotas !== '1' ? ' (' + f.cuotas + ' cuotas)' : ''));
+      if (f.contado) p.push('Bs ' + f.contado + (f.mensual ? ' al contado' : ' pago único'));
+      return p.join(' · ');
+    }
+    function aplicarInversion(sede, filas) {
+      if (!filas.length) return;
+      CURSOS.filter(function(c) { return (c.sede || 'sucre') === sede; }).forEach(function(c) {
+        const mias = filasDe(filas, c.nombre);
+        if (!mias.length) return;
+        const durs = mias.filter(function(f) { return f.duracion; }).map(function(f) { return limpio(f.duracion); }).filter(function(d, i, a) { return a.indexOf(d) === i; });
+        if (durs.length) c.duracion = durs.join(' o ');
+        const textos = mias.map(textoPrecio).filter(function(t, i, a) { return t && a.indexOf(t) === i; });
+        if (!textos.length) return;
+        const paren = function(f) { const m = String(f.programa).match(/\(([^)]*)\)/); return limpio(m ? m[1] : ''); };
+        const distintas = function(fn) { const v = mias.map(fn); return v.every(function(x, i) { return x && v.indexOf(x) === i; }); };
+        const etiqueta = distintas(function(f) { return f.modalidad; }) ? function(f) { return limpio(f.modalidad); } : distintas(paren) ? paren : null;
+        const precio = textos.length === 1 ? textos[0] : mias.map(function(f) { return (etiqueta ? etiqueta(f) + ': ' : '') + textoPrecio(f); }).join(' | ');
+        const matricula = (String(c.precio || '').match(/^Matr[ií]cula Bs [\d.]+/) || [''])[0];   // la matrícula no está en INVERSION: se conserva
+        c.precio = (matricula ? matricula + ' · ' : '') + limpio(precio);
+      });
+    }
     function pedir(sede) {
       return new Promise(function(resolver, rechazar) {
         const nombre = 'ofertaCB_' + sede, s = document.createElement('script');
         const reloj = setTimeout(function() { rechazar(new Error('tiempo')); }, 25000);
-        window[nombre] = function(r) { clearTimeout(reloj); s.remove(); delete window[nombre]; if (r && r.ok && r.cursos && r.cursos.length) resolver(r.cursos); else rechazar(new Error('sin datos')); };
+        window[nombre] = function(r) { clearTimeout(reloj); s.remove(); delete window[nombre]; if (r && r.ok && ((r.cursos && r.cursos.length) || (r.inversion && r.inversion.length))) resolver(r); else rechazar(new Error('sin datos')); };
         s.onerror = function() { clearTimeout(reloj); rechazar(new Error('red')); };
         s.src = URL_OFERTA_CRM + '?accion=catalogo&sede=' + sede.toUpperCase() + '&callback=' + nombre;
         document.head.appendChild(s);
       });
     }
     ['sucre', 'potosi'].forEach(function(sede) {
-      pedir(sede).then(function(oferta) { aplicar(sede, oferta); pintarCursos(); pintarFranjaProximos(); }).catch(function(e) { console.log('Oferta ' + sede + ': ' + e.message); });
+      pedir(sede).then(function(r) { if (r.cursos && r.cursos.length) aplicar(sede, r.cursos); aplicarInversion(sede, r.inversion || []); pintarCursos(); pintarFranjaProximos(); }).catch(function(e) { console.log('Oferta ' + sede + ': ' + e.message); });
     });
   })();
 </script>
