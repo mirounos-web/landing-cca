@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Instituto Técnico CCA · Carreras, cursos y preuniversitarios en Sucre y Potosí</title>
-<meta name="description" content="Carreras técnicas superiores en 30 meses, cursos cortos con certificado y preuniversitarios USFX y ESFM. Instituto Técnico CCA, Sucre y Potosí.">
+<meta name="description" content="Carreras técnicas superiores, cursos cortos con certificado y preuniversitarios USFX y ESFM. Instituto Técnico CCA, Sucre y Potosí.">
 <meta name="theme-color" content="#0B0B12">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -68,6 +68,11 @@
   .hero h1 em{font-style:normal;background:linear-gradient(90deg,#B9A8FF,var(--cian));-webkit-background-clip:text;background-clip:text;color:transparent}
   .hero p.lead{font-size:18px;max-width:540px;margin:0 0 28px}
   .acciones{display:flex;gap:12px;flex-wrap:wrap}
+  .hero-img{position:relative;aspect-ratio:4/5;max-height:560px;width:100%;border-radius:24px;overflow:hidden;border:1px solid var(--borde);background:linear-gradient(160deg,#2A1F5C,#0F2A3A)}
+  .hero-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .hero-ph{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:14px;color:rgba(95,227,240,.6);font-size:110px;text-align:center}
+  .hero-ph span{font-size:14px;color:var(--suave);font-family:Inter}
+  @media (max-width:900px){.hero-img{aspect-ratio:16/10}}
   .hero-lista .cab{font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--suave);margin-bottom:10px}
   .hero-lista .items{display:grid;gap:10px}
   .mini{display:flex;align-items:center;gap:14px;background:rgba(20,20,31,.82);border:1px solid var(--borde);border-radius:16px;padding:14px 16px;text-align:left;color:inherit;width:100%;transition:border-color .2s,transform .12s ease-out}
@@ -138,6 +143,7 @@
   .destacado .img img~.velo{display:none}.destacado .img .ic-grande{position:absolute;inset:0;display:grid;place-items:center;color:rgba(95,227,240,.5);font-size:130px}
   .destacado .img .velo{position:absolute;inset:0;background:linear-gradient(90deg,transparent 75%,var(--panel));pointer-events:none}
   .destacado .info{padding:40px 40px 40px 20px;min-width:0}
+  .volver{padding:9px 16px;font-size:14px;display:flex;margin-bottom:16px}
   .destacado h2{font-size:clamp(23px,3vw,34px);line-height:1.15;margin:12px 0 14px;overflow-wrap:anywhere}
   .gancho{font-size:16.5px;color:var(--texto);margin:0 0 24px}
   .bloques{display:grid;grid-template-columns:1fr 1fr;gap:22px 28px;margin-bottom:24px}
@@ -237,14 +243,14 @@
   <div class="wrap">
     <div>
       <span class="etiqueta"><span class="punto"></span>Inscripciones abiertas · sede <span class="nombre-sede">Sucre</span><span class="nombre-asesor"></span></span>
-      <h1>Tu título técnico superior <em>en 30 meses.</em></h1>
+      <h1>Tu título técnico superior, <em>listo para trabajar.</em></h1>
       <p class="lead">Carreras con 70% de práctica, presencial o virtual y en el horario que te acomoda. Terminas con tu título y listo para trabajar.</p>
       <div class="acciones">
         <button class="btn btn-blanco" onclick="irAPestana('carreras')">Ver carreras →</button>
         <button class="btn btn-wa" onclick="abrirWhatsApp(null)"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm5.5-5.8c-.3-.2-1.8-.9-2-1s-.5-.2-.7.2-.8 1-.9 1.2-.3.2-.6.1a8.2 8.2 0 0 1-4.1-3.6c-.3-.5.3-.5.9-1.6.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6a1.1 1.1 0 0 0-.8.4 3.4 3.4 0 0 0-1.1 2.5 5.9 5.9 0 0 0 1.2 3.1 13.4 13.4 0 0 0 5.2 4.6c1.9.8 2.7.9 3.6.7a3.1 3.1 0 0 0 2-1.4 2.5 2.5 0 0 0 .2-1.4c-.1-.2-.3-.3-.7-.5z"/></svg>Hablar con un asesor</button>
       </div>
     </div>
-    <div class="hero-lista"><div class="cab" id="heroCab">Carreras técnicas superiores</div><div class="items" id="heroLista"></div></div>
+    <div class="hero-img"><div class="hero-ph"><svg class="ic-linea" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10 12 5 2 10l10 5 10-5zM6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg><span>Instituto Técnico CCA · Sucre y Potosí</span></div><img src="img/portada-landing.webp" alt="Estudiantes del Instituto Técnico CCA" onerror="this.remove()"></div>
   </div>
 </div>
 
@@ -275,11 +281,12 @@
 </section>
 
 <!-- Detalle -->
-<section id="detalle" style="padding-top:10px">
+<section id="detalle" style="padding-top:10px" hidden>
   <div class="wrap">
     <div class="destacado">
       <div class="img" id="dImg"></div>
       <div class="info">
+        <button class="btn btn-linea volver" onclick="cerrarDetalleSeccion()">← Volver a la oferta</button>
         <span class="etiqueta"><span class="punto"></span><span id="dEtiqueta"></span></span>
         <h2 id="dNombre"></h2>
         <p class="gancho" id="dGancho"></p>
@@ -1190,19 +1197,25 @@
   [["PREUNIVERSITARIO USFX · EXACTAS Y ECONÓMICAS", "3 meses", "3 horas por día"], ["PREUNIVERSITARIO USFX · SALUD", "3 meses", "3 horas por día"],
    ["PREUNIVERSITARIO USFX · SOCIALES", "3 meses", "3 horas por día"], ["PSICOTÉCNICO USFX", "1 mes", "2 horas por día"], ["PREUNIVERSITARIO ESFM (NORMAL)", "3 meses", "3 horas por día"]].forEach(function(p) {
     if (CURSOS.some(function(c) { return c.nombre === p[0]; })) return;
-    CURSOS.push({ cat: "Preuniversitarios", marca: "", nombre: p[0], modalidad: "Presencial", duracion: p[1], horario: p[2], precio: "Inversión: consulta con tu asesor", inicio: "", puntos: [DETALLES_EXTRA[p[0]].frase] });
+    CURSOS.push({ cat: "Preuniversitarios", marca: "", nombre: p[0], modalidad: "Presencial", duracion: p[1], horario: p[2], precio: "Inversión: consulta con tu asesor", inicio: "", fijo: true, puntos: [DETALLES_EXTRA[p[0]].frase] });
   });
 
-  const BENEFICIOS_CARRERA = ['Título de Técnico Superior', 'Beca de Manejo de Paquetes gratis el primer año', 'Clases 70% prácticas y 30% teóricas', 'Presencial o virtual, con horarios flexibles'];
+  const BENEFICIOS_CARRERA_SUCRE = ['Beca de Manejo de Paquetes gratis el primer año'];
+  const BENEFICIOS_CARRERA = ['Título de Técnico Superior', 'Clases 70% prácticas y 30% teóricas', 'Presencial o virtual, con horarios flexibles'];
   const BENEFICIOS_CURSO = ['Clases prácticas desde la primera semana', 'Inteligencia artificial aplicada a tu área', 'Plataforma Moodle con clases grabadas', 'Proyecto final para tu portafolio'];
   const BENEFICIOS_PREU = ['Docentes especializados y fichas propias CCA', 'Banco de preguntas, parciales y maratones', 'Aula virtual Moodle con videoteca por temas', 'Asistencia visible para los padres'];
 
   let pestanaActiva = 'carreras', catActiva = '', detalleActual = '', verTodo = false;
-  const esCarrera = function(c) { return /^Carreras/i.test(c.cat || ''); };
+  const RE_CARRERA = /^(CARRERA|T[EÉ]CNICO SUPERIOR)\b|ADMINISTRACI[OÓ]N DE EMPRESAS|CONTABILIDAD GENERAL|CONTADUR[IÍ]A GENERAL|INFORM[AÁ]TICA INDUSTRIAL|SECRETARIADO EJECUTIVO|^MERCADOTECNIA|SISTEMAS INFORM[AÁ]TICOS/i;
+  const esCarrera = function(c) { return /^Carreras/i.test(c.cat || '') || RE_CARRERA.test(String(c.nombre || '')); };
   const esPreu = function(c) { return /preuniv|nivelaci/i.test(c.cat || '') || /preuniv|psicot[eé]cnico|\bESFM\b/i.test(c.nombre || ''); };
   // Preuniversitarios que llegan de OFERTA ACADEMICA con otro nombre: usan el contenido del brochure de su área.
   function detallesDe(c) {
     if (DETALLES_CURSO[c.nombre]) return DETALLES_CURSO[c.nombre];
+    if (esCarrera(c)) {
+      const n = norm_(c.nombre), k = /CONTAB|CONTAD/.test(n) ? 'CONTADURÍA GENERAL' : /ADMINIS/.test(n) ? 'Administración de Empresas' : /SECRET/.test(n) ? 'SECRETARIADO EJECUTIVO' : /MERCAD/.test(n) ? 'MERCADOTECNIA' : /SISTEMAS/.test(n) ? 'Sistemas Informáticos' : '';
+      return k ? DETALLES_CURSO[k] : {};
+    }
     if (!esPreu(c)) return {};
     const n = String(c.nombre).toUpperCase();
     const k = /PSICO/.test(n) ? 'PSICOTÉCNICO USFX' : /ESFM|NORMAL/.test(n) ? 'PREUNIVERSITARIO ESFM (NORMAL)' : /SALUD/.test(n) ? 'PREUNIVERSITARIO USFX · SALUD'
@@ -1211,7 +1224,10 @@
   }
   const tipoDe = function(c) { return esCarrera(c) ? 'carreras' : esPreu(c) ? 'preu' : 'cursos'; };
   const nombreSede = function() { return sedeActiva === 'potosi' ? 'Potosí' : 'Sucre'; };
-  const deLaSede = function() { return CURSOS.filter(function(c) { return (c.sede || 'sucre') === sedeActiva; }); };
+  // Cuando llega la oferta del CRM, solo se muestra lo que está en OFERTA ACADEMICA o en INVERSION (más los preuniversitarios del brochure).
+  const OFERTA_CARGADA = { sucre: false, potosi: false };
+  const vigente = function(c) { return !OFERTA_CARGADA[c.sede || 'sucre'] || c.enOferta || c.enInversion || c.cat === 'Cursos de este mes' || c.fijo; };
+  const deLaSede = function() { return CURSOS.filter(function(c) { return (c.sede || 'sucre') === sedeActiva && vigente(c); }); };
   const esc = function(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); };
   const js = function(s) { return esc(JSON.stringify(s)); };
   function iconoCurso(c) {
@@ -1285,23 +1301,49 @@
   }
 
   const TITULOS = {
-    carreras: ['Carreras técnicas superiores', 'Elige la carrera con la que vas a trabajar', '30 meses · presencial o virtual · título de Técnico Superior. Toca «Ver contenido» para saber qué aprendes, para quién es y cuánto cuesta.'],
+    carreras: ['Carreras técnicas superiores', 'Elige la carrera con la que vas a trabajar', 'Presencial o virtual · título de Técnico Superior. Toca «Ver contenido» para saber qué aprendes, para quién es y cuánto cuesta.'],
     cursos: ['Cursos cortos', 'Aprende un oficio en pocos meses', 'Cursos prácticos con certificado, ideales para conseguir trabajo rápido o crecer en el que ya tienes.'],
     preu: ['Preuniversitarios', 'Entra a la universidad a la primera', 'Preparación para la admisión USFX y ESFM 2027 con pruebas tipo examen, maratones y seguimiento personalizado.']
   };
 
+  const norm_ = function(x) { return String(x || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase(); };
+  function canonPreu(c) {
+    if (!esPreu(c)) return '';
+    const n = norm_(c.nombre);
+    return /PSICO/.test(n) ? 'PSICOTÉCNICO USFX' : /ESFM|NORMAL/.test(n) ? 'PREUNIVERSITARIO ESFM (NORMAL)' : /SALUD/.test(n) ? 'PREUNIVERSITARIO USFX · SALUD'
+      : /SOCIAL/.test(n) ? 'PREUNIVERSITARIO USFX · SOCIALES' : /EXACT|TECNOL|ECONOM|INGEN/.test(n) ? 'PREUNIVERSITARIO USFX · EXACTAS Y ECONÓMICAS' : '';
+  }
+  const claveUnir = function(n) { return norm_(n).replace(/\([^)]*\)?/g, ' ').replace(/\b(TURNO|MODALIDAD)\s+(MANANA|TARDE|NOCHE|VIRTUAL|PRESENCIAL)\b/g, ' ').replace(/[^A-Z0-9]+/g, ' ').trim(); };
+  function unificarOferta() {
+    ['sucre', 'potosi'].forEach(function(sede) {
+      const grupos = {};
+      CURSOS.filter(function(c) { return (c.sede || 'sucre') === sede; }).forEach(function(c) {
+        const cp = canonPreu(c), k = cp ? 'P:' + cp : 'N:' + claveUnir(c.nombre);
+        (grupos[k] = grupos[k] || []).push(c);
+      });
+      Object.keys(grupos).forEach(function(k) {
+        const g = grupos[k];
+        if (g.length < 2) return;
+        let p = k.indexOf('P:') === 0 ? g.find(function(c) { return c.nombre === k.slice(2); }) : null;
+        p = p || g.find(function(c) { return c.cat !== 'Cursos de este mes'; }) || g[0];
+        g.forEach(function(c) {
+          if (c === p) return;
+          const fc = inicioFuturo(c), fp = inicioFuturo(p);
+          if (fc && (!fp || fc < fp)) p.inicio = c.inicio;
+          if (c.horario) p.horario = !p.horario || /horas por d/i.test(p.horario) ? c.horario : (p.horario.indexOf(c.horario) === -1 ? p.horario + ' | ' + c.horario : p.horario);
+          if (/consulta/i.test(p.precio || '') && c.precio && !/consulta/i.test(c.precio)) p.precio = c.precio;
+          if (c.modalidad && p.modalidad && c.modalidad !== p.modalidad) p.modalidad = 'Presencial o Virtual';
+          CURSOS.splice(CURSOS.indexOf(c), 1);
+        });
+        if (k.indexOf('N:') === 0) p.nombre = p.nombre.replace(/\s*-?\s*TURNO\s+(MAÑANA|MANANA|TARDE|NOCHE)\s*/i, ' ').replace(/\s*-\s*MODALIDAD\s+(VIRTUAL|PRESENCIAL)\s*$/i, '').replace(/\s+/g, ' ').trim();
+      });
+    });
+  }
+
   function pintarCursos() {
+    unificarOferta();
     marcarSedeActiva();
     const sede = deLaSede();
-    // Portada: carreras de la sede (o los próximos inicios si la sede no tiene carreras cargadas)
-    const carreras = sede.filter(esCarrera);
-    const listaHero = carreras.length ? carreras : sede.filter(inicioFuturo).sort(function(a, b) { return fechaInicioCurso(a) - fechaInicioCurso(b); }).slice(0, 5);
-    document.getElementById('heroCab').textContent = carreras.length ? 'Carreras técnicas superiores · ' + nombreSede() : 'Próximos inicios · ' + nombreSede();
-    document.getElementById('heroLista').innerHTML = listaHero.length ? listaHero.map(function(c) {
-      const d = detallesDe(c);
-      return '<button class="mini" onclick="mostrarDetalle(' + js(c.nombre) + ')"><span class="ic">' + icono(iconoCurso(c)) + '</span><span><b>' + esc(nombreBonito(c.nombre)) + '</b><small>' + esc(d.frase || textoInicio(c) || c.duracion) + '</small></span><span class="fl">→</span></button>';
-    }).join('') : '<button class="mini" onclick="abrirWhatsApp(null)"><span class="ic">' + icono('birrete') + '</span><span><b>Pregunta por la oferta de ' + nombreSede() + '</b><small>Un asesor te responde hoy</small></span><span class="fl">→</span></button>';
-
     // Encabezado de la pestaña
     const t = TITULOS[pestanaActiva];
     document.getElementById('ofertaTitulo').innerHTML = '<div class="sob">' + t[0] + ' · ' + nombreSede() + '</div><h2>' + t[1] + '</h2><p>' + t[2] + '</p>';
@@ -1330,10 +1372,9 @@
         (visibles.length < lista.length ? '<button class="btn btn-linea btn-mas" onclick="verTodo=true;pintarCursos()">Ver ' + (lista.length - visibles.length) + ' más</button>' : '');
     }
 
-    // Detalle: se mantiene si sigue en la sede; si no, el primero de la pestaña
-    const actual = sede.find(function(c) { return c.nombre === detalleActual; });
-    const primero = actual || sede.filter(function(c) { return tipoDe(c) === pestanaActiva; })[0] || sede[0];
-    if (primero) mostrarDetalle(primero.nombre, true);
+    // Detalle abierto: se actualiza si el curso sigue en la sede; si no, se cierra
+    const sec = document.getElementById('detalle');
+    if (!sec.hidden) { const actual = sede.find(function(c) { return c.nombre === detalleActual; }); if (actual) mostrarDetalle(actual.nombre, true); else sec.hidden = true; }
   }
 
   function pintarFranjaProximos() {
@@ -1361,7 +1402,7 @@
     document.getElementById('dGancho').textContent = d.gancho || d.perfilEgreso || (c.puntos || []).join(' · ');
     const lista = function(t, l) { return l && l.length ? '<div class="bloque"><h4>' + t + '</h4><ul>' + l.map(function(i) { return '<li>' + esc(i) + '</li>'; }).join('') + '</ul></div>' : ''; };
     const texto = function(t, s) { return s ? '<div class="bloque"><h4>' + t + '</h4><p>' + esc(s) + '</p></div>' : ''; };
-    const beneficios = (carrera ? BENEFICIOS_CARRERA : preu ? BENEFICIOS_PREU : BENEFICIOS_CURSO).concat(c.sinCert ? [] : (!carrera && d.certificacion ? [d.certificacion.replace(/\.$/, '')] : []));
+    const beneficios = (carrera ? (sedeActiva === 'sucre' ? BENEFICIOS_CARRERA.slice(0, 1).concat(BENEFICIOS_CARRERA_SUCRE, BENEFICIOS_CARRERA.slice(1)) : BENEFICIOS_CARRERA) : preu ? BENEFICIOS_PREU : BENEFICIOS_CURSO).concat(c.sinCert ? [] : (!carrera && d.certificacion ? [d.certificacion.replace(/\.$/, '')] : []));
     document.getElementById('dBloques').innerHTML =
       lista(carrera ? 'Por qué elegir esta carrera' : 'Por qué elegirlo', d.ventajas || []) +
       lista('Lo que vas a lograr', d.logros || c.puntos || []) +
@@ -1377,10 +1418,11 @@
     if (d.requisitos) cont += '<div class="sub-cont">Requisitos de inscripción</div><ul class="lista-cont">' + d.requisitos.map(function(i) { return '<li>' + esc(i) + '</li>'; }).join('') + '</ul>';
     document.getElementById('dLista').innerHTML = (cont || '<p style="margin:0">El contenido completo te lo envía un asesor por WhatsApp.</p>') + (d.notaCont ? '<p class="nota">' + esc(d.notaCont) + '</p>' : '');
     document.getElementById('dAcciones').innerHTML = '<button class="btn btn-blanco" onclick="abrirModal(' + js(c.nombre) + ')">Reservar mi cupo →</button><button class="btn btn-wa" onclick="abrirWhatsApp(' + js(c.nombre) + ')">' + WA_ICONO + 'Preguntar por WhatsApp</button>';
-    if (!sinScroll) document.getElementById('detalle').scrollIntoView({ behavior: 'smooth' });
+    if (!sinScroll) { const sec = document.getElementById('detalle'); sec.hidden = false; sec.scrollIntoView({ behavior: 'smooth' }); }
   }
   function fallaImg(img) { const s = document.createElement('span'); s.className = 'ic'; s.innerHTML = icono(img.dataset.ic); img.replaceWith(s); }
   function cerrarDetalle() {}
+  function cerrarDetalleSeccion() { document.getElementById('detalle').hidden = true; document.getElementById('cursos').scrollIntoView({ behavior: 'smooth' }); }
   function abrirDetalle(n) { mostrarDetalle(n); }
 
   document.querySelectorAll('.tab').forEach(function(b) { b.addEventListener('click', function() { irAPestana(b.dataset.tab); }); });
@@ -1520,11 +1562,11 @@
         let mejor = null, nota = 0;
         propios.forEach(function(c) {
           if (usados.indexOf(c) !== -1) return;
-          const n = puntaje(c.nombre, nombre);
+          const n = RE_CARRERA.test(c.nombre) === RE_CARRERA.test(nombre) ? puntaje(c.nombre, nombre) : 0;
           if (n > nota) { nota = n; mejor = c; }
         });
         if (mejor) {
-          usados.push(mejor);
+          usados.push(mejor); mejor.enOferta = true;
           mejor.inicio = fechaLarga(o.inicio);
           if (horario) mejor.horario = horario;
           if (grupo.duracion) mejor.duracion = limpio(grupo.duracion);
@@ -1565,6 +1607,7 @@
       CURSOS.filter(function(c) { return (c.sede || 'sucre') === sede; }).forEach(function(c) {
         const mias = filasDe(filas, c.nombre);
         if (!mias.length) return;
+        c.enInversion = true;
         const durs = mias.filter(function(f) { return f.duracion; }).map(function(f) { return limpio(f.duracion); }).filter(function(d, i, a) { return a.indexOf(d) === i; });
         if (durs.length) c.duracion = durs.join(' o ');
         const textos = mias.map(textoPrecio).filter(function(t, i, a) { return t && a.indexOf(t) === i; });
@@ -1588,10 +1631,17 @@
       });
     }
     ['sucre', 'potosi'].forEach(function(sede) {
-      pedir(sede).then(function(r) { if (r.cursos && r.cursos.length) aplicar(sede, r.cursos); aplicarInversion(sede, r.inversion || []); pintarCursos(); pintarFranjaProximos(); }).catch(function(e) { console.log('Oferta ' + sede + ': ' + e.message); });
+      pedir(sede).then(function(r) { if (r.cursos && r.cursos.length) aplicar(sede, r.cursos); aplicarInversion(sede, r.inversion || []); OFERTA_CARGADA[sede] = true; pintarCursos(); pintarFranjaProximos(); }).catch(function(e) { console.log('Oferta ' + sede + ': ' + e.message); });
     });
   })();
 
 </script>
+<script>
+  // Sofía: no cambia el estilo de la página y se ubica encima del botón de WhatsApp.
+  window.CCA_AVATAR = { mejorarPagina: false, tinta: '#1B1B29', tinta2: '#0B0B12', sello: '#8B6CFF', abajo: 96, abajoMovil: 92, imgPromoWA: '' };
+  // WhatsApp del equipo (hoja USUARIOS, columna E) para Sofía; los que faltan van a su coordinador(a).
+  window.CCA_CELULARES = { RSCF: '60309159', MMC: '75621208', MRP: '64372138', ASA: '68435255', VMMG: '60475971', LGN: '62463723', RBO: '62963767', ADMH: '60462663', MMC2: '75433448', DIPS: '69390687', DLSM: '63419511', PHC: '69901740', NPFT: '78663145', MO: '69594555', NAV: '75599527', MTPC: '75141130', JDDNB: '62540073', JVI: '74450058', EQ: '69665071' };
+</script>
+<script src="avatar-sofia.js?v=20261115"></script>
 </body>
 </html>
