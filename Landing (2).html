@@ -1630,6 +1630,11 @@
         // 15/11/2026: precio regular (ancla) de INVERSION para tacharlo; Sofía lee c.precio con la promoción explicada.
         const anc = mias.map(function(f) { const p = []; if (f.regMensual) p.push('Bs ' + f.regMensual + '/mes'); if (f.regContado) p.push('Bs ' + f.regContado + (f.mensual ? ' al contado' : ' pago único')); return p.join(' · '); }).filter(function(t, i, a) { return t && a.indexOf(t) === i; });
         c.ancla = anc.length ? limpio(anc[0]) : '';
+        if (c.ancla && /^Inscripción Bs [\d.]+/.test(c.precio)) {   // promoción: inscripción gratis (el monto de la planilla queda como regular)
+          const im = c.precio.match(/^Inscripción Bs ([\d.]+)/)[1];
+          c.precio = c.precio.replace(/^Inscripción Bs [\d.]+/, 'Inscripción GRATIS 🎁');
+          c.ancla = 'Inscripción Bs ' + im + ' · ' + c.ancla;
+        }
         c.precioBase = c.precio;
         if (c.ancla) c.precio = c.precioBase + ' — precio promocional por 2 días desde tu consulta (precio regular: ' + c.ancla + ')';
       });
@@ -1656,6 +1661,6 @@
   // WhatsApp del equipo (hoja USUARIOS, columna E) para Sofía; los que faltan van a su coordinador(a).
   window.CCA_CELULARES = { RSCF: '60309159', MMC: '75621208', MRP: '64372138', ASA: '68435255', VMMG: '60475971', LGN: '62463723', RBO: '62963767', ADMH: '60462663', MMC2: '75433448', DIPS: '69390687', DLSM: '63419511', PHC: '69901740', NPFT: '78663145', MO: '69594555', NAV: '75599527', MTPC: '75141130', JDDNB: '62540073', JVI: '74450058', EQ: '69665071' };
 </script>
-<script src="avatar-sofia.js?v=20261115b"></script>
+<script src="avatar-sofia.js?v=20261115c"></script>
 </body>
 </html>

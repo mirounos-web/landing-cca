@@ -959,12 +959,12 @@
   }
   function pagoQR(c) {
     var f = el('div', 'ficha');
-    var img = el('img'); img.src = IMG_QR; img.alt = 'QR de pago del Instituto CCA'; img.style.cssText = 'width:100%;max-width:300px;display:block;margin:0 auto 8px;border-radius:12px';
+    var img = el('img'); img.src = IMG_QR; img.onerror = function () { if (img.src.indexOf('img/qr-pago') !== -1) img.src = 'qr-pago.webp'; };   // por si el QR quedó fuera de la carpeta img img.alt = 'QR de pago del Instituto CCA'; img.style.cssText = 'width:100%;max-width:300px;display:block;margin:0 auto 8px;border-radius:12px';
     f.appendChild(img);
     if (c && c.precio) f.appendChild(el('div', 'nota', '💰 ' + c.precio));
     f.appendChild(el('div', 'nota', 'Cuenta BISA 9627674012 · Corporación Cibernética Americana SRL'));
     msgs.appendChild(f); bajar();
-    decir('Escanea este QR desde la app de tu banco y paga tu inscripción y la primera cuota (o el pago al contado). Cuando termines, toca «Ya pagué» y llena tus datos para tu inscripción.');
+    decir('Escanea este QR desde la app de tu banco y paga tu primera cuota o el pago al contado: con la promoción, tu inscripción es gratis. 🎁 Cuando termines, toca «Ya pagué» y llena tus datos para tu inscripción.');
     opciones([
       { t: 'Ya pagué: llenar mis datos', sub: 'Después envías la foto del depósito por WhatsApp', ic: '📝', estilo: 'sello', fn: function () { burbujaYo('Ya pagué'); abrirInscripcion(c, 'qr', ''); } },
       { t: 'Prefiero pagar en oficinas', ic: '🏢', fn: function () { burbujaYo('Prefiero pagar en oficinas'); pensar(function () { pagoOficina(c); }); } }
