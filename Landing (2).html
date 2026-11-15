@@ -1,538 +1,350 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Instituto CCA — Formamos profesionales técnicos</title>
-<meta name="description" content="Formación técnica práctica con certificación real en Sucre y Potosí. Contabilidad, tecnología, diseño, oratoria, programación y más.">
+<title>Instituto Técnico CCA · Carreras, cursos y preuniversitarios en Sucre y Potosí</title>
+<meta name="description" content="Carreras técnicas superiores en 30 meses, cursos cortos con certificado y preuniversitarios USFX y ESFM. Instituto Técnico CCA, Sucre y Potosí.">
+<meta name="theme-color" content="#0B0B12">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --tinta: #2D4E89;
-    --tinta-2: #1F3866;
-    --sello: #F2CE30;
-    --sello-2: #F7DC66;
-    --papel: #F4F6FA;
-    --papel-2: #FFFFFF;
-    --texto-suave: #5C6B85;
-    --linea: #E2E7F0;
-    --verde: #2E7D51;
-    --verde-2: #1F5E3B;
+  /* Landing CCA "Noche premium" — 14/11/2026. Texto con contraste ≥ 7:1 sobre el fondo. */
+  :root{
+    --fondo:#0B0B12; --panel:#14141F; --panel2:#1B1B29; --borde:rgba(255,255,255,.12);
+    --texto:#F4F3FA; --texto2:#CFCDE0; --suave:#A9A7BD;
+    --violeta:#8B6CFF; --cian:#5FE3F0; --ok:#7CF2B0; --alerta:#FFB86B; --wa:#25D366; --wa2:#1EBE5A;
+    --r:18px;
   }
-  * { box-sizing: border-box; }
-  body { margin: 0; padding-bottom: 54px; font-family: 'Plus Jakarta Sans', sans-serif; background: var(--papel); color: var(--tinta-2); -webkit-font-smoothing: antialiased; }
-  h1, h2, h3, .display { font-family: 'Plus Jakarta Sans', sans-serif; letter-spacing: -0.01em; }
-  a { color: inherit; text-decoration: none; }
-  img { max-width: 100%; display: block; }
-
-  .barra-anuncio {
-    background: var(--sello); color: var(--tinta-2); text-align: center; font-size: 12.5px; font-weight: 700;
-    padding: 8px 16px; letter-spacing: 0.2px;
+  *{box-sizing:border-box} html{scroll-behavior:smooth;scroll-padding-top:150px}
+  body{margin:0;background:var(--fondo);color:var(--texto2);font:400 16px/1.6 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:Unbounded,Inter,sans-serif;color:var(--texto);margin:0;letter-spacing:-.01em}
+  a{color:inherit;text-decoration:none} button{font:inherit;cursor:pointer}
+  img{max-width:100%}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+  .brillo{position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(45% 55% at 85% 5%,rgba(139,108,255,.30),transparent 65%),
+               radial-gradient(40% 50% at 0% 95%,rgba(95,227,240,.16),transparent 65%)}
+  .ic-linea{width:1.1em;height:1.1em;flex:none}
+  /* Botones */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:14px 24px;border-radius:999px;font-weight:600;font-size:15.5px;border:0;transition:transform .12s ease-out,background-color .18s ease-out;text-align:center}
+  .btn:active{transform:scale(.97)}
+  .btn-blanco{background:#fff;color:#0B0B12}.btn-blanco:hover{background:#E6E3FF}
+  .btn-wa{background:var(--wa);color:#05301A}.btn-wa:hover{background:var(--wa2)}
+  .btn-linea{background:transparent;border:1px solid rgba(255,255,255,.3);color:var(--texto)}.btn-linea:hover{background:rgba(255,255,255,.07)}
+  .btn svg{flex:none}
+  /* Menú superior */
+  .nav{position:sticky;top:0;z-index:20;background:rgba(11,11,18,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--borde)}
+  .nav .wrap{display:flex;align-items:center;gap:20px;height:76px}
+  .nav .logo{height:38px;width:auto}
+  .tabs{display:flex;gap:4px;background:rgba(255,255,255,.05);border:1px solid var(--borde);border-radius:999px;padding:4px}
+  .tab{background:transparent;border:0;color:var(--texto2);padding:9px 18px;border-radius:999px;font-size:15px;font-weight:500;transition:background-color .18s ease-out,color .18s;white-space:nowrap}
+  .tab:hover{color:var(--texto)}
+  .tab.on{background:var(--texto);color:var(--fondo);font-weight:600}
+  .sp{flex:1}
+  .sede{display:flex;align-items:center;gap:10px}
+  .sede .lbl{font-size:13px;color:var(--suave);white-space:nowrap}
+  .sede-sw{display:flex;background:var(--panel2);border:1px solid rgba(95,227,240,.35);border-radius:14px;padding:4px}
+  .sede-sw button{display:flex;align-items:center;gap:7px;background:transparent;border:0;color:var(--texto2);padding:10px 20px;border-radius:10px;font-size:16px;font-weight:600;transition:background-color .18s ease-out,color .18s}
+  .sede-sw button.on{background:linear-gradient(135deg,var(--violeta),#5B8CFF);color:#fff;box-shadow:0 6px 18px rgba(139,108,255,.35)}
+  .nav .btn{padding:11px 20px}
+  .barra-movil{display:none}
+  @media (max-width:1060px){
+    .nav .tabs,.nav .sede{display:none}
+    .barra-movil{display:block;position:sticky;top:76px;z-index:19;background:rgba(11,11,18,.95);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--borde);padding:10px 0}
+    .barra-movil .wrap{display:grid;gap:10px}
+    .barra-movil .sede-sw button{flex:1;justify-content:center;font-size:17px;padding:12px}
+    .barra-movil .tabs{overflow-x:auto;scrollbar-width:none}
+    .barra-movil .tab{flex:1;padding:9px 12px;font-size:14.5px}
   }
-
-  header {
-    position: sticky; top: 0; z-index: 40; background: var(--papel-2); border-bottom: 1px solid var(--linea);
-    padding: 14px 24px; display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
-  }
-  .logo-marca { display: flex; align-items: center; white-space: nowrap; }
-  .logo-marca img { height: 42px; width: auto; display: block; }
-  .buscador-header { flex: 1; min-width: 160px; max-width: 340px; position: relative; }
-  .buscador-header input {
-    width: 100%; padding: 10px 14px 10px 36px; border-radius: 999px; border: 1.5px solid var(--linea);
-    font-family: 'Plus Jakarta Sans', sans-serif; font-size: 13.5px; background: var(--papel);
-  }
-  .buscador-header input:focus { outline: 2px solid var(--sello); border-color: var(--sello); }
-  .buscador-header::before { content: '🔍'; position: absolute; left: 13px; top: 50%; transform: translateY(-50%); font-size: 13px; opacity: 0.6; }
-  .botones-header { display: flex; gap: 8px; flex-wrap: wrap; margin-left: auto; }
-  .pill-btn {
-    font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 13px; padding: 10px 18px; border-radius: 999px;
-    border: none; cursor: pointer; white-space: nowrap; display: inline-flex; align-items: center; gap: 6px;
-  }
-  .pill-btn.tinta { background: var(--tinta); color: #fff; }
-  .pill-btn.tinta:hover { background: var(--tinta-2); }
-  .pill-btn.sello { background: var(--sello); color: var(--tinta-2); }
-  .pill-btn.sello:hover { background: var(--sello-2); }
-  .pill-btn.verde { background: var(--verde); color: #fff; }
-  .pill-btn.verde:hover { background: var(--verde-2); }
-
-  .banner-aniversario { max-width: 1180px; margin: 20px auto 0; padding: 0 24px; }
-  .banner-aniversario img { width: 100%; border-radius: 18px; box-shadow: 0 14px 34px rgba(22,48,90,0.16); }
-
-  .hero { background: var(--papel); padding: 54px 24px 40px; }
-  .hero-centro { max-width: 720px; margin: 0 auto; text-align: center; }
-  .caja-inscripciones { justify-content: center; }
-  .etiqueta-hero {
-    display: inline-block; background: #FCEFD0; color: #8A6400; font-size: 12.5px; font-weight: 700; padding: 7px 16px;
-    border-radius: 999px; margin-bottom: 20px;
-  }
-  .hero h1 { font-size: clamp(30px, 4.6vw, 50px); line-height: 1.08; font-weight: 600; margin: 0 0 18px; color: var(--tinta); }
-  .hero p.sub { font-size: 17px; color: var(--texto-suave); line-height: 1.6; max-width: 540px; margin: 0 auto 28px; }
-  .caja-inscripciones {
-    border: 2px dashed var(--sello); border-radius: 16px; padding: 20px 22px; display: inline-flex; align-items: center;
-    gap: 20px; flex-wrap: wrap; background: #FFFBEF;
-  }
-  .caja-inscripciones .texto b { display: block; color: var(--tinta); font-size: 16px; font-family: 'Plus Jakarta Sans', sans-serif; }
-  .caja-inscripciones .texto span { font-size: 12.5px; color: var(--texto-suave); }
-  .btn-inscribete {
-    background: var(--tinta); color: #fff; border: none; padding: 13px 22px; border-radius: 10px; font-weight: 700;
-    font-size: 14px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;
-  }
-  .btn-inscribete:hover { background: var(--tinta-2); }
-
-  .barra-cifras {
-    background: var(--tinta-2); display: flex; align-items: center; justify-content: center;
-    gap: 36px; padding: 22px 24px; flex-wrap: wrap;
-  }
-  .cifra { display: flex; flex-direction: column; align-items: center; text-align: center; }
-  .cifra b { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 26px; color: #fff; line-height: 1; }
-  .cifra span { font-size: 12.5px; color: #B6C3DC; margin-top: 4px; }
-  .separador-cifra { width: 1px; height: 32px; background: rgba(255,255,255,0.18); }
-
-  .accesos-rapidos { max-width: 1180px; margin: 36px auto 0; padding: 0 24px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-  .tarjeta-acceso {
-    border: none; cursor: pointer; border-radius: 14px; padding: 28px 18px; text-align: center; color: #fff;
-    font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 14.5px;
-    display: flex; flex-direction: column; align-items: center; gap: 12px; transition: transform 0.18s ease;
-  }
-  .tarjeta-acceso:hover { transform: translateY(-3px); }
-  .tarjeta-acceso .icono { font-size: 28px; }
-  .tarjeta-acceso.c-sedes { background: linear-gradient(160deg, var(--verde), var(--verde-2)); }
-  .tarjeta-acceso.c-cca { background: linear-gradient(160deg, var(--tinta), var(--tinta-2)); }
-  .tarjeta-acceso.c-esam { background: linear-gradient(160deg, #E0A200, #B37E00); }
-  .tarjeta-acceso.c-carreras { background: linear-gradient(160deg, var(--tinta-2), #0E2038); }
-
-  .quienes-somos { max-width: 780px; margin: 70px auto 0; padding: 0 24px; text-align: center; }
-  .quienes-somos h2 { font-size: 30px; color: var(--tinta); margin: 0 0 18px; }
-  .quienes-somos p { font-size: 15.5px; color: var(--texto-suave); line-height: 1.75; margin: 0 0 22px; }
-  .link-descubre { color: var(--tinta); font-weight: 700; font-size: 14px; border-bottom: 2px solid var(--sello); padding-bottom: 2px; }
-
-  .seccion-metodologia { max-width: 1180px; margin: 70px auto 0; padding: 0 24px; }
-  .seccion-metodologia .encabezado { text-align: center; margin-bottom: 30px; }
-  .seccion-metodologia h2 { font-size: 30px; color: var(--tinta); margin: 0 0 10px; }
-  .seccion-metodologia .encabezado p { font-size: 14.5px; color: var(--texto-suave); max-width: 520px; margin: 0 auto; line-height: 1.6; }
-  .grid-metodologia { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
-  .tarjeta-metodologia { padding: 4px 6px; }
-  .icono-metodologia { font-size: 26px; display: block; margin-bottom: 12px; }
-  .tarjeta-metodologia h3 { font-size: 16px; margin: 0 0 6px; color: var(--tinta); font-family: 'Plus Jakarta Sans', sans-serif; }
-  .tarjeta-metodologia p { font-size: 13px; color: var(--texto-suave); line-height: 1.55; margin: 0; }
-
-  .seccion-sedes { max-width: 1180px; margin: 70px auto 0; padding: 0 24px; }
-  .seccion-sedes .encabezado { text-align: center; margin-bottom: 30px; }
-  .seccion-sedes h2 { font-size: 30px; color: var(--tinta); margin: 0 0 10px; }
-  .seccion-sedes p { font-size: 14.5px; color: var(--texto-suave); max-width: 560px; margin: 0 auto; line-height: 1.6; }
-  .grid-sedes { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-  .boton-sede {
-    display: flex; align-items: center; gap: 16px; background: var(--papel-2); border: 1.5px solid var(--linea);
-    border-radius: 14px; padding: 24px; cursor: pointer; text-align: left; transition: box-shadow 0.15s, border-color 0.15s;
-  }
-  .boton-sede:hover { border-color: var(--tinta); box-shadow: 0 8px 20px rgba(22,48,90,0.10); }
-  .boton-sede.activa { border-color: var(--tinta); background: #F0F4FC; box-shadow: 0 8px 20px rgba(22,48,90,0.12); }
-  .icono-sede { font-size: 30px; }
-  .texto-sede { display: flex; flex-direction: column; gap: 3px; }
-  .texto-sede b { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 19px; color: var(--tinta); }
-  .texto-sede span { font-size: 13px; color: var(--texto-suave); }
-
-  main#cursos { max-width: 1180px; margin: 0 auto; padding: 30px 24px 30px; }
-  .titulo-categoria { font-size: 22px; font-weight: 700; margin: 40px 0 18px; color: var(--tinta); }
-  .titulo-categoria:first-child { margin-top: 0; }
-  .grid-cursos { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 18px; }
-  .tarjeta-curso {
-    background: var(--papel-2); border: 1px solid var(--linea); border-top: 3px solid transparent; border-radius: 14px;
-    padding: 0 22px 22px; overflow: hidden; display: flex; flex-direction: column;
-    transition: border-top-color 0.2s ease, box-shadow 0.2s ease;
-  }
-  .tarjeta-curso:not(:has(.img-curso)) { padding-top: 22px; }
-  .tarjeta-curso:hover { border-top-color: var(--sello); box-shadow: 0 12px 28px rgba(22,48,90,0.09); }
-  .img-curso { width: calc(100% + 44px); margin: 0 -22px 16px; display: block; aspect-ratio: 1 / 1; object-fit: cover; }
-  .fila-badges { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
-  .badge { font-size: 11.5px; font-weight: 700; padding: 4px 10px; border-radius: 7px; }
-  .badge.marca-cca { background: #E4EBF8; color: var(--tinta); }
-  .badge.marca-esam { background: #FCEFD0; color: #8A6400; }
-  .badge.modalidad { background: #E7F3EC; color: var(--verde); }
-  .tarjeta-curso h3 { font-size: 18px; margin: 0 0 8px; line-height: 1.25; }
-  .fila-icono-titulo { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
-  .fila-icono-titulo h3 { margin: 0; }
-  .icono-curso { width: 52px; height: 52px; border-radius: 12px; object-fit: cover; flex-shrink: 0; background: var(--tinta-2); }
-  .icono-emoji { width: 52px; height: 52px; border-radius: 12px; background: var(--tinta-2); display: flex; align-items: center; justify-content: center; font-size: 26px; flex-shrink: 0; }
-  .meta-curso { font-size: 12.5px; color: var(--texto-suave); margin-bottom: 12px; line-height: 1.5; }
-  .precio-curso { font-size: 15px; font-weight: 700; color: var(--tinta); margin-bottom: 14px; }
-  .lista-puntos { list-style: none; margin: 0 0 16px; padding: 0; font-size: 13px; color: var(--tinta-2); }
-  .lista-puntos li { padding-left: 18px; position: relative; margin-bottom: 7px; line-height: 1.4; }
-  .lista-puntos li::before { content: '✓'; position: absolute; left: 0; color: var(--verde); font-weight: 700; }
-  .inicio-curso { font-size: 12px; background: #FCEFD0; color: #8A6400; padding: 7px 10px; border-radius: 8px; margin-bottom: 14px; font-weight: 600; }
-  .fila-botones-tarjeta { margin-top: auto; display: flex; flex-direction: column; gap: 8px; }
-  .btn-tarjeta {
-    background: var(--tinta); color: #fff; border: none; padding: 12px; border-radius: 10px;
-    font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 14px; cursor: pointer;
-  }
-  .btn-tarjeta:hover { background: var(--tinta-2); }
-  .btn-tarjeta.secundario { background: transparent; color: var(--tinta); border: 1.5px solid var(--linea); }
-  .btn-tarjeta.secundario:hover { background: var(--papel); border-color: var(--tinta); }
-  .franja-carreras .btn-tarjeta.secundario { color: #fff; border-color: rgba(255,255,255,0.35); }
-
-  .franja-carreras { background: var(--tinta-2); border-radius: 20px; padding: 36px 26px; margin-top: 46px; color: #fff; }
-  .encabezado-marca { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
-  .encabezado-marca .icono-marca { width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 20px; }
-  .icono-marca.carreras { background: var(--tinta-2); color: #fff; border: 1px solid rgba(255,255,255,0.3); }
-  .encabezado-marca h2 { font-size: 24px; margin: 0; color: #fff; }
-  .encabezado-marca p { font-size: 13px; margin: 2px 0 0; color: #B6C3DC; }
-
-  .bloque-marca { margin-top: 46px; }
-  .bloque-marca:first-child { margin-top: 0; }
-  .bloque-marca .encabezado-marca { margin-bottom: 18px; padding-bottom: 18px; border-bottom: 1px solid var(--linea); }
-  .bloque-marca .encabezado-marca h2 { color: var(--tinta); }
-  .bloque-marca .encabezado-marca p { color: var(--texto-suave); }
-  .icono-marca.cca { background: var(--tinta); color: #fff; }
-  .icono-marca.esam { background: linear-gradient(160deg, #E0A200, #B37E00); color: #fff; }
-  .franja-carreras .tarjeta-curso { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.18); }
-  .franja-carreras .tarjeta-curso h3, .franja-carreras .precio-curso { color: #fff; }
-  .franja-carreras .meta-curso, .franja-carreras .lista-puntos { color: #C9D5EA; }
-  .franja-carreras .lista-puntos li::before { color: var(--sello-2); }
-  .franja-carreras .btn-tarjeta { background: var(--sello); color: var(--tinta-2); }
-  .franja-carreras .btn-tarjeta:hover { background: var(--sello-2); }
-
-  .pantalla-proximamente { text-align: center; padding: 70px 20px; }
-  .franja-proximos { max-width: 1180px; margin: 26px auto 0; padding: 0 24px; }
-  .fp-cab { text-align: center; margin-bottom: 16px; }
-  .fp-etq { display: inline-block; background: var(--sello); color: var(--tinta-2); font-weight: 800; font-size: 12px; padding: 6px 14px; border-radius: 999px; letter-spacing: .3px; }
-  .fp-cab h2 { font-size: clamp(22px, 3vw, 30px); margin: 10px 0 6px; color: var(--tinta); }
-  .fp-cab p { margin: 0; font-size: 14px; color: var(--texto-suave); }
-  .fp-lista { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 12px; }
-  .fp-item { display: flex; align-items: center; gap: 14px; text-align: left; background: #fff; border: 1px solid var(--linea); border-radius: 14px; padding: 12px 14px; cursor: pointer; font-family: 'Plus Jakarta Sans', sans-serif; transition: transform .15s, box-shadow .15s; position: relative; }
-  .fp-item:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0,0,0,.18); }
-  .fp-fecha { flex: none; width: 54px; height: 58px; border-radius: 12px; background: var(--tinta); color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 12px; text-transform: uppercase; font-weight: 700; letter-spacing: .5px; }
-  .fp-fecha b { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 24px; line-height: 1; color: var(--sello); }
-  .fp-tx { flex: 1; min-width: 0; }
-  .fp-tx b { display: block; font-size: 14px; color: var(--tinta-2); line-height: 1.3; }
-  .fp-tx small { display: block; font-size: 12px; color: var(--texto-suave); margin-top: 3px; line-height: 1.35; }
-  .fp-sede { flex: none; font-size: 11px; font-weight: 800; padding: 4px 9px; border-radius: 999px; }
-  .fp-sede.sc { background: #E4EBF8; color: var(--tinta); } .fp-sede.pt { background: #FCEFD0; color: #8A6400; }
-  .fp-cupo { position: absolute; top: -8px; right: 12px; background: #D92D20; color: #fff; font-size: 10.5px; font-weight: 800; padding: 3px 8px; border-radius: 999px; }
-  .tarjeta-curso.resaltar { box-shadow: 0 0 0 4px var(--sello), 0 18px 40px rgba(0,0,0,.25) !important; }
-  @media (max-width: 520px) { .franja-proximos { padding: 0 16px; } .fp-lista { grid-template-columns: 1fr; gap: 10px; } .fp-sede { display: none; } .fp-item { padding: 10px 12px; gap: 12px; } .fp-tx b { font-size: 13.5px; } .fp-fecha { width: 48px; height: 52px; } }
-  .inicio-curso.en-curso { background: #E7F3EC; color: var(--verde-2); }
-  .cupos-curso { font-size: 12px; font-weight: 700; color: var(--tinta); background: #EEF2F8; padding: 6px 10px; border-radius: 8px; margin: -6px 0 14px; display: inline-block; }
-  .cupos-curso.pocos { background: #FDE8E8; color: #B42318; }
-  .icono-marca.proximos { background: var(--sello); color: var(--tinta-2); }
-  .bloque-proximos .encabezado-marca h2 { color: var(--tinta); }
-  .pantalla-proximamente .icono { font-size: 52px; margin-bottom: 16px; }
-  .pantalla-proximamente h2 { font-size: 26px; margin: 0 0 10px; color: var(--tinta); }
-  .pantalla-proximamente p { font-size: 14.5px; color: var(--texto-suave); max-width: 420px; margin: 0 auto 24px; line-height: 1.6; }
-
-  .franja-cta {
-    background: linear-gradient(160deg, var(--tinta) 0%, var(--tinta-2) 100%); color: #fff; text-align: center;
-    padding: 56px 24px; margin-top: 70px;
-  }
-  .franja-cta h2 { font-size: clamp(24px, 3.4vw, 32px); max-width: 640px; margin: 0 auto 24px; line-height: 1.35; }
-
-  footer { background: var(--papel-2); border-top: 1px solid var(--linea); padding: 46px 24px 26px; }
-  .footer-grid { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 30px; }
-  .footer-marca { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 20px; color: var(--tinta); margin-bottom: 10px; }
-  .footer-grid p { font-size: 13px; color: var(--texto-suave); line-height: 1.6; }
-  .footer-sede h4 { font-size: 14px; font-weight: 800; color: var(--tinta); margin: 0 0 10px; }
-  .footer-sede p { margin: 0 0 4px; }
-  .footer-inferior { max-width: 1180px; margin: 30px auto 0; padding-top: 20px; border-top: 1px solid var(--linea); text-align: center; font-size: 12px; color: var(--texto-suave); }
-
-  .fondo-modal { display: none; position: fixed; inset: 0; background: rgba(22,48,90,0.55); z-index: 50; align-items: center; justify-content: center; padding: 16px; }
-  .fondo-modal.abierto { display: flex; }
-  .modal { background: #fff; border-radius: 18px; max-width: 480px; width: 100%; padding: 30px; max-height: 92vh; overflow-y: auto; position: relative; }
-  .modal h2 { font-size: 22px; margin: 0 0 6px; }
-  .modal p.sub-modal { font-size: 13.5px; color: var(--texto-suave); margin: 0 0 22px; }
-  .cerrar-modal { position: absolute; top: 16px; right: 18px; background: none; border: none; font-size: 22px; cursor: pointer; color: var(--texto-suave); }
-  .campo-form { margin-bottom: 14px; }
-  .campo-form label { display: block; font-size: 12.5px; font-weight: 700; margin-bottom: 6px; color: var(--tinta-2); }
-  .campo-form input, .campo-form select, .campo-form textarea {
-    width: 100%; padding: 11px 12px; border-radius: 9px; border: 1.5px solid var(--linea); font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 14px; background: var(--papel);
-  }
-  .campo-form input:focus, .campo-form select:focus, .campo-form textarea:focus { outline: 2px solid var(--sello); border-color: var(--sello); }
-  .radios-sede { display: flex; gap: 10px; }
-  .radios-sede label { flex: 1; border: 1.5px solid var(--linea); border-radius: 9px; padding: 10px; text-align: center; font-size: 13px; font-weight: 600; cursor: pointer; color: var(--texto-suave); }
-  .radios-sede input { display: none; }
-  .btn-enviar { width: 100%; background: var(--tinta); color: #fff; border: none; padding: 14px; border-radius: 10px; font-weight: 700; font-size: 15px; cursor: pointer; margin-top: 6px; }
-  .btn-enviar:hover { background: var(--tinta-2); }
-  .btn-enviar:disabled { opacity: 0.6; cursor: default; }
-  .aviso-modal { font-size: 13px; margin-top: 12px; text-align: center; }
-  .aviso-modal.error { color: #B4523B; }
-  .pantalla-exito { text-align: center; padding: 20px 0; }
-  .pantalla-exito .icono { font-size: 44px; margin-bottom: 12px; }
-
-  .modal-detalle { max-width: 560px; }
-  .titulo-seccion-detalle { font-size: 14px; font-weight: 800; color: var(--tinta); margin: 22px 0 10px; }
-  .modal-detalle h2 { font-size: 21px; margin: 0 0 4px; color: var(--tinta); }
-  .lista-detalle { list-style: none; margin: 0; padding: 0; font-size: 13.5px; color: var(--tinta-2); }
-  .lista-detalle li { padding-left: 20px; position: relative; margin-bottom: 9px; line-height: 1.45; }
-  .lista-detalle li::before { content: '✓'; position: absolute; left: 0; color: var(--verde); font-weight: 700; }
-  .texto-detalle { font-size: 13.5px; color: var(--tinta-2); line-height: 1.55; margin: 0; }
-  .lista-requisitos li::before { content: '·'; font-size: 20px; line-height: 1; top: -2px; color: var(--tinta); }
-
-  .barra-flotante {
-    position: fixed; left: 0; right: 0; bottom: 0; z-index: 45; background: var(--tinta);
-    display: flex; align-items: center; justify-content: center; gap: 16px; padding: 12px 20px;
-    box-shadow: 0 -6px 20px rgba(14,32,56,0.2);
-  }
-  .texto-flotante { color: #fff; font-size: 13.5px; font-weight: 600; }
-  .btn-flotante {
-    background: var(--sello); color: var(--tinta-2); border: none; padding: 10px 20px; border-radius: 999px;
-    font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 13.5px; cursor: pointer; white-space: nowrap;
-  }
-  .btn-flotante:hover { background: var(--sello-2); }
-
-  @media (max-width: 860px) {
-    .accesos-rapidos { grid-template-columns: repeat(2, 1fr); }
-    .grid-sedes { grid-template-columns: 1fr; }
-    .footer-grid { grid-template-columns: 1fr; }
-    .botones-header { width: 100%; justify-content: flex-start; }
-    .grid-metodologia { grid-template-columns: 1fr 1fr; }
-    .barra-cifras { gap: 24px; }
-  }
-  @media (max-width: 520px) {
-    .grid-metodologia { grid-template-columns: 1fr; }
-    .texto-flotante { display: none; }
-  }
-  /* ===== Estilo A (10/11/2026): institucional moderno ===== */
-  h1, h2, h3, .display { font-weight: 800; letter-spacing: -0.02em; }
-  .logo-marca img { height: 48px; }
-  .nav-header { display: flex; gap: 22px; font-size: 14.5px; font-weight: 600; }
-  .nav-header a { color: var(--tinta-2); }
-  .nav-header a:hover { color: var(--tinta); text-decoration: underline; text-decoration-color: var(--sello); text-decoration-thickness: 3px; text-underline-offset: 6px; }
-  .hero-a { background: var(--tinta); color: #fff; }
-  .hero-a-centro { max-width: 1180px; margin: 0 auto; padding: 64px 24px; display: flex; flex-wrap: wrap; gap: 44px; align-items: center; }
-  .hero-a-texto { flex: 1 1 460px; display: flex; flex-direction: column; gap: 18px; }
-  .hero-a-etq { align-self: flex-start; font-size: 13px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; color: var(--sello); }
-  .hero-a h1 { margin: 0; font-size: clamp(32px, 4.8vw, 52px); line-height: 1.08; color: #fff; }
-  .hero-a p { margin: 0; font-size: 18px; line-height: 1.6; color: #DCE4F5; max-width: 560px; }
-  .hero-a-botones { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 6px; }
-  .btn-a { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 15px; padding: 15px 24px; border-radius: 10px; cursor: pointer; border: none; }
-  .btn-a.amarillo { background: var(--sello); color: var(--tinta-2); }
-  .btn-a.amarillo:hover { background: var(--sello-2); }
-  .btn-a.borde { background: transparent; color: #fff; border: 1.5px solid #93A7CF; }
-  .btn-a.borde:hover { border-color: #fff; }
-  .hero-a-cifras { display: flex; flex-wrap: wrap; gap: 28px; margin-top: 10px; }
-  .hero-a-cifras b { display: block; font-size: 26px; color: #fff; }
-  .hero-a-cifras span { font-size: 13px; color: #C5D2EC; }
-  .form-hero { flex: 1 1 340px; max-width: 420px; background: #fff; color: var(--tinta-2); border-radius: 16px; padding: 26px; box-shadow: 0 20px 44px rgba(10,24,52,0.35); }
-  .form-hero h2 { margin: 0 0 4px; font-size: 21px; color: var(--tinta-2); }
-  .form-hero .sub-form { margin: 0 0 16px; font-size: 13.5px; color: var(--texto-suave); }
-  .form-hero .aviso-modal { min-height: 18px; }
-  .barra-cifras { display: none; }
-  .banner-aniversario { margin-top: 36px; }
-  .tarjeta-acceso.c-sedes { background: var(--tinta); }
-  .tarjeta-acceso.c-cca { background: var(--tinta-2); }
-  .tarjeta-acceso.c-esam { background: #022B4F; }
-  .tarjeta-acceso.c-carreras { background: #16294D; }
-  .tarjeta-curso { border-radius: 16px; }
-  .tarjeta-curso:hover { border-top-color: var(--sello); box-shadow: 0 16px 34px rgba(31,56,102,0.14); }
-  .franja-cta { background: var(--tinta-2); }
-  footer { background: var(--tinta-2); border-top: none; color: #DCE4F5; }
-  footer .footer-grid p, footer .footer-inferior { color: #C5D2EC; }
-  footer .footer-sede h4 { color: #fff; }
-  footer .footer-inferior { border-top-color: rgba(255,255,255,0.15); }
-  .footer-logos { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-bottom: 14px; }
-  .footer-logos .logo-blanco { height: 54px; width: auto; }
-  .footer-logos .caja-esam { display: flex; align-items: center; gap: 10px; background: #fff; border-radius: 10px; padding: 8px 12px; color: #022B4F; font-weight: 800; font-size: 13px; }
-  .footer-logos .caja-esam img { height: 34px; width: auto; }
-  @media (max-width: 860px) { .nav-header { display: none; } .hero-a-centro { padding: 40px 18px; gap: 28px; } .form-hero { max-width: none; } }
-
-  /* ---- Skills Impeccable / Emil Kowalski / Taste (13/11/2026) ---- */
-  .ic-linea { width: 1.05em; height: 1.05em; vertical-align: -0.16em; flex: none; }
-  .tarjeta-acceso .icono .ic-linea, .icono-sede .ic-linea, .icono-marca .ic-linea, .pantalla-proximamente .icono .ic-linea { width: auto; height: auto; vertical-align: middle; }
-  .icono-emoji .ic-linea { width: 26px; height: 26px; color: var(--tinta); }
-  .meta-curso, .inicio-curso, .cupos-curso { display: flex; align-items: flex-start; gap: 6px; }
-  .meta-curso .ic-linea, .inicio-curso .ic-linea, .cupos-curso .ic-linea { margin-top: 0.12em; }
-  .precio-curso { line-height: 1.45; }
-  .tarjeta-curso { transition: transform .22s cubic-bezier(.2,.8,.2,1), box-shadow .22s cubic-bezier(.2,.8,.2,1); }
-  @media (hover: hover) { .tarjeta-curso:hover { transform: translateY(-3px); box-shadow: 0 14px 30px rgba(31,56,102,.14); } }
-  .btn-tarjeta, .btn-inscribete, .tarjeta-acceso, .fp-item { transition: transform .12s ease-out, background-color .18s ease-out, box-shadow .18s ease-out; }
-  .btn-tarjeta:active, .btn-inscribete:active, .tarjeta-acceso:active, .fp-item:active { transform: scale(.97); }
-  .img-curso { background: #EEF2F8; }
-  @media (prefers-reduced-motion: reduce) {
-    .tarjeta-curso, .btn-tarjeta, .btn-inscribete, .tarjeta-acceso, .fp-item { transition: none; }
-    .tarjeta-curso:hover, .btn-tarjeta:active, .btn-inscribete:active, .tarjeta-acceso:active, .fp-item:active { transform: none; }
-  }
+  @media (max-width:420px){.nav .btn{padding:10px 14px;font-size:14px}}
+  /* Portada */
+  .hero{position:relative;overflow:hidden;padding:70px 0 60px}
+  .hero .wrap{position:relative;display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center}
+  .etiqueta{display:inline-flex;gap:8px;align-items:center;font-size:13.5px;font-weight:600;color:var(--cian);background:rgba(95,227,240,.10);border:1px solid rgba(95,227,240,.25);padding:6px 14px;border-radius:999px}
+  .punto{width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 4px rgba(124,242,176,.18);flex:none}
+  .hero h1{font-size:clamp(31px,4.8vw,56px);line-height:1.07;margin:20px 0 18px}
+  .hero h1 em{font-style:normal;background:linear-gradient(90deg,#B9A8FF,var(--cian));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero p.lead{font-size:18px;max-width:540px;margin:0 0 28px}
+  .acciones{display:flex;gap:12px;flex-wrap:wrap}
+  .hero-lista .cab{font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--suave);margin-bottom:10px}
+  .hero-lista .items{display:grid;gap:10px}
+  .mini{display:flex;align-items:center;gap:14px;background:rgba(20,20,31,.82);border:1px solid var(--borde);border-radius:16px;padding:14px 16px;text-align:left;color:inherit;width:100%;transition:border-color .2s,transform .12s ease-out}
+  .mini:hover{border-color:rgba(139,108,255,.6)} .mini:active{transform:scale(.98)}
+  .mini .ic{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,rgba(139,108,255,.25),rgba(95,227,240,.18));color:var(--cian);flex:none;font-size:22px}
+  .mini b{display:block;color:var(--texto);font-size:15.5px;line-height:1.3}
+  .mini small{display:block;font-size:13.5px;color:var(--suave)}
+  .mini .fl{margin-left:auto;color:var(--texto2)}
+  @media (max-width:900px){.hero .wrap{grid-template-columns:1fr;gap:34px}.hero{padding-top:40px}}
+  /* Secciones */
+  section{padding:70px 0}
+  .titulo{max-width:700px;margin-bottom:30px}
+  .titulo .sob{font-size:13px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--violeta)}
+  .titulo h2{font-size:clamp(25px,3.4vw,38px);line-height:1.15;margin:10px 0 12px}
+  .titulo p{margin:0}
+  /* Por qué el CCA */
+  .razones{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  .razon{background:var(--panel);border:1px solid var(--borde);border-radius:var(--r);padding:24px}
+  .razon .ic{color:var(--cian);font-size:26px;margin-bottom:12px;display:block}
+  .razon b.n{display:block;font-family:Unbounded;font-size:28px;color:var(--texto);margin-bottom:4px}
+  .razon h3{font-size:16px;margin-bottom:8px}
+  .razon p{margin:0;font-size:14.5px}
+  @media (max-width:900px){.razones{grid-template-columns:1fr 1fr}}@media (max-width:520px){.razones{grid-template-columns:1fr}}
+  /* Oferta */
+  .barra-oferta{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:22px}
+  .chips{display:flex;gap:8px;flex-wrap:wrap;flex:1}
+  .chip{padding:8px 15px;border-radius:999px;border:1px solid var(--borde);background:transparent;font-size:14px;color:var(--texto2);transition:background-color .18s ease-out}
+  .chip:hover{background:rgba(255,255,255,.06)}
+  .chip.on{background:var(--texto);color:var(--fondo);border-color:var(--texto);font-weight:600}
+  .buscar{display:flex;align-items:center;gap:8px;background:var(--panel2);border:1px solid var(--borde);border-radius:999px;padding:0 16px;min-width:240px;color:var(--suave)}
+  .buscar input{background:transparent;border:0;outline:0;color:var(--texto);font:inherit;padding:11px 0;width:100%}
+  .buscar input::placeholder{color:var(--suave)}
+  @media (max-width:600px){.buscar{min-width:0;width:100%}.chips{flex:1 1 100%;flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}.chip{flex:none}}
+  .proximos{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px;margin-bottom:22px;scrollbar-width:thin}
+  .prox{flex:none;display:flex;gap:12px;align-items:center;background:var(--panel);border:1px solid var(--borde);border-radius:14px;padding:10px 14px;color:inherit;text-align:left;max-width:300px}
+  .prox:hover{border-color:rgba(95,227,240,.5)}
+  .prox .f{font-family:Unbounded;color:var(--texto);text-align:center;line-height:1.05;font-size:18px;min-width:40px}
+  .prox .f small{display:block;font-family:Inter;font-size:11.5px;color:var(--cian);text-transform:uppercase}
+  .prox b{display:block;color:var(--texto);font-size:14px;line-height:1.3}
+  .prox span{font-size:12.5px;color:var(--suave)}
+  .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+  @media (max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media (max-width:600px){.grid{grid-template-columns:1fr}}
+  .card{background:var(--panel);border:1px solid var(--borde);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;transition:transform .22s cubic-bezier(.2,.8,.2,1),border-color .22s}
+  @media (hover:hover){.card:hover{transform:translateY(-4px);border-color:rgba(139,108,255,.5)}}
+  .card.resaltar{border-color:var(--cian);box-shadow:0 0 0 3px rgba(95,227,240,.25)}
+  .portada{aspect-ratio:16/9;position:relative;overflow:hidden;background:linear-gradient(135deg,#231B4A,#0F2A3A)}
+  .portada img{width:100%;height:100%;object-fit:cover;display:block}
+  .portada .ic{position:absolute;inset:0;display:grid;place-items:center;color:rgba(95,227,240,.7);font-size:54px}
+  .portada .sello{position:absolute;right:12px;top:12px;font-size:12px;font-weight:600;background:rgba(11,11,18,.8);color:var(--texto);border:1px solid var(--borde);padding:4px 10px;border-radius:999px}
+  .portada .sello.pronto{color:#0B0B12;background:var(--ok);border-color:var(--ok)}
+  .card .c{padding:18px 18px 20px;display:flex;flex-direction:column;gap:8px;flex:1}
+  .card .area{font-size:12.5px;font-weight:600;color:var(--cian);text-transform:uppercase;letter-spacing:.08em}
+  .card h3{font-size:17px;line-height:1.3}
+  .card p{margin:0;font-size:14.5px}
+  .card .meta{display:flex;gap:6px 14px;flex-wrap:wrap;font-size:13.5px;color:var(--suave)}
+  .card .meta span{display:inline-flex;align-items:center;gap:6px}
+  .card .precio{font-size:14.5px;color:var(--texto);font-weight:600}
+  .card .bts{margin-top:auto;padding-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .card .bts .btn{padding:11px 10px;font-size:14px}
+  .vacio{background:var(--panel);border:1px dashed var(--borde);border-radius:var(--r);padding:34px;text-align:center}
+  .vacio p{margin:0 0 18px}
+  .btn-mas{display:flex;margin:22px auto 0}
+  /* Detalle */
+  .destacado{background:var(--panel);border:1px solid var(--borde);border-radius:28px;overflow:hidden;display:grid;grid-template-columns:.85fr 1.15fr}
+  .destacado .img{position:relative;min-height:460px;background:linear-gradient(160deg,#2A1F5C,#0F2A3A)}
+  .destacado .img img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center top;padding:22px}
+  .destacado .img img~.velo{display:none}.destacado .img .ic-grande{position:absolute;inset:0;display:grid;place-items:center;color:rgba(95,227,240,.5);font-size:130px}
+  .destacado .img .velo{position:absolute;inset:0;background:linear-gradient(90deg,transparent 75%,var(--panel));pointer-events:none}
+  .destacado .info{padding:40px 40px 40px 20px;min-width:0}
+  .destacado h2{font-size:clamp(23px,3vw,34px);line-height:1.15;margin:12px 0 14px;overflow-wrap:anywhere}
+  .gancho{font-size:16.5px;color:var(--texto);margin:0 0 24px}
+  .bloques{display:grid;grid-template-columns:1fr 1fr;gap:22px 28px;margin-bottom:24px}
+  .bloque h4{margin:0 0 8px;font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--violeta)}
+  .bloque p{margin:0;font-size:15px}
+  .bloque ul{margin:0;padding:0;list-style:none;display:grid;gap:7px}
+  .bloque li{display:flex;gap:9px;font-size:15px}
+  .bloque li::before,.lista-cont li::before{content:"";flex:none;width:16px;height:16px;margin-top:4px;border-radius:50%;background:rgba(124,242,176,.16) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237CF2B0' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5L20 7'/%3E%3C/svg%3E") center/10px no-repeat}
+  .datos{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--borde);border:1px solid var(--borde);border-radius:14px;overflow:hidden;margin-bottom:20px}
+  .datos div{background:var(--panel2);padding:14px;min-width:0}
+  .datos span{display:block;font-size:12.5px;color:var(--suave)}
+  .datos b{font-size:14.5px;color:var(--texto);font-weight:600;display:block;line-height:1.4}
+  .contenido{border:1px solid var(--borde);border-radius:14px;margin-bottom:20px;overflow:hidden}
+  .contenido>button{width:100%;display:flex;justify-content:space-between;align-items:center;gap:12px;background:var(--panel2);border:0;color:var(--texto);padding:16px 18px;font-weight:600;font-size:16px;text-align:left}
+  .contenido>button .fl{transition:transform .2s ease-out;flex:none}
+  .contenido.abierto>button .fl{transform:rotate(180deg)}
+  .contenido .lista{display:none;padding:10px 18px 16px}
+  .contenido.abierto .lista{display:block}
+  .lista-cont{margin:0;padding:0;list-style:none;display:grid;gap:9px}
+  .lista-cont li{display:flex;gap:10px;font-size:15px}
+  .sub-cont{font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--cian);margin:14px 0 8px}
+  .sub-cont:first-child{margin-top:4px}
+  .nota{font-size:13px;color:var(--suave);margin-top:12px}
+  @media (max-width:900px){.destacado{grid-template-columns:1fr}.destacado .img{min-height:220px}.destacado .img .velo{background:linear-gradient(180deg,transparent 40%,var(--panel))}.destacado .info{padding:6px 20px 26px}.bloques{grid-template-columns:1fr}.datos{grid-template-columns:1fr 1fr}}
+  /* Pasos y cierre */
+  .pasos{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .paso{border-top:2px solid var(--violeta);padding-top:18px}
+  .paso b{font-family:Unbounded;font-size:34px;color:rgba(255,255,255,.24)}
+  .paso h3{font-size:17px;margin:6px 0}.paso p{margin:0;font-size:14.5px}
+  @media (max-width:700px){.pasos{grid-template-columns:1fr}}
+  .final{position:relative;overflow:hidden;border-radius:28px;border:1px solid var(--borde);padding:56px 30px;text-align:center;background:var(--panel)}
+  .final h2{position:relative;font-size:clamp(25px,3.6vw,42px);line-height:1.12;max-width:740px;margin:0 auto 14px}
+  .final p{position:relative;max-width:580px;margin:0 auto 26px}
+  .final .acciones{justify-content:center;position:relative}
+  footer{border-top:1px solid var(--borde);padding:44px 0 90px;font-size:14.5px}
+  footer .grid-pie{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:28px}
+  footer h4{color:var(--texto);margin:0 0 8px;font-size:15px}
+  footer p{margin:0 0 6px}
+  footer .logos{display:flex;align-items:center;gap:14px;margin-bottom:12px}
+  footer .logos img{height:38px;width:auto}
+  footer .inf{margin-top:28px;padding-top:18px;border-top:1px solid var(--borde);color:var(--suave);font-size:13px}
+  @media (max-width:800px){footer .grid-pie{grid-template-columns:1fr}}
+  /* WhatsApp flotante */
+  .wa-flot{position:fixed;right:18px;bottom:18px;z-index:30;width:60px;height:60px;border-radius:50%;background:var(--wa);border:0;display:grid;place-items:center;box-shadow:0 10px 28px rgba(37,211,102,.45);transition:transform .12s ease-out}
+  .wa-flot:active{transform:scale(.94)}
+  /* Formulario (ventana) */
+  .fondo-modal{position:fixed;inset:0;background:rgba(5,5,10,.72);display:none;align-items:center;justify-content:center;z-index:60;padding:16px}
+  .fondo-modal.abierto{display:flex}
+  .modal{background:var(--panel);border:1px solid var(--borde);border-radius:22px;max-width:470px;width:100%;max-height:92vh;overflow:auto;padding:28px 24px;position:relative;color:var(--texto2)}
+  .modal h2{font-size:22px;margin:0 0 6px}
+  .sub-modal{margin:0 0 18px;font-size:14.5px}
+  .cerrar-modal{position:absolute;right:14px;top:12px;background:rgba(255,255,255,.08);border:0;color:var(--texto);width:36px;height:36px;border-radius:50%;font-size:16px}
+  .campo-form{margin-bottom:14px}
+  .campo-form label{display:block;font-size:13.5px;font-weight:600;color:var(--texto);margin-bottom:6px}
+  .campo-form input,.campo-form textarea{width:100%;background:var(--panel2);border:1px solid var(--borde);border-radius:12px;color:var(--texto);font:inherit;padding:12px 14px;outline:0}
+  .campo-form input:focus,.campo-form textarea:focus{border-color:var(--violeta)}
+  .radios-sede{display:flex;gap:10px}
+  .radios-sede label{flex:1;margin:0}
+  .radios-sede input{position:absolute;opacity:0;width:1px;height:1px}
+  .radios-sede span{display:block;text-align:center;padding:11px;border:1px solid var(--borde);border-radius:12px;font-weight:600;color:var(--texto2);cursor:pointer}
+  .radios-sede input:checked+span{background:linear-gradient(135deg,var(--violeta),#5B8CFF);color:#fff;border-color:transparent}
+  .btn-enviar{width:100%;background:#fff;color:#0B0B12;border:0;border-radius:999px;padding:15px;font-weight:600;font-size:16px;margin-top:6px}
+  .btn-enviar:disabled{opacity:.6}
+  .aviso-modal{margin-top:10px;font-size:14px;color:var(--cian);min-height:1em}
+  .aviso-modal.error{color:var(--alerta)}
+  :focus-visible{outline:2px solid var(--cian);outline-offset:2px}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
 
-<div class="barra-anuncio">📢 Inscripciones abiertas — Instituto Técnico CCA · Sucre y Potosí</div>
-
-<header>
-  <div class="logo-marca"><img id="imgLogoCCA" src="" alt="Instituto Técnico CCA"></div>
-  <nav class="nav-header" aria-label="Secciones">
-    <a href="#cursos">Cursos</a>
-    <a href="#seccionSedes">Sedes</a>
-    <a href="#como-ensenamos">Cómo enseñamos</a>
-  </nav>
-  <div class="buscador-header">
-    <input type="text" id="buscadorCursos" placeholder="Buscar un curso..." oninput="buscarCurso_(this.value)">
-  </div>
-  <div class="botones-header">
-    <button class="pill-btn tinta" onclick="document.getElementById('cursos').scrollIntoView({behavior:'smooth'})">Ver cursos</button>
-    <button class="pill-btn sello" onclick="abrirModal(null)">Inscríbete ahora</button>
+<header class="nav">
+  <div class="wrap">
+    <a href="#inicio"><img class="logo" src="img/9f306cba5f.webp" alt="Instituto Técnico CCA"></a>
+    <div class="tabs" role="tablist" aria-label="Oferta">
+      <button class="tab on" data-tab="carreras">Carreras</button>
+      <button class="tab" data-tab="cursos">Cursos</button>
+      <button class="tab" data-tab="preu">Preuniversitarios</button>
+    </div>
+    <span class="sp"></span>
+    <div class="sede"><span class="lbl">Tu sede</span>
+      <div class="sede-sw" role="group" aria-label="Sede"><button data-sede="sucre" id="botonSedeSucre">📍 Sucre</button><button data-sede="potosi" id="botonSedePotosi">📍 Potosí</button></div>
+    </div>
+    <button class="btn btn-blanco" onclick="abrirModal(null)">Inscríbete</button>
   </div>
 </header>
+<div class="barra-movil">
+  <div class="wrap">
+    <div class="sede-sw" role="group" aria-label="Sede"><button data-sede="sucre">📍 Sucre</button><button data-sede="potosi">📍 Potosí</button></div>
+    <div class="tabs" aria-label="Oferta"><button class="tab on" data-tab="carreras">Carreras</button><button class="tab" data-tab="cursos">Cursos</button><button class="tab" data-tab="preu">Preuniversitarios</button></div>
+  </div>
+</div>
 
-
-<section class="hero-a">
-  <div class="hero-a-centro">
-    <div class="hero-a-texto">
-      <span class="hero-a-etq">Sucre · Potosí</span>
-      <h1>Fórmate en meses, no en años — con certificación real.</h1>
-      <p>28 programas técnicos con práctica desde la primera semana: contabilidad, tecnología, diseño, oratoria y más. Elige tu curso y un asesor te contacta hoy mismo.</p>
-      <div class="hero-a-botones">
-        <button type="button" class="btn-a amarillo" onclick="document.getElementById('cursos').scrollIntoView({behavior:'smooth'})">Ver cursos</button>
-        <button type="button" class="btn-a borde" onclick="document.getElementById('franjaProximos').scrollIntoView({behavior:'smooth'})">Próximos inicios</button>
+<!-- Portada: solo carreras -->
+<div class="hero" id="inicio">
+  <div class="brillo"></div>
+  <div class="wrap">
+    <div>
+      <span class="etiqueta"><span class="punto"></span>Inscripciones abiertas · sede <span class="nombre-sede">Sucre</span><span class="nombre-asesor"></span></span>
+      <h1>Tu título técnico superior <em>en 30 meses.</em></h1>
+      <p class="lead">Carreras con 70% de práctica, presencial o virtual y en el horario que te acomoda. Terminas con tu título y listo para trabajar.</p>
+      <div class="acciones">
+        <button class="btn btn-blanco" onclick="irAPestana('carreras')">Ver carreras →</button>
+        <button class="btn btn-wa" onclick="abrirWhatsApp(null)"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm5.5-5.8c-.3-.2-1.8-.9-2-1s-.5-.2-.7.2-.8 1-.9 1.2-.3.2-.6.1a8.2 8.2 0 0 1-4.1-3.6c-.3-.5.3-.5.9-1.6.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6a1.1 1.1 0 0 0-.8.4 3.4 3.4 0 0 0-1.1 2.5 5.9 5.9 0 0 0 1.2 3.1 13.4 13.4 0 0 0 5.2 4.6c1.9.8 2.7.9 3.6.7a3.1 3.1 0 0 0 2-1.4 2.5 2.5 0 0 0 .2-1.4c-.1-.2-.3-.3-.7-.5z"/></svg>Hablar con un asesor</button>
       </div>
-      <div class="hero-a-cifras">
-        <div><b>+45.000</b><span>egresados</span></div>
-        <div><b>30 años</b><span>formando profesionales técnicos</span></div>
+    </div>
+    <div class="hero-lista"><div class="cab" id="heroCab">Carreras técnicas superiores</div><div class="items" id="heroLista"></div></div>
+  </div>
+</div>
+
+<!-- Por qué el CCA -->
+<section style="padding-top:16px">
+  <div class="wrap">
+    <div class="titulo"><div class="sob">Por qué el CCA</div><h2>No solo te enseñamos. Te preparamos para trabajar.</h2></div>
+    <div class="razones">
+      <div class="razon"><b class="n">30 años</b><h3>+45.000 egresados</h3><p>Formando profesionales técnicos en Sucre y Potosí desde 1996.</p></div>
+      <div class="razon"><span class="ic"><svg class="ic-linea" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1zM9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2M3 13h18"/></svg></span><h3>70% práctica</h3><p>Clases 70% prácticas y 30% teóricas, con docentes especialistas y laboratorios.</p></div>
+      <div class="razon"><span class="ic"><svg class="ic-linea" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10 12 5 2 10l10 5 10-5zM6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg></span><h3>Certificación reconocida</h3><p>Certificados con valor curricular: Instituto CCA, y ESAM en convenio con la Universidad Siglo XX.</p></div>
+      <div class="razon"><span class="ic"><svg class="ic-linea" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg></span><h3>Horarios flexibles</h3><p>Presencial o virtual, en turnos de mañana, tarde y noche.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Oferta por pestañas -->
+<section id="cursos" style="padding-top:10px">
+  <div class="wrap">
+    <div class="titulo" id="ofertaTitulo"></div>
+    <div class="barra-oferta">
+      <div class="chips" id="chips"></div>
+      <label class="buscar"><svg class="ic-linea" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16zM21 21l-4.3-4.3"/></svg><input id="buscadorCursos" type="search" placeholder="Buscar…" oninput="buscarCurso_(this.value)" aria-label="Buscar"></label>
+    </div>
+    <div class="proximos" id="proximos" aria-label="Próximos inicios"></div>
+    <div id="gridOferta"></div>
+  </div>
+</section>
+
+<!-- Detalle -->
+<section id="detalle" style="padding-top:10px">
+  <div class="wrap">
+    <div class="destacado">
+      <div class="img" id="dImg"></div>
+      <div class="info">
+        <span class="etiqueta"><span class="punto"></span><span id="dEtiqueta"></span></span>
+        <h2 id="dNombre"></h2>
+        <p class="gancho" id="dGancho"></p>
+        <div class="bloques" id="dBloques"></div>
+        <div class="datos" id="dDatos"></div>
+        <div class="contenido abierto" id="dContenido">
+          <button type="button" aria-expanded="true" onclick="const c=this.parentNode;c.classList.toggle('abierto');this.setAttribute('aria-expanded',c.classList.contains('abierto'))"><span id="dContTit">Ver contenido</span><svg class="fl" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="lista" id="dLista"></div>
+        </div>
+        <div class="acciones" id="dAcciones"></div>
       </div>
     </div>
-    <form class="form-hero" onsubmit="enviarDesdeHero_(event)">
-      <h2>Recibe información gratis</h2>
-      <p class="sub-form">Un asesor te escribe por WhatsApp con fechas, horarios e inversión.</p>
-      <div class="campo-form"><label for="hNombre">Nombre y apellidos *</label><input id="hNombre" autocomplete="name" placeholder="Tu nombre completo"></div>
-      <div class="campo-form"><label for="hCelular">Celular / WhatsApp *</label><input id="hCelular" type="tel" autocomplete="tel" placeholder="Ej: 71234567"></div>
-      <div class="campo-form"><label for="hCurso">Curso de interés</label><input id="hCurso" placeholder="¿Qué te gustaría estudiar?"></div>
-      <button type="submit" class="btn-enviar">Quiero información</button>
-      <div class="aviso-modal" id="avisoHero" role="status"></div>
-    </form>
   </div>
 </section>
 
-<div class="banner-aniversario">
-  <img id="imgBanner30" data-imgref="banner30" alt="Instituto CCA y ESAM — 30 años cumpliendo sueños profesionales">
-</div>
-
-
-<section class="franja-proximos" id="franjaProximos" aria-label="Próximos inicios"></section>
-
-<div class="barra-cifras">
-  <div class="cifra"><b>+45.000</b><span>egresados</span></div>
-  <div class="separador-cifra"></div>
-  <div class="cifra"><b>30 años</b><span>formando profesionales técnicos</span></div>
-</div>
-
-<div class="accesos-rapidos">
-  <button class="tarjeta-acceso c-sedes" onclick="document.getElementById('seccionSedes').scrollIntoView({behavior:'smooth'})"><span class="icono"><svg class="ic-linea" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21zM12 12a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/></svg></span>Sedes</button>
-  <button class="tarjeta-acceso c-cca" onclick="irACatalogo_('CCA')"><span class="icono"><svg class="ic-linea" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M5 21V10l7-5 7 5v11M9 21v-6h6v6"/></svg></span>Cursos CCA</button>
-  <button class="tarjeta-acceso c-esam" onclick="irACatalogo_('ESAM')"><span class="icono"><svg class="ic-linea" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1zM9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2M3 13h18"/></svg></span>Cursos ESAM</button>
-  <button class="tarjeta-acceso c-carreras" onclick="irACatalogo_('CARRERAS')"><span class="icono"><svg class="ic-linea" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10 12 5 2 10l10 5 10-5zM6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg></span>Carreras</button>
-</div>
-
-<section class="quienes-somos">
-  <h2>Quiénes somos</h2>
-  <p>El Instituto Técnico CCA forma profesionales técnicos con una metodología eminentemente práctica, pensada para que empieces a aplicar lo aprendido desde la primera semana de clases. Trabajamos junto a ESAM Escuela de Negocios para ofrecer una oferta amplia, con certificación avalada y docentes con experiencia real en cada área.</p>
-  <a class="link-descubre" href="#cursos" onclick="document.getElementById('cursos').scrollIntoView({behavior:'smooth'});return false;">Descubre nuestros cursos ↓</a>
-</section>
-
-<section class="seccion-metodologia" id="como-ensenamos">
-  <div class="encabezado">
-    <h2>Cómo enseñamos</h2>
-    <p>Una metodología pensada para que salgas sabiendo hacer, no solo sabiendo teoría.</p>
-  </div>
-  <div class="grid-metodologia">
-    <div class="tarjeta-metodologia">
-      <span class="icono-metodologia">🛠️</span>
-      <h3>Aprendizaje 100% práctico</h3>
-      <p>Ejercicios y proyectos reales desde la primera semana — no te quedás solo con la teoría.</p>
-    </div>
-    <div class="tarjeta-metodologia">
-      <span class="icono-metodologia">🤖</span>
-      <h3>IA integrada en cada curso</h3>
-      <p>Todos nuestros programas incorporan herramientas de inteligencia artificial aplicadas a tu área.</p>
-    </div>
-    <div class="tarjeta-metodologia">
-      <span class="icono-metodologia">💻</span>
-      <h3>Plataforma Moodle</h3>
-      <p>Acceso a clases grabadas y recursos de apoyo para repasar a tu propio ritmo.</p>
-    </div>
-    <div class="tarjeta-metodologia">
-      <span class="icono-metodologia">📁</span>
-      <h3>Proyecto final con portafolio</h3>
-      <p>Cada curso cierra con un proyecto integrador que te sirve como evidencia real ante un futuro empleador.</p>
-    </div>
-    <div class="tarjeta-metodologia">
-      <span class="icono-metodologia">🧑‍🏫</span>
-      <h3>Docentes con experiencia real</h3>
-      <p>Profesionales que ejercen en el área que enseñan, no solo instructores académicos.</p>
-    </div>
-    <div class="tarjeta-metodologia">
-      <span class="icono-metodologia">🏅</span>
-      <h3>Certificación reconocida</h3>
-      <p>Instituto CCA, y ESAM Escuela de Negocios en convenio con la Universidad Siglo XX.</p>
+<section style="padding-top:10px">
+  <div class="wrap">
+    <div class="titulo"><div class="sob">Inscribirte es fácil</div><h2>Tres pasos y ya tienes tu cupo</h2></div>
+    <div class="pasos">
+      <div class="paso"><b>01</b><h3>Elige tu carrera o curso</h3><p>Mira el contenido o pide a un asesor que te recomiende según lo que quieres lograr.</p></div>
+      <div class="paso"><b>02</b><h3>Deja tus datos</h3><p>Llena el formulario en un minuto. Un asesor de tu sede te escribe por WhatsApp.</p></div>
+      <div class="paso"><b>03</b><h3>Asegura tu cupo</h3><p>Pagas tu matrícula y empiezas en la fecha de inicio de tu grupo.</p></div>
     </div>
   </div>
 </section>
 
-<section class="seccion-sedes" id="seccionSedes">
-  <div class="encabezado">
-    <h2>Nuestras sedes</h2>
-    <p>Con presencia en Sucre y Potosí, cada sede cuenta con laboratorios equipados y un ambiente pensado para tu formación práctica.</p>
-  </div>
-  <div class="grid-sedes">
-    <button class="boton-sede" id="botonSedeSucre" onclick="setSede('sucre'); document.getElementById('cursos').scrollIntoView({behavior:'smooth'});">
-      <span class="icono-sede"><svg class="ic-linea" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21zM12 12a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/></svg></span>
-      <span class="texto-sede"><b>Sucre</b><span>Calle Calvo N.º 18</span></span>
-    </button>
-    <button class="boton-sede" id="botonSedePotosi" onclick="setSede('potosi'); document.getElementById('cursos').scrollIntoView({behavior:'smooth'});">
-      <span class="icono-sede"><svg class="ic-linea" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21zM12 12a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5z"/></svg></span>
-      <span class="texto-sede"><b>Potosí</b><span>Consulta con un asesor</span></span>
-    </button>
+<section style="padding-top:10px">
+  <div class="wrap">
+    <div class="final">
+      <div class="brillo"></div>
+      <h2>Tu futuro profesional empieza con una decisión.</h2>
+      <p>Los grupos se llenan antes del inicio. Reserva hoy y un asesor de <span class="nombre-sede">Sucre</span> te confirma horario, inversión y fecha.</p>
+      <div class="acciones">
+        <button class="btn btn-blanco" onclick="abrirModal(null)">Reservar mi cupo →</button>
+        <button class="btn btn-wa" onclick="abrirWhatsApp(null)"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm5.5-5.8c-.3-.2-1.8-.9-2-1s-.5-.2-.7.2-.8 1-.9 1.2-.3.2-.6.1a8.2 8.2 0 0 1-4.1-3.6c-.3-.5.3-.5.9-1.6.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6a1.1 1.1 0 0 0-.8.4 3.4 3.4 0 0 0-1.1 2.5 5.9 5.9 0 0 0 1.2 3.1 13.4 13.4 0 0 0 5.2 4.6c1.9.8 2.7.9 3.6.7a3.1 3.1 0 0 0 2-1.4 2.5 2.5 0 0 0 .2-1.4c-.1-.2-.3-.3-.7-.5z"/></svg>Escribir por WhatsApp</button>
+      </div>
+    </div>
   </div>
 </section>
-
-<main id="cursos"></main>
-
-<div class="franja-cta">
-  <h2>En CCA formamos a los profesionales técnicos del mañana, con educación práctica y de calidad.</h2>
-  <button class="btn-inscribete" onclick="abrirModal(null)">Inscríbete hoy →</button>
-</div>
 
 <footer>
-  <div class="footer-grid">
-    <div>
-      <div class="footer-logos"><img class="logo-blanco" src="img/9f306cba5f.webp" alt="Instituto Técnico CCA"><span class="caja-esam"><img src="img/611e459869.webp" alt="">ESAM Escuela de Negocios</span></div>
-      <p>Instituto Técnico CCA / ESAM Escuela de Negocios — Corporación Cibernética Americana SRL. Formación técnica práctica con certificación real en Sucre y Potosí.</p>
+  <div class="wrap">
+    <div class="grid-pie">
+      <div>
+        <div class="logos"><img src="img/9f306cba5f.webp" alt="Instituto Técnico CCA"><img src="img/611e459869.webp" alt="ESAM Escuela de Negocios"></div>
+        <p>Instituto Técnico CCA / ESAM Escuela de Negocios — Corporación Cibernética Americana SRL. Formación técnica práctica con certificación real en Sucre y Potosí.</p>
+      </div>
+      <div><h4>Sucre</h4><p>Calle Calvo N.º 18, casi esquina España</p><p>Lun a vie: 08:00–12:00 y 14:30–21:00</p><p>Sábados: 08:00–12:30 y 15:00–18:30</p></div>
+      <div><h4>Potosí</h4><p>Consulta la dirección con un asesor</p><p>Misma calidad, misma certificación</p></div>
     </div>
-    <div class="footer-sede">
-      <h4>Sucre</h4>
-      <p>Calle Calvo N.º 18</p>
-      <p>Transferencia: Banco BISA, cuenta N.º 9627674012</p>
-    </div>
-    <div class="footer-sede">
-      <h4>Potosí</h4>
-      <p>Consulta la dirección con un asesor</p>
-      <p>Mismos cursos, misma certificación</p>
-    </div>
+    <div class="inf">© Instituto Técnico CCA — Corporación Cibernética Americana SRL</div>
   </div>
-  <div class="footer-inferior">© Instituto Técnico CCA — Corporación Cibernética Americana SRL</div>
 </footer>
 
+<button class="wa-flot" onclick="abrirWhatsApp(null)" aria-label="Escribir por WhatsApp"><svg width="30" height="30" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm5.5-5.8c-.3-.2-1.8-.9-2-1s-.5-.2-.7.2-.8 1-.9 1.2-.3.2-.6.1a8.2 8.2 0 0 1-4.1-3.6c-.3-.5.3-.5.9-1.6.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6a1.1 1.1 0 0 0-.8.4 3.4 3.4 0 0 0-1.1 2.5 5.9 5.9 0 0 0 1.2 3.1 13.4 13.4 0 0 0 5.2 4.6c1.9.8 2.7.9 3.6.7a3.1 3.1 0 0 0 2-1.4 2.5 2.5 0 0 0 .2-1.4c-.1-.2-.3-.3-.7-.5z"/></svg></button>
+
 <div class="fondo-modal" id="fondoModal">
-  <div class="modal">
-    <button class="cerrar-modal" onclick="cerrarModal()">✕</button>
+  <div class="modal" role="dialog" aria-modal="true" aria-label="Formulario de información">
+    <button class="cerrar-modal" onclick="cerrarModal()" aria-label="Cerrar">✕</button>
     <div id="contenidoModal"></div>
   </div>
 </div>
-
-<div class="fondo-modal" id="fondoDetalle">
-  <div class="modal modal-detalle">
-    <button class="cerrar-modal" onclick="cerrarDetalle()">✕</button>
-    <div id="contenidoDetalle"></div>
-  </div>
-</div>
-
-<div class="barra-flotante">
-  <span class="texto-flotante">¿Listo para empezar?</span>
-  <button class="btn-flotante" onclick="abrirModal(null)">Inscríbete ahora →</button>
-</div>
+<div class="fondo-modal" id="fondoDetalle"><div class="modal"><div id="contenidoDetalle"></div></div></div>
 
 <script>
-  // Esta landing puede vivir hospedada fuera de Apps Script (ej. GitHub
-  // Pages) — por eso ASESOR_URL/SEDE_URL se leen de los parámetros de la
-  // URL con JS normal, en vez de depender de que Apps Script la sirva.
   const PARAMS_URL = new URLSearchParams(window.location.search);
   const ASESOR_URL = PARAMS_URL.get('asesor') || '';
   const CODIGO_ASESOR_URL = PARAMS_URL.get('a') || '';
@@ -1266,141 +1078,314 @@
       : /miner|minera/i.test(k) ? 'pico' : /dise|autocad|revit|gr[aá]fic/i.test(k) ? 'pincel' : /tecnolog|soporte|hardware|el[eé]ctric|program|sistemas/i.test(k) ? 'chip'
       : /ofim|excel|paquetes|dactilo/i.test(k) ? 'pantalla' : /preuniv|nivelaci|vacacion/i.test(k) ? 'libro' : /administr|marketing|mercad|negocio/i.test(k) ? 'maletin' : 'birrete';
   }
-  function tarjetaHTML(c) {
-    let html = '<div class="tarjeta-curso" data-nombre="' + String(c.nombre).replace(/"/g, '&quot;') + '">';
-    if (c.img) html += '<img class="img-curso" src="' + c.img + '" alt="' + nombreBonito(c.nombre) + '" loading="lazy" decoding="async">';
-    html += '<div class="fila-badges">';
-    if (c.marca) html += '<span class="badge marca-' + c.marca.toLowerCase() + '">' + c.marca + '</span>';
-    html += '<span class="badge modalidad">' + c.modalidad + '</span>';
-    html += '</div>';
-    if (c.iconoClave) {
-      html += '<div class="fila-icono-titulo"><img class="icono-curso" src="' + ICONOS_CURSO[c.iconoClave] + '" alt=""><h3>' + nombreBonito(c.nombre) + '</h3></div>';
-    } else if (c.emoji) {
-      html += '<div class="fila-icono-titulo"><span class="icono-emoji">' + icono(iconoDeCurso(c)) + '</span><h3>' + nombreBonito(c.nombre) + '</h3></div>';
-    } else if (!c.img) {
-      html += '<h3>' + nombreBonito(c.nombre) + '</h3>';
+
+
+  /* =================== Landing "Noche premium" (14/11/2026) =================== */
+  // WhatsApp general de Sucre (código de país + número, sin "+"). Potosí sin código de asesor va a su Messenger.
+  const WHATSAPP_SEDE = { sucre: '59160309159' };
+  const WA_PATH = 'M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm5.5-5.8c-.3-.2-1.8-.9-2-1s-.5-.2-.7.2-.8 1-.9 1.2-.3.2-.6.1a8.2 8.2 0 0 1-4.1-3.6c-.3-.5.3-.5.9-1.6.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6a1.1 1.1 0 0 0-.8.4 3.4 3.4 0 0 0-1.1 2.5 5.9 5.9 0 0 0 1.2 3.1 13.4 13.4 0 0 0 5.2 4.6c1.9.8 2.7.9 3.6.7a3.1 3.1 0 0 0 2-1.4 2.5 2.5 0 0 0 .2-1.4c-.1-.2-.3-.3-.7-.5z';
+  const WA_ICONO = '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="' + WA_PATH + '"/></svg>';
+  TRAZOS_ICONO.lupa = 'M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16zM21 21l-4.3-4.3';
+  TRAZOS_ICONO.cerebro = 'M9 3a3 3 0 0 0-3 3v1a3 3 0 0 0-2 5 3 3 0 0 0 2 5v1a3 3 0 0 0 6 0V3.5M15 3a3 3 0 0 1 3 3v1a3 3 0 0 1 2 5 3 3 0 0 1-2 5v1a3 3 0 0 1-6 0';
+  TRAZOS_ICONO.salud = 'M12 21s-8-5.2-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.8-8 11-8 11zM12 8v6M9 11h6';
+  TRAZOS_ICONO.pluma = 'M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z';
+  TRAZOS_ICONO.grafico = 'M4 20V10M10 20V4M16 20v-7M22 20H2';
+
+  /* Contenido sacado de los brochures (D:\CLAUDE\BROCHURE CURSOS 2026), 14/11/2026. */
+  const SUB_CARRERA = 'Los brochures no traen el plan por semestre: el plan de estudios completo te lo envía un asesor.';
+  const DETALLES_EXTRA = {
+    "CONTADURÍA GENERAL": {
+      frase: "Lleva la contabilidad, los impuestos y las finanzas de empresas.",
+      gancho: "El contador gestiona los registros, elabora los informes y da a la empresa la información que necesita para decidir. Sales preparado para empresas, entidades financieras y para trabajar por tu cuenta.",
+      ventajas: ["Demanda constante en empresas, entidades financieras y otros sectores", "Combina normativa actualizada con herramientas tecnológicas", "Puedes trabajar en una empresa o llevar contabilidades por tu cuenta"],
+      logros: ["Elaborar estados financieros y presupuestos", "Aplicar las normas NIIF/IFRS y la legislación tributaria", "Auditar y analizar datos financieros para decidir"],
+      dirigidoA: "Jóvenes que quieren empezar en la contabilidad y profesionales que trabajan y quieren actualizar o ampliar sus conocimientos.",
+      secciones: [["Lo que aprenderás", ["Gestión financiera y control contable: estados financieros y presupuestos", "Normativas contables NIIF/IFRS y legislación fiscal", "Análisis financiero y toma de decisiones", "Auditoría y análisis de datos financieros", "Ética y responsabilidad profesional", "Resolución de problemas y adaptación a cambios normativos", "Trabajo en equipo y comunicación"]]],
+      notaCont: SUB_CARRERA
+    },
+    "Sistemas Informáticos": {
+      frase: "Programación, redes, bases de datos y seguridad informática.",
+      gancho: "Las empresas necesitan quien diseñe, instale y mantenga su tecnología. Aprendes a programar, administrar redes y proteger la información, y puedes trabajar en una empresa o en tus propios proyectos digitales.",
+      ventajas: ["Una de las áreas con más futuro y mejor pagadas", "Puedes trabajar a distancia o crear tus propios proyectos digitales", "Aprendes las herramientas que se usan hoy en las empresas"],
+      logros: ["Desarrollar software y aplicaciones", "Administrar redes e infraestructura tecnológica", "Gestionar bases de datos y seguridad informática"],
+      dirigidoA: "Jóvenes que quieren una carrera sólida en informática y tecnología, y profesionales que trabajan y quieren actualizarse.",
+      secciones: [["Lo que aprenderás", ["Lenguajes de programación y desarrollo de aplicaciones", "Administración de redes e infraestructura IT", "Bases de datos", "Seguridad informática y protección de datos", "Gestión de proyectos tecnológicos", "Mentalidad emprendedora para proyectos digitales", "Resolución de problemas complejos"]]],
+      notaCont: SUB_CARRERA
+    },
+    "Administración de Empresas": {
+      frase: "Dirige personas, recursos y proyectos, o crea tu propia empresa.",
+      gancho: "Quien sabe organizar personas, dinero y procesos es valioso en cualquier empresa, pública o privada, y también puede crear la suya desde cero.",
+      ventajas: ["Te abre puertas en cualquier rubro, público o privado", "Te prepara para emprender con orden", "Desarrollas liderazgo para cargos de responsabilidad"],
+      logros: ["Gestionar personas y recursos financieros", "Diseñar estrategias de marketing y crecimiento", "Tomar decisiones estratégicas para la empresa"],
+      dirigidoA: "Jóvenes que quieren una carrera sólida en el mundo empresarial, profesionales que quieren mejorar su gestión y liderazgo, y personas con mentalidad emprendedora.",
+      secciones: [["Lo que aprenderás", ["Gestión de personas y liderazgo de equipos", "Gestión de recursos financieros", "Marketing y estrategia empresarial", "Comunicación efectiva", "Mentalidad emprendedora: crear una empresa desde cero", "Ética, adaptabilidad y resolución de problemas"]]],
+      notaCont: SUB_CARRERA
+    },
+    "MERCADOTECNIA": {
+      frase: "Marketing digital, ventas, marcas y campañas que venden.",
+      gancho: "Las empresas buscan quien les traiga clientes. Aprendes a entender al consumidor y a crear campañas digitales y tradicionales que hacen crecer a cualquier organización.",
+      ventajas: ["Habilidades muy pedidas en redes y ventas", "Puedes trabajar en empresas o como independiente", "Incluye IA, análisis de datos y marketing de influencia"],
+      logros: ["Investigar el mercado y al consumidor", "Crear campañas en redes, email y publicidad en línea", "Gestionar marcas y medir resultados"],
+      dirigidoA: "Jóvenes que quieren empezar en el marketing y profesionales con experiencia que quieren actualizar sus estrategias.",
+      secciones: [["Lo que aprenderás", ["Investigación de mercados y análisis del consumidor", "Estrategias de marketing digital y tradicional", "Gestión de marca y posicionamiento", "Análisis de resultados y optimización de campañas", "Creatividad e innovación en la comunicación de marca", "IA, análisis de datos y marketing de influencia", "Gestión de proyectos y ética profesional"]]],
+      notaCont: SUB_CARRERA
+    },
+    "SECRETARIADO EJECUTIVO": {
+      frase: "Gestión administrativa, agenda, documentos y apoyo ejecutivo.",
+      gancho: "Toda gerencia necesita a alguien organizado que maneje la agenda, los documentos y la comunicación. Es un puesto de confianza en entidades públicas y privadas.",
+      ventajas: ["Trabajo en empresas, instituciones y estudios", "Puesto de confianza y estabilidad", "Dominas las herramientas tecnológicas de oficina"],
+      logros: ["Coordinar agendas, reuniones, correspondencia y viajes", "Gestionar documentos e información confidencial", "Comunicarte de forma profesional, escrita y verbal"],
+      dirigidoA: "Personas que quieren desempeñarse en funciones administrativas y de apoyo ejecutivo, en entidades públicas o privadas.",
+      secciones: [["Lo que aprenderás", ["Gestión administrativa: agendas, correspondencia, reuniones y viajes", "Comunicación efectiva y profesional", "Organización y planificación", "Software de oficina y gestión documental", "Confidencialidad y ética profesional", "Orientación al cliente y resolución de problemas"]]],
+      notaCont: SUB_CARRERA
+    },
+    "PREUNIVERSITARIO USFX · EXACTAS Y ECONÓMICAS": {
+      frase: "Ingenierías, Economía, Contaduría y Arquitectura · USFX 2027.",
+      gancho: "Prepárate de forma sólida para la admisión USFX 2027: reforzamos los contenidos clave, resolvemos pruebas tipo examen y entrenas la resolución rápida para asegurar tu cupo.",
+      ventajas: ["Preparación alineada a las exigencias de cada área", "Pruebas tipo examen, banco de preguntas y maratones", "Seguimiento personalizado y asistencia visible para los padres"],
+      logros: ["Ingeniería (Sistemas, Civil, Industrial, Petróleo, Mecatrónica y más)", "Economía, Ing. Comercial, Administración y Contaduría Pública", "Arquitectura y Ciencias Agrarias"],
+      dirigidoA: ["Estudiantes del preuniversitario de la USFX que quieren reforzar", "Bachilleres y estudiantes de 6.º de secundaria que darán el examen directo"],
+      secciones: [["Matemáticas", ["Álgebra elemental, productos notables y factorización", "Fracciones algebraicas, ecuaciones y sistemas lineales", "Teoría de exponentes"]], ["Física", ["Notación científica, unidades y vectores", "Cinemática, estática y dinámica", "Trabajo, energía, potencia y fluidos"]], ["Química", ["Materia, tabla periódica y compuestos", "Hidruros, óxidos, hidróxidos, ácidos y sales"]], ["Lenguaje y Estudios Sociales", ["Gramática, oración y acentuación", "Historia y geografía de Bolivia"]]],
+      notaCont: "Duración: 3 meses · 3 horas por día."
+    },
+    "PREUNIVERSITARIO USFX · SALUD": {
+      frase: "Medicina, Odontología, Enfermería y más · USFX 2027.",
+      gancho: "Prepárate para las carreras de salud de la USFX con Biología, Química, Matemática y Lenguaje, pruebas tipo examen y seguimiento personalizado.",
+      ventajas: ["Preparación alineada al examen de las carreras de salud", "Pruebas tipo examen, banco de preguntas y maratones", "Seguimiento personalizado y asistencia visible para los padres"],
+      logros: ["Medicina, Odontología y Prótesis Dental", "Bioquímica, Química Farmacéutica, Biología y Enfermería", "Nutrición, Bio-imagenología, Kinesiología y Laboratorio Clínico"],
+      dirigidoA: ["Estudiantes del preuniversitario de la USFX que quieren reforzar", "Bachilleres y estudiantes de 6.º de secundaria que darán el examen directo"],
+      secciones: [["Biología", ["Seres vivos, bioquímica y biología celular", "Procesos celulares y genética", "Ecología y biología humana: sistemas del cuerpo", "Reproducción y embriología humana"]], ["Química", ["Materia, tabla periódica y compuestos", "Enlace, reacciones y estequiometría", "Química orgánica"]], ["Matemática y Lenguaje", ["Álgebra, ecuaciones, logaritmos y trigonometría", "Gramática, ortografía y comprensión de lectura"]]],
+      notaCont: "Duración: 3 meses · 3 horas por día."
+    },
+    "PREUNIVERSITARIO USFX · SOCIALES": {
+      frase: "Derecho, Comunicación, Psicología, Turismo y más · USFX 2027.",
+      gancho: "Prepárate para las carreras sociales y de humanidades de la USFX con Estudios Sociales, Lenguaje y Filosofía, pruebas tipo examen y seguimiento personalizado.",
+      ventajas: ["Preparación alineada a las exigencias de cada área", "Pruebas tipo examen, banco de preguntas y maratones", "Seguimiento personalizado y asistencia visible para los padres"],
+      logros: ["Derecho, Comunicación Social y Sociología", "Psicología, Pedagogía y Trabajo Social", "Historia, Idiomas, Turismo y Gastronomía"],
+      dirigidoA: ["Estudiantes del preuniversitario de la USFX que quieren reforzar", "Bachilleres y estudiantes de 6.º de secundaria que darán el examen directo"],
+      secciones: [["Estudios Sociales", ["Geografía de Bolivia y de Chuquisaca", "Historia universal y pensamiento político y económico", "Culturas prehispánicas, Colonia en Charcas e Independencia", "Del siglo XIX al Estado Plurinacional"]], ["Lenguaje y Literatura", ["Lenguaje y comunicación", "Categorías gramaticales y la oración"]], ["Filosofía", ["Introducción, disciplinas y problemas filosóficos", "Lógica formal y epistemología", "Antropología y filosofía latinoamericana"]]],
+      notaCont: "Duración: 3 meses · 3 horas por día."
+    },
+    "PSICOTÉCNICO USFX": {
+      frase: "Arquitectura, Diseño de Interiores y Arte · prueba psicotécnica.",
+      gancho: "Entrena el razonamiento abstracto, la aptitud espacial y la lógica visual que pide el examen psicotécnico de la USFX 2027, con ejercicios tipo examen y técnicas de resolución rápida.",
+      ventajas: ["El psicotécnico vale el 50% en estas carreras", "Práctica con pruebas psicotécnicas pasadas", "Técnicas para responder rápido y sin errores"],
+      logros: ["Razonamiento verbal, numérico y abstracto", "Aptitud espacial y visualización en 3D", "Rapidez, precisión y confianza en la prueba"],
+      dirigidoA: ["Postulantes a Arquitectura, Diseño de Interiores y Arte y Diseño Gráfico", "Estudiantes del preuniversitario o del examen directo"],
+      secciones: [["Contenido", ["Comprensión de consignas y atención", "Razonamiento verbal I y II", "Razonamiento numérico I y II", "Razonamiento abstracto", "Aptitud espacial", "Estrategias de resolución y práctica integrada"]]],
+      notaCont: "Duración: 1 mes · 2 horas por día."
+    },
+    "PREUNIVERSITARIO ESFM (NORMAL)": {
+      frase: "Prepárate para entrar a la Normal y ser maestro.",
+      gancho: "Preparación estratégica para la admisión 2027 a la Escuela Superior de Formación de Maestros: te acompañamos paso a paso para que des el examen con seguridad.",
+      ventajas: ["Preparación enfocada en el examen de la ESFM", "Pruebas tipo examen, banco de preguntas y maratones", "Seguimiento personalizado y asistencia visible para los padres"],
+      logros: ["Razonamiento lógico y matemático", "Comprensión lectora", "Llegar seguro al examen de admisión"],
+      dirigidoA: ["Bachilleres que darán el examen de la ESFM desde cero", "Aspirantes que quieren reforzar antes del examen"],
+      secciones: [["Razonamiento lógico", ["Patrones, sucesiones y series", "Lógica proposicional, ordenamientos y conjuntos", "Aritmética, ecuaciones, proporciones y porcentajes", "Geometría, conteo, probabilidad y promedios", "Pensamiento crítico y simulacro"]], ["Comprensión lectora", ["Estrategias de lectura", "Tipos de texto y propósito", "Comprensión literal e inferencial"]]],
+      notaCont: "Duración: 3 meses · 3 horas por día."
     }
-    html += '<div class="meta-curso">' + icono('reloj') + ' ' + c.duracion + (c.horario ? ' · ' + c.horario : '') + (c.sinCert ? ' · Sin certificación' : '') + '</div>';
-    if (c.inicio) {
-      const fi = fechaInicioCurso(c);
-      if (fi && fi >= hoySinHora()) {
-        const dias = Math.round((fi - hoySinHora()) / 86400000);
-        html += '<div class="inicio-curso">' + icono('calendario') + ' Inicia: ' + c.inicio + (dias <= 7 ? ' <b>· ¡' + (dias === 0 ? 'hoy' : dias === 1 ? 'mañana' : 'en ' + dias + ' días') + '!</b>' : '') + '</div>';
-      } else {
-        html += '<div class="inicio-curso en-curso">' + icono('punto') + ' Grupo en curso · consulta el próximo inicio</div>';
-      }
-    }
-    if (c.cupos === 0) html += '<div class="cupos-curso pocos">' + icono('lleno') + ' Grupo lleno · consulta el próximo inicio</div>';
-    if (c.cupos) html += '<div class="cupos-curso' + (c.cupos <= 5 ? ' pocos' : '') + '">' + (c.cupos <= 5 ? icono('llama') + (c.cupos === 1 ? ' ¡Último cupo!' : ' ¡Últimos ' + c.cupos + ' cupos!') : icono('personas') + ' ' + c.cupos + ' cupos disponibles') + '</div>';
-    // Varios planes de pago (llegan unidos con " | " desde INVERSION): uno por línea para que se lean.
-    html += '<div class="precio-curso">' + String(c.precio).split(' | ').join('<br>') + '</div>';
-    html += '<ul class="lista-puntos">' + c.puntos.map(function(p) { return '<li>' + p + '</li>'; }).join('') + '</ul>';
-    html += '<div class="fila-botones-tarjeta">';
-    if (DETALLES_CURSO[c.nombre]) html += '<button class="btn-tarjeta secundario" onclick=\'abrirDetalle(' + JSON.stringify(c.nombre) + ')\'>Ver más detalles</button>';
-    html += '<button class="btn-tarjeta" onclick=\'abrirModal(' + JSON.stringify(c.nombre) + ')\'>Quiero más información</button>';
-    html += '</div>';
-    html += '</div>';
-    return html;
+  };
+  Object.keys(DETALLES_EXTRA).forEach(function(k) { DETALLES_CURSO[k] = Object.assign({}, DETALLES_CURSO[k] || {}, DETALLES_EXTRA[k]); });
+  // Preuniversitarios (Sucre). Precio y fecha los completa la planilla INVERSION / OFERTA ACADEMICA si los tiene.
+  [["PREUNIVERSITARIO USFX · EXACTAS Y ECONÓMICAS", "3 meses", "3 horas por día"], ["PREUNIVERSITARIO USFX · SALUD", "3 meses", "3 horas por día"],
+   ["PREUNIVERSITARIO USFX · SOCIALES", "3 meses", "3 horas por día"], ["PSICOTÉCNICO USFX", "1 mes", "2 horas por día"], ["PREUNIVERSITARIO ESFM (NORMAL)", "3 meses", "3 horas por día"]].forEach(function(p) {
+    if (CURSOS.some(function(c) { return c.nombre === p[0]; })) return;
+    CURSOS.push({ cat: "Preuniversitarios", marca: "", nombre: p[0], modalidad: "Presencial", duracion: p[1], horario: p[2], precio: "Inversión: consulta con tu asesor", inicio: "", puntos: [DETALLES_EXTRA[p[0]].frase] });
+  });
+
+  const BENEFICIOS_CARRERA = ['Título de Técnico Superior', 'Beca de Manejo de Paquetes gratis el primer año', 'Clases 70% prácticas y 30% teóricas', 'Presencial o virtual, con horarios flexibles'];
+  const BENEFICIOS_CURSO = ['Clases prácticas desde la primera semana', 'Inteligencia artificial aplicada a tu área', 'Plataforma Moodle con clases grabadas', 'Proyecto final para tu portafolio'];
+  const BENEFICIOS_PREU = ['Docentes especializados y fichas propias CCA', 'Banco de preguntas, parciales y maratones', 'Aula virtual Moodle con videoteca por temas', 'Asistencia visible para los padres'];
+
+  let pestanaActiva = 'carreras', catActiva = '', detalleActual = '', verTodo = false;
+  const esCarrera = function(c) { return /^Carreras/i.test(c.cat || ''); };
+  const esPreu = function(c) { return /preuniv|nivelaci/i.test(c.cat || '') || /preuniv|psicot[eé]cnico|\bESFM\b/i.test(c.nombre || ''); };
+  // Preuniversitarios que llegan de OFERTA ACADEMICA con otro nombre: usan el contenido del brochure de su área.
+  function detallesDe(c) {
+    if (DETALLES_CURSO[c.nombre]) return DETALLES_CURSO[c.nombre];
+    if (!esPreu(c)) return {};
+    const n = String(c.nombre).toUpperCase();
+    const k = /PSICO/.test(n) ? 'PSICOTÉCNICO USFX' : /ESFM|NORMAL/.test(n) ? 'PREUNIVERSITARIO ESFM (NORMAL)' : /SALUD/.test(n) ? 'PREUNIVERSITARIO USFX · SALUD'
+      : /SOCIAL/.test(n) ? 'PREUNIVERSITARIO USFX · SOCIALES' : /EXACT|TECNOL|ECONOM|INGEN/.test(n) ? 'PREUNIVERSITARIO USFX · EXACTAS Y ECONÓMICAS' : '';
+    return k ? DETALLES_CURSO[k] : {};
   }
+  const tipoDe = function(c) { return esCarrera(c) ? 'carreras' : esPreu(c) ? 'preu' : 'cursos'; };
+  const nombreSede = function() { return sedeActiva === 'potosi' ? 'Potosí' : 'Sucre'; };
+  const deLaSede = function() { return CURSOS.filter(function(c) { return (c.sede || 'sucre') === sedeActiva; }); };
+  const esc = function(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); };
+  const js = function(s) { return esc(JSON.stringify(s)); };
+  function iconoCurso(c) {
+    const k = String(c.nombre || '');
+    if (esCarrera(c)) return /contad/i.test(k) ? 'calculadora' : /sistem/i.test(k) ? 'pantalla' : /mercad/i.test(k) ? 'grafico' : /secret/i.test(k) ? 'pluma' : 'maletin';
+    if (esPreu(c)) return /salud/i.test(k) ? 'salud' : /psico/i.test(k) ? 'cerebro' : /exact/i.test(k) ? 'calculadora' : 'libro';
+    return iconoDeCurso(c);
+  }
+  function inicioFuturo(c) { const f = fechaInicioCurso(c); return f && f >= hoySinHora() ? f : null; }
+  function textoInicio(c) {
+    const f = inicioFuturo(c); if (!f) return '';
+    const dias = Math.round((f - hoySinHora()) / 86400000);
+    return dias === 0 ? 'Inicia hoy' : dias === 1 ? 'Inicia mañana' : dias <= 7 ? 'Inicia en ' + dias + ' días' : 'Inicia el ' + f.getDate() + ' de ' + Object.keys(MESES_INICIO)[f.getMonth()];
+  }
+
+  // WhatsApp (15/11/2026): con el enlace de un asesor (?a=CODIGO) va al WhatsApp de ESE asesor (columna E de USUARIOS, vía CatalogoClaude.gs).
+  // Sin código: Sucre al número general y Potosí a su Messenger. Si el asesor no tiene celular registrado, abre el formulario (el lead le llega igual).
+  const MESSENGER_POTOSI = 'https://m.me/1273515145852251';
+  let contactoAsesor = null, asesorRevisado = false, asesorSinCelular = false;   // contactoAsesor = { numero, nombre }
+  function abrirWhatsApp(nombre) {
+    const curso = nombre ? nombreBonito(nombre) : 'las carreras y cursos';
+    const txt = 'Hola, me interesa ' + curso + ' en ' + nombreSede() + '. ¿Me dan información?';
+    if (contactoAsesor) { window.open('https://wa.me/591' + contactoAsesor.numero + '?text=' + encodeURIComponent(txt), '_blank', 'noopener'); return; }
+    // Asesor de una sede sin celular en USUARIOS (o código aún sin revisar): formulario, así el lead le llega a él.
+    if (ASESOR_URL || (CODIGO_ASESOR_URL && (!asesorRevisado || asesorSinCelular))) { abrirModal(nombre, true); return; }
+    if (sedeActiva === 'potosi') { window.open(MESSENGER_POTOSI, '_blank', 'noopener'); return; }
+    window.open('https://wa.me/' + WHATSAPP_SEDE.sucre + '?text=' + encodeURIComponent(txt), '_blank', 'noopener');
+  }
+  if (CODIGO_ASESOR_URL) (function() {
+    const cb = 'asesorCB_' + Date.now(), s = document.createElement('script');
+    window[cb] = function(r) {
+      s.remove(); delete window[cb];
+      if (!r || !r.ok) return;
+      asesorRevisado = true;
+      asesorSinCelular = !!r.asesor && !(r.contacto && r.contacto.propio);   // el gerente (sin sede) usa la línea general
+      if (r.contacto && r.contacto.propio && /^[67]\d{7}$/.test(String(r.contacto.numero))) contactoAsesor = { numero: String(r.contacto.numero), nombre: String(r.asesor || '') };
+      if (r.sedeFija) setSede(r.sede === 'POTOSI' ? 'potosi' : 'sucre');
+      if (contactoAsesor && contactoAsesor.nombre) document.querySelectorAll('.nombre-asesor').forEach(function(e) { e.textContent = ' · te atiende ' + contactoAsesor.nombre.split(' ')[0]; });
+    };
+    s.src = 'https://script.google.com/macros/s/AKfycbzvVTtbBcZL9ROmPY4CnPz6J_wIm0cJZbmjr9wdtDhyfYz5Z_FbF3kUq01XORqfQORUJQ/exec?accion=catalogo&a=' + encodeURIComponent(CODIGO_ASESOR_URL) + '&callback=' + cb;
+    document.head.appendChild(s);
+  })();
+
+  function marcarSedeActiva() {
+    document.querySelectorAll('[data-sede]').forEach(function(b) { b.classList.toggle('on', b.dataset.sede === sedeActiva); b.setAttribute('aria-pressed', b.dataset.sede === sedeActiva); });
+    document.querySelectorAll('.nombre-sede').forEach(function(s) { s.textContent = nombreSede(); });
+  }
+  function irAPestana(t) {
+    pestanaActiva = t; catActiva = ''; verTodo = false;
+    document.querySelectorAll('.tab').forEach(function(b) { b.classList.toggle('on', b.dataset.tab === t); });
+    pintarCursos();
+    document.getElementById('cursos').scrollIntoView({ behavior: 'smooth' });
+  }
+  function filtrarCat(cat) { catActiva = catActiva === cat ? '' : cat; verTodo = false; pintarCursos(); }
+
+  function tarjetaHTML(c) {
+    const ini = textoInicio(c);
+    const portada = (c.img ? '<img src="' + esc(c.img) + '" alt="' + esc(nombreBonito(c.nombre)) + '" loading="lazy" decoding="async" data-ic="' + iconoCurso(c) + '" onerror="fallaImg(this)">' : '<span class="ic">' + icono(iconoCurso(c)) + '</span>') +
+      (esCarrera(c) ? '<span class="sello">' + esc(c.duracion) + '</span>' : ini ? '<span class="sello pronto">' + esc(ini) + '</span>' : '');
+    const d = detallesDe(c);
+    const frase = d.frase || (c.puntos || []).slice(0, 2).join(' · ');
+    const area = esCarrera(c) ? 'Carrera técnica superior' : esPreu(c) ? 'Preuniversitario 2027' : String(c.cat || '').replace(/\s*\(.*\)$/, '');
+    const precio = String(c.precio || '').split(' | ')[0];
+    return '<article class="card" data-nombre="' + esc(c.nombre) + '"><div class="portada">' + portada + '</div><div class="c">' +
+      '<span class="area">' + esc(area) + '</span><h3>' + esc(nombreBonito(c.nombre)) + '</h3><p>' + esc(frase) + '</p>' +
+      '<div class="meta"><span>' + icono('reloj') + esc(c.duracion) + '</span><span>' + esc(c.modalidad) + '</span>' + (c.sinCert ? '<span>Sin certificación</span>' : '') + '</div>' +
+      (c.cupos === 0 ? '<div class="meta"><span>' + icono('lleno') + 'Grupo lleno · consulta el próximo inicio</span></div>' : c.cupos && c.cupos <= 5 ? '<div class="meta" style="color:var(--alerta)"><span>' + icono('llama') + (c.cupos === 1 ? '¡Último cupo!' : '¡Últimos ' + c.cupos + ' cupos!') + '</span></div>' : '') +
+      '<div class="precio">' + esc(precio) + '</div>' +
+      '<div class="bts"><button class="btn btn-linea" onclick="mostrarDetalle(' + js(c.nombre) + ')">Ver contenido</button><button class="btn btn-wa" onclick="abrirWhatsApp(' + js(c.nombre) + ')">' + WA_ICONO + 'WhatsApp</button></div>' +
+      '</div></article>';
+  }
+
+  const TITULOS = {
+    carreras: ['Carreras técnicas superiores', 'Elige la carrera con la que vas a trabajar', '30 meses · presencial o virtual · título de Técnico Superior. Toca «Ver contenido» para saber qué aprendes, para quién es y cuánto cuesta.'],
+    cursos: ['Cursos cortos', 'Aprende un oficio en pocos meses', 'Cursos prácticos con certificado, ideales para conseguir trabajo rápido o crecer en el que ya tienes.'],
+    preu: ['Preuniversitarios', 'Entra a la universidad a la primera', 'Preparación para la admisión USFX y ESFM 2027 con pruebas tipo examen, maratones y seguimiento personalizado.']
+  };
 
   function pintarCursos() {
-    const cont = document.getElementById('cursos');
+    marcarSedeActiva();
+    const sede = deLaSede();
+    // Portada: carreras de la sede (o los próximos inicios si la sede no tiene carreras cargadas)
+    const carreras = sede.filter(esCarrera);
+    const listaHero = carreras.length ? carreras : sede.filter(inicioFuturo).sort(function(a, b) { return fechaInicioCurso(a) - fechaInicioCurso(b); }).slice(0, 5);
+    document.getElementById('heroCab').textContent = carreras.length ? 'Carreras técnicas superiores · ' + nombreSede() : 'Próximos inicios · ' + nombreSede();
+    document.getElementById('heroLista').innerHTML = listaHero.length ? listaHero.map(function(c) {
+      const d = detallesDe(c);
+      return '<button class="mini" onclick="mostrarDetalle(' + js(c.nombre) + ')"><span class="ic">' + icono(iconoCurso(c)) + '</span><span><b>' + esc(nombreBonito(c.nombre)) + '</b><small>' + esc(d.frase || textoInicio(c) || c.duracion) + '</small></span><span class="fl">→</span></button>';
+    }).join('') : '<button class="mini" onclick="abrirWhatsApp(null)"><span class="ic">' + icono('birrete') + '</span><span><b>Pregunta por la oferta de ' + nombreSede() + '</b><small>Un asesor te responde hoy</small></span><span class="fl">→</span></button>';
 
-    if (sedeActiva === 'potosi' && !CURSOS.some(function(c) { return c.sede === 'potosi'; })) {
-      cont.innerHTML =
-        '<div class="pantalla-proximamente">' +
-        '<div class="icono"><svg class="ic-linea" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 20h20M6 20v-6l6-8 6 8v6M10 20v-4h4v4"/></svg></div>' +
-        '<h2>Oferta de Potosí — muy pronto</h2>' +
-        '<p>Estamos cargando el catálogo de cursos para la sede de Potosí. Mientras tanto, déjanos tus datos y un asesor de Potosí te contacta apenas tengamos todo listo.</p>' +
-        '<button class="btn-inscribete" style="margin:0 auto;" onclick="abrirModal(null)">Quiero que me contacten</button>' +
-        '</div>';
-      return;
+    // Encabezado de la pestaña
+    const t = TITULOS[pestanaActiva];
+    document.getElementById('ofertaTitulo').innerHTML = '<div class="sob">' + t[0] + ' · ' + nombreSede() + '</div><h2>' + t[1] + '</h2><p>' + t[2] + '</p>';
+
+    let lista = sede.filter(function(c) { return tipoDe(c) === pestanaActiva; });
+    // Áreas (solo cursos)
+    const cats = pestanaActiva === 'cursos' ? lista.map(function(c) { return c.cat; }).filter(function(x, i, a) { return x && a.indexOf(x) === i; }) : [];
+    if (cats.indexOf(catActiva) === -1) catActiva = '';
+    document.getElementById('chips').innerHTML = cats.length > 1 ? '<button class="chip' + (catActiva ? '' : ' on') + '" onclick="filtrarCat(\'\')">Todos</button>' +
+      cats.map(function(x) { return '<button class="chip' + (x === catActiva ? ' on' : '') + '" onclick="filtrarCat(' + js(x) + ')">' + esc(x) + '</button>'; }).join('') : '';
+    if (catActiva) lista = lista.filter(function(c) { return c.cat === catActiva; });
+    if (terminoBusqueda) {
+      const q = terminoBusqueda.normalize('NFD').replace(/[̀-ͯ]/g, '');
+      lista = sede.filter(function(c) { return String(c.nombre).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').indexOf(q) !== -1; });
+    }
+    // Primero los que empiezan pronto
+    lista = lista.slice().sort(function(a, b) { const fa = inicioFuturo(a), fb = inicioFuturo(b); return (fa ? fa.getTime() : 9e15) - (fb ? fb.getTime() : 9e15); });
+    pintarFranjaProximos();
+
+    const grid = document.getElementById('gridOferta');
+    if (!lista.length) {
+      grid.innerHTML = '<div class="vacio"><p>' + (terminoBusqueda ? 'No encontramos «' + esc(terminoBusqueda) + '» en ' + nombreSede() + '.' : 'Pronto publicaremos esta oferta en ' + nombreSede() + '. Un asesor te cuenta las fechas.') + '</p><button class="btn btn-wa" onclick="abrirWhatsApp(null)">' + WA_ICONO + 'Preguntar a un asesor</button></div>';
+    } else {
+      const LIMITE = 9, visibles = verTodo || terminoBusqueda ? lista : lista.slice(0, LIMITE);
+      grid.innerHTML = '<div class="grid">' + visibles.map(tarjetaHTML).join('') + '</div>' +
+        (visibles.length < lista.length ? '<button class="btn btn-linea btn-mas" onclick="verTodo=true;pintarCursos()">Ver ' + (lista.length - visibles.length) + ' más</button>' : '');
     }
 
-    const deLaSede = CURSOS.filter(function(c) { return (c.sede || 'sucre') === sedeActiva; });
-    let cursosFiltrados = deLaSede;
-    if (terminoBusqueda) cursosFiltrados = deLaSede.filter(function(c) { return c.nombre.toLowerCase().indexOf(terminoBusqueda) !== -1; });
-
-    let html = '';
-
-    // Próximos inicios de la sede, del más cercano al más lejano
-    const proximos = cursosFiltrados.filter(function(c) { const f = fechaInicioCurso(c); return f && f >= hoySinHora(); })
-      .sort(function(a, b) { return fechaInicioCurso(a) - fechaInicioCurso(b); });
-    if (proximos.length) {
-      html += '<div class="bloque-marca bloque-proximos" id="seccionProximos"><div class="encabezado-marca"><div class="icono-marca proximos"><svg class="ic-linea" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg></div>' +
-        '<div><h2>Próximos inicios · ' + (sedeActiva === 'potosi' ? 'Potosí' : 'Sucre') + '</h2><p>Ordenados por fecha de inicio — asegura tu cupo antes de que se llenen</p></div></div>';
-      html += '<div class="grid-cursos">';
-      proximos.forEach(function(c) { html += tarjetaHTML(c); });
-      html += '</div></div>';
-    }
-
-    if (sedeActiva === 'potosi') {
-      const resto = cursosFiltrados.filter(function(c) { return proximos.indexOf(c) === -1; });
-      if (resto.length) {
-        html += '<div class="bloque-marca" id="seccionPotosi"><div class="encabezado-marca"><div class="icono-marca cca"><svg class="ic-linea" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20l6-10 4 6 2-3 6 7z"/></svg></div>' +
-          '<div><h2>Cursos de Potosí</h2><p>Consulta con tu asesor cuándo abre el próximo grupo</p></div></div><div class="grid-cursos">';
-        resto.forEach(function(c) { html += tarjetaHTML(c); });
-        html += '</div></div>';
-      }
-      if (!html) html = '<p style="text-align:center;color:var(--texto-suave);padding:40px 0;">No hay cursos que coincidan con tu búsqueda.</p>';
-      cont.innerHTML = html;
-      return;
-    }
-    cursosFiltrados = cursosFiltrados.filter(function(c) { return proximos.indexOf(c) === -1; });
-
-    function pintarBloqueMarca(marca, idSeccion, titulo, subtitulo, iconoMarca) {
-      const cursosMarca = cursosFiltrados.filter(function(c) { return c.marca === marca; });
-      if (cursosMarca.length === 0) return;
-      html += '<div class="bloque-marca" id="' + idSeccion + '">' +
-        '<div class="encabezado-marca"><div class="icono-marca ' + marca.toLowerCase() + '">' + iconoMarca + '</div>' +
-        '<div><h2>' + titulo + '</h2><p>' + subtitulo + '</p></div></div>';
-      CATEGORIAS.forEach(function(cat) {
-        const cursosDeCategoria = cursosMarca.filter(function(c) { return c.cat === cat; });
-        if (cursosDeCategoria.length === 0) return;
-        html += '<div class="titulo-categoria">' + cat + '</div><div class="grid-cursos">';
-        cursosDeCategoria.forEach(function(c) { html += tarjetaHTML(c); });
-        html += '</div>';
-      });
-      html += '</div>';
-    }
-
-    pintarBloqueMarca('CCA', 'seccionCCA', 'Cursos CCA', 'Formación propia de Instituto CCA', '🏫');
-    pintarBloqueMarca('ESAM', 'seccionESAM', 'Cursos ESAM', 'ESAM Escuela de Negocios, en convenio con la Universidad Siglo XX', '<svg class="ic-linea" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1zM9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2M3 13h18"/></svg>');
-
-    const carreras = cursosFiltrados.filter(function(c) { return c.cat === 'Carreras Técnicas (30 meses)'; });
-    if (carreras.length > 0) {
-      html += '<div class="franja-carreras" id="seccionCarreras"><div class="encabezado-marca">' +
-        '<div class="icono-marca carreras"><svg class="ic-linea" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10 12 5 2 10l10 5 10-5zM6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg></div>' +
-        '<div><h2>Carreras Técnicas Superiores</h2><p>Título técnico superior en 30 meses — presencial o virtual</p></div></div>';
-      html += '<div class="grid-cursos">';
-      carreras.forEach(function(c) { html += tarjetaHTML(c); });
-      html += '</div></div>';
-    }
-
-    if (!html) html = '<p style="text-align:center;color:var(--texto-suave);padding:40px 0;">No hay cursos que coincidan con tu búsqueda.</p>';
-    cont.innerHTML = html;
+    // Detalle: se mantiene si sigue en la sede; si no, el primero de la pestaña
+    const actual = sede.find(function(c) { return c.nombre === detalleActual; });
+    const primero = actual || sede.filter(function(c) { return tipoDe(c) === pestanaActiva; })[0] || sede[0];
+    if (primero) mostrarDetalle(primero.nombre, true);
   }
 
-  function abrirDetalle(nombreCurso) {
-    const d = DETALLES_CURSO[nombreCurso];
-    if (!d) return;
-    const fondo = document.getElementById('fondoDetalle');
-    const cont = document.getElementById('contenidoDetalle');
-    cont.innerHTML =
-      '<h2>' + nombreCurso + '</h2>' +
-      (d.dirigidoA ? '<p class="titulo-seccion-detalle">👥 Dirigido a</p><p class="texto-detalle">' + d.dirigidoA + '</p>' : '') +
-      '<p class="titulo-seccion-detalle">📚 Contenido del curso</p>' +
-      '<ul class="lista-detalle">' + d.contenido.map(function(p) { return '<li>' + p + '</li>'; }).join('') + '</ul>' +
-      '<p class="titulo-seccion-detalle">⭐ Por qué elegirlo</p>' +
-      '<ul class="lista-detalle">' + d.ventajas.map(function(p) { return '<li>' + p + '</li>'; }).join('') + '</ul>' +
-      (d.perfilEgreso ? '<p class="titulo-seccion-detalle">🎯 Perfil de egreso</p><p class="texto-detalle">' + d.perfilEgreso + '</p>' : '') +
-      (d.metodologia ? '<p class="titulo-seccion-detalle">🛠️ Metodología</p><p class="texto-detalle">' + d.metodologia + '</p>' : '') +
-      (d.certificacion ? '<p class="titulo-seccion-detalle">🏅 Certificación</p><p class="texto-detalle">' + d.certificacion + '</p>' : '') +
-      (d.requisitos ? '<p class="titulo-seccion-detalle">📋 Requisitos de inscripción</p><ul class="lista-detalle lista-requisitos">' + d.requisitos.map(function(p) { return '<li>' + p + '</li>'; }).join('') + '</ul>' : '') +
-      '<button class="btn-enviar" onclick=\'cerrarDetalle(); abrirModal(' + JSON.stringify(nombreCurso) + ', true);\'>Quiero contactarme con un Asesor →</button>';
-    fondo.classList.add('abierto');
+  function pintarFranjaProximos() {
+    const cont = document.getElementById('proximos');
+    if (!cont) return;
+    const prox = pestanaActiva === 'carreras' ? [] : deLaSede().filter(function(c) { return tipoDe(c) === pestanaActiva && inicioFuturo(c); })
+      .sort(function(a, b) { return fechaInicioCurso(a) - fechaInicioCurso(b); }).slice(0, 8);
+    const mes = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
+    cont.style.display = prox.length && !terminoBusqueda ? '' : 'none';
+    cont.innerHTML = prox.map(function(c) {
+      const f = fechaInicioCurso(c);
+      return '<button class="prox" onclick="mostrarDetalle(' + js(c.nombre) + ')"><span class="f">' + f.getDate() + '<small>' + mes[f.getMonth()] + '</small></span><span><b>' + esc(nombreBonito(c.nombre.replace(/^EXPERTO EN /i, ''))) + '</b><span>' + esc(c.modalidad) + (c.cupos && c.cupos <= 5 ? ' · ¡' + c.cupos + (c.cupos === 1 ? ' cupo!' : ' cupos!') : '') + '</span></span></button>';
+    }).join('');
   }
-  function cerrarDetalle() { document.getElementById('fondoDetalle').classList.remove('abierto'); }
+
+  function mostrarDetalle(nombre, sinScroll) {
+    const c = CURSOS.find(function(x) { return x.nombre === nombre && (x.sede || 'sucre') === sedeActiva; }) || CURSOS.find(function(x) { return x.nombre === nombre; });
+    if (!c) return;
+    detalleActual = c.nombre;
+    const d = detallesDe(c);
+    const carrera = esCarrera(c), preu = esPreu(c);
+    document.getElementById('dImg').innerHTML = '<div class="ic-grande">' + icono(iconoCurso(c)) + '</div>' + (c.img ? '<img src="' + esc(c.img) + '" alt="" onerror="this.remove()">' : '') + '<div class="velo"></div>';
+    document.getElementById('dEtiqueta').textContent = (carrera ? 'Carrera técnica superior' : textoInicio(c) || (preu ? 'Preuniversitario 2027' : 'Inscripciones abiertas')) + ' · ' + nombreSede();
+    document.getElementById('dNombre').textContent = nombreBonito(c.nombre);
+    document.getElementById('dGancho').textContent = d.gancho || d.perfilEgreso || (c.puntos || []).join(' · ');
+    const lista = function(t, l) { return l && l.length ? '<div class="bloque"><h4>' + t + '</h4><ul>' + l.map(function(i) { return '<li>' + esc(i) + '</li>'; }).join('') + '</ul></div>' : ''; };
+    const texto = function(t, s) { return s ? '<div class="bloque"><h4>' + t + '</h4><p>' + esc(s) + '</p></div>' : ''; };
+    const beneficios = (carrera ? BENEFICIOS_CARRERA : preu ? BENEFICIOS_PREU : BENEFICIOS_CURSO).concat(c.sinCert ? [] : (!carrera && d.certificacion ? [d.certificacion.replace(/\.$/, '')] : []));
+    document.getElementById('dBloques').innerHTML =
+      lista(carrera ? 'Por qué elegir esta carrera' : 'Por qué elegirlo', d.ventajas || []) +
+      lista('Lo que vas a lograr', d.logros || c.puntos || []) +
+      (Array.isArray(d.dirigidoA) ? lista('Para quién es', d.dirigidoA) : texto('Para quién es', d.dirigidoA)) +
+      lista('Beneficios', beneficios.slice(0, 5));
+    const datos = [['Inversión', String(c.precio || 'Consulta con tu asesor').split(' | ').map(esc).join('<br>')], ['Duración', esc(c.duracion)], ['Modalidad', esc(c.modalidad)],
+      carrera ? ['Título', 'Técnico Superior'] : inicioFuturo(c) ? ['Inicio', esc(c.inicio)] : ['Horario', esc(c.horario || 'Consulta con tu asesor')]];
+    document.getElementById('dDatos').innerHTML = datos.map(function(p) { return '<div><span>' + p[0] + '</span><b>' + p[1] + '</b></div>'; }).join('');
+    document.getElementById('dContTit').textContent = carrera ? 'Ver contenido de la carrera' : preu ? 'Ver contenido del preuniversitario' : 'Ver contenido del curso';
+    let cont = '';
+    if (d.secciones) cont = d.secciones.map(function(s) { return '<div class="sub-cont">' + esc(s[0]) + '</div><ul class="lista-cont">' + s[1].map(function(i) { return '<li>' + esc(i) + '</li>'; }).join('') + '</ul>'; }).join('');
+    else if (d.contenido) cont = '<ul class="lista-cont">' + d.contenido.map(function(i) { return '<li>' + esc(i) + '</li>'; }).join('') + '</ul>';
+    if (d.requisitos) cont += '<div class="sub-cont">Requisitos de inscripción</div><ul class="lista-cont">' + d.requisitos.map(function(i) { return '<li>' + esc(i) + '</li>'; }).join('') + '</ul>';
+    document.getElementById('dLista').innerHTML = (cont || '<p style="margin:0">El contenido completo te lo envía un asesor por WhatsApp.</p>') + (d.notaCont ? '<p class="nota">' + esc(d.notaCont) + '</p>' : '');
+    document.getElementById('dAcciones').innerHTML = '<button class="btn btn-blanco" onclick="abrirModal(' + js(c.nombre) + ')">Reservar mi cupo →</button><button class="btn btn-wa" onclick="abrirWhatsApp(' + js(c.nombre) + ')">' + WA_ICONO + 'Preguntar por WhatsApp</button>';
+    if (!sinScroll) document.getElementById('detalle').scrollIntoView({ behavior: 'smooth' });
+  }
+  function fallaImg(img) { const s = document.createElement('span'); s.className = 'ic'; s.innerHTML = icono(img.dataset.ic); img.replaceWith(s); }
+  function cerrarDetalle() {}
+  function abrirDetalle(n) { mostrarDetalle(n); }
+
+  document.querySelectorAll('.tab').forEach(function(b) { b.addEventListener('click', function() { irAPestana(b.dataset.tab); }); });
+  document.querySelectorAll('[data-sede]').forEach(function(b) { b.addEventListener('click', function() { setSede(b.dataset.sede); }); });
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') cerrarModal(); });
 
   function abrirModal(nombreCurso, quiereContacto) {
     const fondo = document.getElementById('fondoModal');
@@ -1493,43 +1478,12 @@
     if (e.target === this) cerrarDetalle();
   });
 
-  const MAPA_IMG = { "1": IMG1, "2": IMG2, "3": IMG3, "banner30": IMG_BANNER30 };
-  document.getElementById('imgLogoCCA').src = LOGO_CCA_B64;
-  document.querySelectorAll('img[data-imgref]').forEach(function(img) {
-    img.src = MAPA_IMG[img.getAttribute('data-imgref')];
-  });
-
-  function pintarFranjaProximos() {
-    const cont = document.getElementById('franjaProximos');
-    if (!cont) return;
-    const lista = CURSOS.filter(function(c) { const f = fechaInicioCurso(c); return f && f >= hoySinHora(); })
-      .sort(function(a, b) { return fechaInicioCurso(a) - fechaInicioCurso(b); });
-    if (!lista.length) { cont.style.display = 'none'; return; }
-    const nombreMes = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
-    let html = '<div class="fp-cab"><span class="fp-etq">' + icono('calendario') + ' Próximos inicios</span><h2>Empieza este mes en Sucre o Potosí</h2>' +
-      '<p>Ordenados por fecha de inicio. Toca un curso para ver horarios y reservar tu cupo.</p></div><div class="fp-lista">';
-    lista.forEach(function(c) {
-      const f = fechaInicioCurso(c), sede = (c.sede || 'sucre') === 'potosi' ? 'Potosí' : 'Sucre';
-      html += '<button class="fp-item" onclick=\'irACursoDesdeFranja(' + JSON.stringify(c.nombre) + ',' + JSON.stringify(c.sede || 'sucre') + ')\'>' +
-        '<span class="fp-fecha"><b>' + f.getDate() + '</b>' + nombreMes[f.getMonth()] + '</span>' +
-        '<span class="fp-tx"><b>' + nombreBonito(c.nombre.replace(/^EXPERTO EN /i, '')) + '</b><small>' + sede + ' · ' + c.modalidad + ' · ' + ((c.horario || '').split('·').length > 2 ? 'Varios horarios' : (c.horario || c.duracion)) + '</small></span>' +
-        (c.cupos && c.cupos <= 5 ? '<span class="fp-cupo">' + (c.cupos === 1 ? '¡Último cupo!' : '¡' + c.cupos + ' cupos!') + '</span>' : '') +
-        '<span class="fp-sede ' + (sede === 'Potosí' ? 'pt' : 'sc') + '">' + sede + '</span></button>';
-    });
-    cont.innerHTML = html + '</div>';
-  }
-  function irACursoDesdeFranja(nombre, sede) {
-    if (sede !== sedeActiva) setSede(sede);
-    setTimeout(function() {
-      const t = Array.from(document.querySelectorAll('.tarjeta-curso')).find(function(el) { return el.dataset.nombre === nombre; });
-      if (t) { t.scrollIntoView({ behavior: 'smooth', block: 'center' }); t.classList.add('resaltar'); setTimeout(function() { t.classList.remove('resaltar'); }, 2200); }
-      else document.getElementById('cursos').scrollIntoView({ behavior: 'smooth' });
-    }, 60);
-  }
+  // El formulario abre con la sede que el visitante eligió arriba.
+  const abrirModalBase = abrirModal;
+  abrirModal = function(n, q) { abrirModalBase(n, q); const r = document.querySelector('input[name="mSede"][value="' + sedeActiva + '"]'); if (r) r.checked = true; };
 
   marcarSedeActiva();
   pintarCursos();
-  pintarFranjaProximos();
   /* ===== OFERTA EN VIVO: fechas, horarios y modalidad desde OFERTA ACADEMICA del CRM =====
      Si no responde, la página sigue funcionando con los datos escritos arriba. Nunca se traen cupos.
      Duración y precio (12/11/2026): de las hojas INVERSION SUCRE / INVERSION POTOSI del CRM (nunca el precio promocional). */
@@ -1637,7 +1591,7 @@
       pedir(sede).then(function(r) { if (r.cursos && r.cursos.length) aplicar(sede, r.cursos); aplicarInversion(sede, r.inversion || []); pintarCursos(); pintarFranjaProximos(); }).catch(function(e) { console.log('Oferta ' + sede + ': ' + e.message); });
     });
   })();
+
 </script>
-<script src="avatar-sofia.js?v=202610241212"></script>
 </body>
 </html>
