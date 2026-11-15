@@ -934,13 +934,84 @@
   }
   function preguntaCurso(c, txt, it) { burbujaYo(txt); pensar(function () { responderCurso(c, it); }); }
 
+  // ===================== INSCRIPCIÓN: QR o pago en oficinas (15/11/2026) =====================
+  var SEDES_CCA = {
+    sucre: { nombre: 'Sucre', dir: 'Calle Calvo N.º 18, casi esquina España', mapa: 'https://maps.app.goo.gl/XkKYShbgqZe4E7B2A',
+      horario: 'Lunes a viernes de 08:00 a 12:00 y de 14:30 a 21:00 · Sábados de 08:00 a 12:30 y de 15:00 a 18:30',
+      turnos: { semana: [['08:00', '12:00'], ['14:30', '21:00']], sabado: [['08:00', '12:30'], ['15:00', '18:30']] } },
+    potosi: { nombre: 'Potosí', dir: 'Calle Wenceslao Alba N.º 17, frente al Colegio Santa María', mapa: '',
+      horario: 'Lunes a viernes de 08:00 a 12:00 y de 14:30 a 21:00 · Sábados de 08:00 a 12:30 y de 15:00 a 18:30',   // mismo horario que Sucre (confirmado 15/11/2026)
+      turnos: { semana: [['08:00', '12:00'], ['14:30', '21:00']], sabado: [['08:00', '12:30'], ['15:00', '18:30']] } }
+  };
+  var URL_INSCRIPCION = 'https://script.google.com/macros/s/AKfycbzvVTtbBcZL9ROmPY4CnPz6J_wIm0cJZbmjr9wdtDhyfYz5Z_FbF3kUq01XORqfQORUJQ/exec?vista=inscripcion';
+  var IMG_QR = CFG.imgQR || 'img/qr-pago.webp';
+  function sedeCCA() { return SEDES_CCA[sedeActual() === 'potosi' ? 'potosi' : 'sucre']; }
+
   function inscribir(c) {
-    if (typeof window.__ccaAbrirModalOriginal === 'function' || typeof window.abrirModal === 'function') {
-      cerrar();
-      (window.__ccaAbrirModalOriginal || window.abrirModal)(c ? c.nombre : null);
-      return;
+    ultimoTema = { tipo: 'inscribir', c: c };
+    marcarVisita('inscribir', c ? corto(c.nombre) : 'general');
+    decir('¡Excelente decisión! 🎉 ' + (c ? 'Para inscribirte a ' + corto(c.nombre) + ', ' : '') + '¿cómo prefieres pagar? Si pagas hoy te aseguramos el precio promocional.');
+    opciones([
+      { t: 'Pagar ahora con QR', sub: 'Desde tu banco o billetera, en 1 minuto', ic: '📲', estilo: 'sello', fn: function () { burbujaYo('Pagar ahora con QR'); pensar(function () { pagoQR(c); }); } },
+      { t: 'Pagar en oficinas', sub: 'Te doy la dirección y eliges tu hora de visita', ic: '🏢', fn: function () { burbujaYo('Pagar en oficinas'); pensar(function () { pagoOficina(c); }); } },
+      opWhatsApp(c, 'Sofía (inscripción)')
+    ]);
+  }
+  function pagoQR(c) {
+    var f = el('div', 'ficha');
+    var img = el('img'); img.src = IMG_QR; img.alt = 'QR de pago del Instituto CCA'; img.style.cssText = 'width:100%;max-width:300px;display:block;margin:0 auto 8px;border-radius:12px';
+    f.appendChild(img);
+    if (c && c.precio) f.appendChild(el('div', 'nota', '💰 ' + c.precio));
+    f.appendChild(el('div', 'nota', 'Cuenta BISA 9627674012 · Corporación Cibernética Americana SRL'));
+    msgs.appendChild(f); bajar();
+    decir('Escanea este QR desde la app de tu banco y paga tu inscripción y la primera cuota (o el pago al contado). Cuando termines, toca «Ya pagué» y llena tus datos para tu inscripción.');
+    opciones([
+      { t: 'Ya pagué: llenar mis datos', sub: 'Después envías la foto del depósito por WhatsApp', ic: '📝', estilo: 'sello', fn: function () { burbujaYo('Ya pagué'); abrirInscripcion(c, 'qr', ''); } },
+      { t: 'Prefiero pagar en oficinas', ic: '🏢', fn: function () { burbujaYo('Prefiero pagar en oficinas'); pensar(function () { pagoOficina(c); }); } }
+    ]);
+  }
+  function pagoOficina(c) {
+    var s = sedeCCA();
+    decir('¡Perfecto! Te esperamos en nuestra oficina de ' + s.nombre + ': ' + s.dir + '. Horario de atención: ' + s.horario + '. Elige el día y la hora de tu visita y llena tus datos para tenerte listo tu cupo.');
+    var f = el('div', 'wa-form');
+    if (s.mapa) { var a = el('a', '', '📍 Ver en el mapa'); a.href = s.mapa; a.target = '_blank'; a.rel = 'noopener'; a.style.cssText = 'display:block;margin-bottom:8px;font-weight:700'; f.appendChild(a); }
+    var dia = el('input'); dia.type = 'date';
+    var hoy = new Date();
+    var iso = function (d) { return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2); };   // fecha local (no UTC)
+    var prop = new Date(hoy); if (prop.getDay() === 0 || hoy.getHours() >= 20) { do { prop.setDate(prop.getDate() + 1); } while (prop.getDay() === 0); }
+    dia.min = iso(hoy); dia.value = iso(prop);   // propone el próximo día de atención (los domingos está cerrado)
+    var hora = el('select');
+    function llenarHoras() {
+      hora.innerHTML = '';
+      var d = dia.value ? new Date(dia.value + 'T12:00:00') : hoy, wd = d.getDay();
+      var turnos = wd === 0 ? [] : (wd === 6 ? s.turnos.sabado : s.turnos.semana);
+      turnos.forEach(function (t) {
+        var h = +t[0].slice(0, 2), m = +t[0].slice(3), fin = +t[1].slice(0, 2) * 60 + +t[1].slice(3);
+        for (var x = h * 60 + m; x < fin; x += 30) { var o = el('option', '', ('0' + Math.floor(x / 60)).slice(-2) + ':' + ('0' + x % 60).slice(-2)); hora.appendChild(o); }
+      });
+      if (!hora.options.length) hora.appendChild(el('option', '', 'Domingo cerrado: elige otro día'));
     }
-    formularioWhatsApp(c, 'Sofía (inscripción)');
+    dia.addEventListener('change', llenarHoras); llenarHoras();
+    f.appendChild(dia); f.appendChild(hora);
+    var b = el('button', 'op sello'); b.type = 'button';
+    b.appendChild(el('span', 'ic', '📝')); b.appendChild(el('span', 'tx', 'Agendar mi visita y llenar mis datos'));
+    b.addEventListener('click', function () {
+      if (!dia.value || !/^\d\d:\d\d$/.test(hora.value)) { decir('Elige un día de lunes a sábado y una hora, por favor.'); return; }
+      var p = dia.value.split('-'), visita = p[2] + '/' + p[1] + '/' + p[0] + ' ' + hora.value;
+      burbujaYo('Visita: ' + visita);
+      abrirInscripcion(c, 'oficina', visita);
+    });
+    f.appendChild(b);
+    msgs.appendChild(f); bajar();
+  }
+  function abrirInscripcion(c, pago, visita) {
+    var s = sedeActual() === 'potosi' ? 'potosi' : 'sucre';
+    var url = URL_INSCRIPCION + '&s=' + s + (c ? '&curso=' + encodeURIComponent(c.nombre) : '') + '&a=' + encodeURIComponent(ASESOR.cod) + '&o=sofia&pago=' + pago + (visita ? '&visita=' + encodeURIComponent(visita) : '');
+    registrar(datosLead(c, pago === 'qr' ? 'Sofía: pagó con QR y abrió el formulario de inscripción' : 'Sofía: pagará en oficinas, visita ' + visita));
+    window.open(url, '_blank', 'noopener');
+    decir(pago === 'qr'
+      ? 'Te abrí el formulario de inscripción. Llena tus datos y envíalos; al final te aparece el botón para mandar la foto de tu depósito por WhatsApp a ' + nombreAsesor() + '. 📸'
+      : '¡Agendado! Te abrí el formulario: llena tus datos y envíalos. Te esperamos el ' + visita + ' en ' + sedeCCA().dir + '. Trae tu carnet de identidad. 😊');
   }
 
   function formularioWhatsApp(c, origen) {
@@ -1163,9 +1234,9 @@
     if (it.whatsapp) return formularioWhatsApp(c);
     // primera vez que pregunta por este curso: Sofía presenta y lee la ficha completa
     if (anterior !== c && !it.inscribir) return presentarCurso(c);
-    if (it.inscribir) { decir('¡Excelente decisión! Te abro el formulario para ' + n + '. Deja tu nombre y celular, y ' + tuAsesor() + ' te contacta hoy mismo.'); return setTimeout(function () { inscribir(c); }, 2200); }
+    if (it.inscribir) { return inscribir(c); }
     if (it.porque) { return presentarCurso(c); }
-    if (it.precio) partes.push('La inversión para ' + n + ' es: ' + c.precio + '. Si pagas al contado ahorras, y también puedes pagar por transferencia o en oficina.');
+    if (it.precio) partes.push('La inversión para ' + n + ' es: ' + c.precio + '. Si pagas al contado ahorras más. Puedes pagar con QR desde tu celular o en oficinas: dime «quiero inscribirme» y te reservo el precio promocional.');
     if (it.horario) partes.push(c.horario ? 'El horario es: ' + c.horario + '.' : 'El horario de ' + n + ' te lo confirma ' + nombreAsesor() + ' según el grupo disponible.');
     if (it.inicio) partes.push('Abrimos grupos nuevos seguido. ' + nombreAsesor() + ' te confirma la fecha del próximo inicio de ' + n + '.');
     if (it.contenido) return mostrarModulos(c);
@@ -1259,10 +1330,7 @@
       if (contexto && lista.indexOf(contexto) !== -1 && it.alguna) return responderCurso(contexto, it);
       return elegirEntre(lista);
     }
-    if (it.inscribir) {
-      decir('¡Qué alegría! Te abro el formulario de inscripción. Deja tu nombre y celular, y ' + tuAsesor() + ' te contacta hoy mismo.');
-      return setTimeout(function () { inscribir(contexto); }, 2000);
-    }
+    if (it.inscribir) { return inscribir(contexto); }
     if (contexto && it.alguna) return responderCurso(contexto, it);
     if (gen && gen !== 'saludo' && gen !== 'gracias') return respuestaGeneral(gen);
     if (it.precio) {
