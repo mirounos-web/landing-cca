@@ -131,6 +131,9 @@
   .card .meta{display:flex;gap:6px 14px;flex-wrap:wrap;font-size:13.5px;color:var(--suave)}
   .card .meta span{display:inline-flex;align-items:center;gap:6px}
   .card .precio{font-size:14.5px;color:var(--texto);font-weight:600}
+  .ancla{font-size:13px;color:var(--suave)} .ancla s{color:var(--suave)}
+  .promo{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;color:#0B0B12;background:var(--ok);padding:3px 10px;border-radius:999px;width:fit-content}
+  .aviso-promo{display:flex;gap:12px;align-items:center;flex-wrap:wrap;background:rgba(124,242,176,.08);border:1px solid rgba(124,242,176,.35);border-radius:14px;padding:12px 16px;margin-bottom:20px;color:var(--texto);font-size:15px}
   .card .bts{margin-top:auto;padding-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
   .card .bts .btn{padding:11px 10px;font-size:14px}
   .vacio{background:var(--panel);border:1px dashed var(--borde);border-radius:var(--r);padding:34px;text-align:center}
@@ -296,6 +299,7 @@
           <button type="button" aria-expanded="true" onclick="const c=this.parentNode;c.classList.toggle('abierto');this.setAttribute('aria-expanded',c.classList.contains('abierto'))"><span id="dContTit">Ver contenido</span><svg class="fl" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></button>
           <div class="lista" id="dLista"></div>
         </div>
+        <div class="aviso-promo" id="dAvisoPromo" hidden></div>
         <div class="acciones" id="dAcciones"></div>
       </div>
     </div>
@@ -1290,11 +1294,12 @@
     const d = detallesDe(c);
     const frase = d.frase || (c.puntos || []).slice(0, 2).join(' · ');
     const area = esCarrera(c) ? 'Carrera técnica superior' : esPreu(c) ? 'Preuniversitario 2027' : String(c.cat || '').replace(/\s*\(.*\)$/, '');
-    const precio = String(c.precio || '').split(' | ')[0];
+    const precio = String(c.precioBase || c.precio || '').split(' | ')[0];
     return '<article class="card" data-nombre="' + esc(c.nombre) + '"><div class="portada">' + portada + '</div><div class="c">' +
       '<span class="area">' + esc(area) + '</span><h3>' + esc(nombreBonito(c.nombre)) + '</h3><p>' + esc(frase) + '</p>' +
       '<div class="meta"><span>' + icono('reloj') + esc(c.duracion) + '</span><span>' + esc(c.modalidad) + '</span>' + (c.sinCert ? '<span>Sin certificación</span>' : '') + '</div>' +
       (c.cupos === 0 ? '<div class="meta"><span>' + icono('lleno') + 'Grupo lleno · consulta el próximo inicio</span></div>' : c.cupos && c.cupos <= 5 ? '<div class="meta" style="color:var(--alerta)"><span>' + icono('llama') + (c.cupos === 1 ? '¡Último cupo!' : '¡Últimos ' + c.cupos + ' cupos!') + '</span></div>' : '') +
+      (c.ancla ? '<div class="ancla">Precio regular <s>' + esc(c.ancla) + '</s></div><span class="promo">🔥 Precio promocional</span>' : '') +
       '<div class="precio">' + esc(precio) + '</div>' +
       '<div class="bts"><button class="btn btn-linea" onclick="mostrarDetalle(' + js(c.nombre) + ')">Ver contenido</button><button class="btn btn-wa" onclick="abrirWhatsApp(' + js(c.nombre) + ')">' + WA_ICONO + 'WhatsApp</button></div>' +
       '</div></article>';
@@ -1408,7 +1413,7 @@
       lista('Lo que vas a lograr', d.logros || c.puntos || []) +
       (Array.isArray(d.dirigidoA) ? lista('Para quién es', d.dirigidoA) : texto('Para quién es', d.dirigidoA)) +
       lista('Beneficios', beneficios.slice(0, 5));
-    const datos = [['Inversión', String(c.precio || 'Consulta con tu asesor').split(' | ').map(esc).join('<br>')], ['Duración', esc(c.duracion)], ['Modalidad', esc(c.modalidad)],
+    const datos = [[c.ancla ? 'Inversión promocional' : 'Inversión', String(c.precioBase || c.precio || 'Consulta con tu asesor').split(' | ').map(esc).join('<br>') + (c.ancla ? '<br><span class="ancla">Regular <s>' + esc(c.ancla) + '</s></span>' : '')], ['Duración', esc(c.duracion)], ['Modalidad', esc(c.modalidad)],
       carrera ? ['Título', 'Técnico Superior'] : inicioFuturo(c) ? ['Inicio', esc(c.inicio)] : ['Horario', esc(c.horario || 'Consulta con tu asesor')]];
     document.getElementById('dDatos').innerHTML = datos.map(function(p) { return '<div><span>' + p[0] + '</span><b>' + p[1] + '</b></div>'; }).join('');
     document.getElementById('dContTit').textContent = carrera ? 'Ver contenido de la carrera' : preu ? 'Ver contenido del preuniversitario' : 'Ver contenido del curso';
@@ -1417,6 +1422,9 @@
     else if (d.contenido) cont = '<ul class="lista-cont">' + d.contenido.map(function(i) { return '<li>' + esc(i) + '</li>'; }).join('') + '</ul>';
     if (d.requisitos) cont += '<div class="sub-cont">Requisitos de inscripción</div><ul class="lista-cont">' + d.requisitos.map(function(i) { return '<li>' + esc(i) + '</li>'; }).join('') + '</ul>';
     document.getElementById('dLista').innerHTML = (cont || '<p style="margin:0">El contenido completo te lo envía un asesor por WhatsApp.</p>') + (d.notaCont ? '<p class="nota">' + esc(d.notaCont) + '</p>' : '');
+    const av = document.getElementById('dAvisoPromo');
+    av.hidden = !c.ancla;
+    av.innerHTML = c.ancla ? '⏳ <span><b>Precio promocional por 2 días desde tu consulta.</b> Escríbenos hoy y te lo reservamos.</span>' : '';
     document.getElementById('dAcciones').innerHTML = '<button class="btn btn-blanco" onclick="abrirModal(' + js(c.nombre) + ')">Reservar mi cupo →</button><button class="btn btn-wa" onclick="abrirWhatsApp(' + js(c.nombre) + ')">' + WA_ICONO + 'Preguntar por WhatsApp</button>';
     if (!sinScroll) { const sec = document.getElementById('detalle'); sec.hidden = false; sec.scrollIntoView({ behavior: 'smooth' }); }
   }
@@ -1618,6 +1626,11 @@
         const precio = textos.length === 1 ? textos[0] : mias.map(function(f) { return (etiqueta ? etiqueta(f) + ': ' : '') + textoPrecio(f); }).join(' | ');
         const matricula = (String(c.precio || '').match(/^Matr[ií]cula Bs [\d.]+/) || [''])[0];   // la matrícula no está en INVERSION: se conserva
         c.precio = (matricula ? matricula + ' · ' : '') + limpio(precio);
+        // 15/11/2026: precio regular (ancla) de INVERSION para tacharlo; Sofía lee c.precio con la promoción explicada.
+        const anc = mias.map(function(f) { const p = []; if (f.regMensual) p.push('Bs ' + f.regMensual + '/mes'); if (f.regContado) p.push('Bs ' + f.regContado + (f.mensual ? ' al contado' : ' pago único')); return p.join(' · '); }).filter(function(t, i, a) { return t && a.indexOf(t) === i; });
+        c.ancla = anc.length ? limpio(anc[0]) : '';
+        c.precioBase = c.precio;
+        if (c.ancla) c.precio = c.precioBase + ' — precio promocional por 2 días desde tu consulta (precio regular: ' + c.ancla + ')';
       });
     }
     function pedir(sede) {
