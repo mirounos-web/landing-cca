@@ -1612,8 +1612,20 @@
     }
     function aplicarInversion(sede, filas) {
       if (!filas.length) return;
+      const deCarrera = filas.filter(function(f) { return /carrera/i.test(f.tipo); });
+      const tomadas = [];
+      CURSOS.filter(function(c) { return (c.sede || 'sucre') === sede && esCarrera(c); }).forEach(function(c) { filasDe(deCarrera, c.nombre).forEach(function(f) { tomadas.push(f.programa); }); });
+      const modelo = CURSOS.filter(function(c) { return (c.sede || 'sucre') === sede && esCarrera(c); })[0];
+      deCarrera.forEach(function(f) {
+        if (tomadas.indexOf(f.programa) !== -1) return;
+        const nombre = 'CARRERA TÉCNICA EN ' + limpio(f.programa.replace(/\s*\([^)]*\)/g, '')).toUpperCase();
+        CURSOS.push({ sede: sede, cat: modelo ? modelo.cat : 'Cursos de este mes', marca: '', nombre: nombre, emoji: '🎓', modalidad: limpio(f.modalidad) || 'Presencial',
+          duracion: modelo ? modelo.duracion : 'Consulta con tu asesor', horario: modelo ? modelo.horario : '', precio: 'Inversión: consulta con tu asesor', inicio: '',
+          puntos: modelo ? modelo.puntos : [limpio(f.modalidad) || 'Presencial'], fijo: true });
+        tomadas.push(f.programa);
+      });
       CURSOS.filter(function(c) { return (c.sede || 'sucre') === sede; }).forEach(function(c) {
-        const mias = filasDe(filas, c.nombre);
+        const mias = filasDe(filas, c.nombre).filter(function(f) { return /carrera/i.test(f.tipo) === esCarrera(c); });
         if (!mias.length) return;
         c.enInversion = true;
         const durs = mias.filter(function(f) { return f.duracion; }).map(function(f) { return limpio(f.duracion); }).filter(function(d, i, a) { return a.indexOf(d) === i; });
